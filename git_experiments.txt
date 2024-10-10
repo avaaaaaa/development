@@ -92,6 +92,9 @@ states
 git status
     shows the current states on the current branch
 
+git log
+    lists version history for the current branch
+
 1 -> 2
     git add .
         tracks all files
@@ -119,6 +122,9 @@ to see changes of modified files in unstaged state
     "git diff ." | "git diff"
     git diff <file>
 this cannot be done for modified files in staged state
+
+git reset [--hard] <commit>
+    Undoes all commits after <commit>, preserving changes locally
 
 
 
