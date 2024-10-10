@@ -1,0 +1,62 @@
+# these graphs can be found at "dijkstra_graphs.png"
+
+# creating nodes
+s = DijkstraNode("s")
+a = DijkstraNode("a")
+b = DijkstraNode("b")
+c = DijkstraNode("c")
+d = DijkstraNode("d")
+e = DijkstraNode("e")
+f = DijkstraNode("f")
+
+# creating graph1
+graph1 = Graph([s, a, b, f])
+graph1.make_connection(s, a, 6)
+graph1.make_connection(s, b, 2)
+graph1.make_connection(a, b, 3)
+graph1.make_connection(a, f, 1)
+graph1.make_connection(b, f, 5)
+
+# creating graph2
+graph2 = DirectedGraph([s, a, b, f])
+graph2.make_connection(s, b, 2)
+graph2.make_connection(a, b, 4)
+graph2.make_connection(b, a, 4)
+graph2.make_connection(b, f, 3)
+
+# creating graph3
+graph3 = Graph([s, a, b, c, d, f])
+graph3.make_connection(s, a, 9)
+graph3.make_connection(s, b, 4)
+graph3.make_connection(a, b, 2)
+graph3.make_connection(a, d, 3)
+graph3.make_connection(a, c, 7)
+graph3.make_connection(b, c, 1)
+graph3.make_connection(b, d, 6)
+graph3.make_connection(c, d, 4)
+graph3.make_connection(c, f, 8)
+graph3.make_connection(d, f, 2)
+
+# creating graph4
+graph4 = DirectedGraph([s, a, b, c, f])
+graph4.make_connection(s, a, 10)
+graph4.make_connection(s, b, 3)
+graph4.make_connection(a, b, 1)
+graph4.make_connection(a, f, 2)
+graph4.make_connection(b, a, 4)
+graph4.make_connection(b, f, 8)
+graph4.make_connection(b, c, 2)
+graph4.make_connection(c, f, 9)
+graph4.make_connection(f, c, 7)
+
+# creating graph5
+graph5 = Graph([s, a, b, c, d, f])
+graph5.make_connection(s, a, 14)
+graph5.make_connection(s, b, 9)
+graph5.make_connection(s, c, 7)
+graph5.make_connection(a, f, 9)
+graph5.make_connection(a, b, 2)
+graph5.make_connection(b, d, 11)
+graph5.make_connection(b, c, 10)
+graph5.make_connection(c, d, 15)
+graph5.make_connection(d, f, 6)

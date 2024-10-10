@@ -1,0 +1,147 @@
+git(local) -> github, gitlab(remote)
+
+.gitignore file
+    the files in ".gitignore" are not tracked with git
+
+** check if git is installed
+git --version
+
+** configuration
+# use "--global" flag if you want to apply to all local repositories
+git config [--global] user.name "[name]"
+git config [--global] user.email "[email_address]"
+git config [--global] color.ui auto
+
+** checking configuration
+git config [--global] user.name
+git config [--global] user.email
+
+
+
+** create repos
+git init
+    turns the current working directory into a git repo
+
+git clone [url]
+    clone(download) a repo that already exists on github
+
+
+
+** branch operations
+git status
+    shows the current branch and the current status
+
+git branch --help
+    get help
+
+git branch
+    shows local branches and the current branch
+    the current branch is marked with an asterisk
+
+git branch -r
+    shows remote branches
+
+git branch -a
+    shows all branches
+
+git branch <branch>
+    creates a new branch called <branch>
+
+git branch (-m, -M) <branch>
+    rename the current branch as <branch>
+
+git branch (-d, -D) <branch>
+    deletes <branch> branch
+
+git branch -u <upstream> [branch]
+    Set up <branchname>'s tracking information,
+    so <upstream> is considered <branchname>'s upstream branch
+    If no <branchname> is specified, then it defaults to the current branch.
+
+git branch --unset-upstream [<branchname>]
+    Remove the upstream information for <branchname>
+    If no branch is specified it defaults to the current branch.
+
+git checkout <branch>
+    switches to the <branch> branch and updates working directory
+
+git merge <branch>
+    merges <branch> branch into the current branch
+    this is usually done in pull requests
+
+git diff <branch>
+    shows the difference between the current branch and <branch> branch
+
+
+
+** workflow
+states
+    1. unstaged
+    2. staged
+    3. committed
+
+git status
+    shows the current states on the current branch
+
+1 -> 2
+    git add .
+        tracks all files
+    git add <file>
+
+2 -> 1
+    "git reset ." | "git reset"
+        unstages all files
+    git reset <file>
+    git restore --staged [<file> | .]
+
+2 -> 3
+    git commit -m "<message>"
+
+1 -> 3
+    git commit -am "<message>"
+        only works for tracked modified files
+
+to discard changes of modified files in unstaged state
+    git restore [<file> | .]
+    git checkout [<file> | .]
+this cannot be done for modified files in staged state
+
+to see changes of modified files in unstaged state
+    "git diff ." | "git diff"
+    git diff <file>
+this cannot be done for modified files in staged state
+
+
+
+** remote operations
+git remote --help
+    get help
+
+git remote
+    shows existing remotes
+
+git remote add <name> <URL>
+    add a remote named <name> for the repository at <URL>
+    this associates the <name> with the <URL>
+    <name> is origin by convention
+
+git remote get-url <name>
+    get the URL of the remote called <name>
+
+git remote set-url <name> <newurl>
+    set the URL of the remote called <name>
+
+git push -u <remote_name> <local_branch>
+    push <local_branch> to <remote_name>
+    from now, <local_branch> will track its remote counterpart
+    * git push -u origin main
+        branch 'main' set up to track 'origin/main'
+
+git fetch
+    'fea' branch is created at github
+    but 'fea' is not known by local git
+        error: the requested upstream branch 'origin/fea' does not exist
+        we can also check it with 'git branch -r'
+            there is no 'origin/fea' upstream branch
+    with 'git fetch', local git updates upstream branches
+        now 'origin/fea' is available
