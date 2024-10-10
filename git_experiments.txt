@@ -1,7 +1,16 @@
 git(local) -> github, gitlab(remote)
 
 .gitignore file
-    the files in ".gitignore" are not tracked with git
+    the files&directories in ".gitignore" are not tracked with git
+    create this file in the root directory of the repo
+    If you want to ignore a file that is already checked in,
+      untrack the file first
+        git rm --cached <file_name>
+      then add a rule to ignore it
+    reference
+        https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+        https://git-scm.com/docs/gitignore
+        
 
 ** check if git is installed
 git --version
