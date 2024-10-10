@@ -9,8 +9,7 @@ git(local) -> github, gitlab(remote)
       then add a rule to ignore it
     reference
         https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-        https://git-scm.com/docs/gitignore
-        
+        https://git-scm.com/docs/gitignore        
 
 ** check if git is installed
 git --version
@@ -21,7 +20,7 @@ git config [--global] user.name "[name]"
 git config [--global] user.email "[email_address]"
 git config [--global] color.ui auto
 
-** checking configuration
+** check configuration
 git config [--global] user.name
 git config [--global] user.email
 
