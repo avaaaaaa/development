@@ -151,6 +151,7 @@ git push -u <remote_name> <local_branch>
     * git push -u origin main
         branch 'main' set up to track 'origin/main'
 
+
 git fetch
     'fea' branch is created at github
     but 'fea' is not known by local git
@@ -159,3 +160,16 @@ git fetch
             there is no 'origin/fea' upstream branch
     with 'git fetch', local git updates upstream branches
         now 'origin/fea' is available
+
+    a document is updated at github
+    but this update is not knwon by local git
+    'git status' still show that 'main' is up to date with 'origin/main'
+    after 'git fetch', changes made at github is retrieved by local git
+    now 'git status' shows that 'main' branch is behind 'origin/main' by 1 commit
+
+
+git pull
+    update local git with upstream branch
+    Incorporates changes from a remote repository into the current branch
+
+
