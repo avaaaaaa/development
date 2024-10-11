@@ -169,7 +169,7 @@ git remote set-url <name> <newurl>
     set the URL of the remote called <name>
 
 git remote show <remote>
-    get information (URLs, tracking local branch etc.) about <remote>
+    get information (URLs, the tracking local branch etc.) about <remote>
 
 git push -u <remote> <local_branch>
     'local -> remote' operation
