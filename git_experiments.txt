@@ -176,7 +176,7 @@ git push -u <remote> <local_branch>
         branch 'main' set up to track 'origin/main'
     after that initial push, we can use 'git push' for that operation without options and parameters.
       this will push the current branch to the remote.
-      it is not needed to set upstream or specify the local branch name every single time.
+      it is not needed to set upstream or specify the local branch name every time.
       but if '-u <remote>' is not specified at first push operation,
         following error will occur:
         fatal: The current branch 'test' has no upstream branch
