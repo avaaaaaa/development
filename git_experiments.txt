@@ -169,6 +169,7 @@ git remote set-url <name> <newurl>
     set the URL of the remote called <name>
 
 git push -u <remote> <local_branch>
+    'local -> remote' operation
     set <remote> as upstream and push <local_branch> to <remote>
     from now on, <local_branch> will track its remote counterpart
     * git push -u origin main
@@ -181,6 +182,7 @@ git push -u <remote> <local_branch>
 
 
 git fetch
+    'remote -> local' operation
     'fea' branch is created at github
     but 'fea' is not known by local git
       error: the requested upstream branch 'origin/fea' does not exist
@@ -204,9 +206,11 @@ git fetch
 
 
 git merge
+    'remote -> local' operation
     Combines remote tracking branch into current local branch
 
 git pull
+    'remote -> local' operation
     update local git with upstream branch
     Incorporates changes from a remote repository into the current branch
     a combination of 'git fetch' and 'git merge'
