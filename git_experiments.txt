@@ -168,8 +168,11 @@ git fetch
     now 'git status' shows that 'main' branch is behind 'origin/main' by 1 commit
 
 
+git merge
+    Combines remote tracking branch into current local branch
+
 git pull
     update local git with upstream branch
     Incorporates changes from a remote repository into the current branch
-
+    a combination of 'git fetch' and 'git merge'
 
