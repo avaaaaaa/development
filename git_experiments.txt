@@ -129,6 +129,7 @@ git log
 
 2 -> 3
     git commit -m "<message>"
+      If multiple -m options are given, their values are concatenated as separate paragraphs.
 
 1 -> 3
     git commit -am "<message>"
