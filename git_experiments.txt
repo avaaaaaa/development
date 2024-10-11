@@ -26,12 +26,12 @@ github flow: illustration at second page of github-cheat-sheet
     the files&directories in ".gitignore" are not tracked with git
     create this file in the root directory of the git repository
     If you want to ignore a file that is already checked in,
-      untrack the file first
+      untrack the file first.
         git rm --cached <file_name>
       then add a rule to ignore it
     reference
-        https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-        https://git-scm.com/docs/gitignore        
+      https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+      https://git-scm.com/docs/gitignore        
 
 ** check if git is installed
 git --version
@@ -118,12 +118,12 @@ git log
 
 1 -> 2
     git add .
-        tracks all files
+      tracks all files
     git add <file>
 
 2 -> 1
     "git reset ." | "git reset"
-        unstages all staged files
+      unstages all staged files
     git reset <file>
     git restore --staged [<file> | .]
 
@@ -133,7 +133,7 @@ git log
 
 1 -> 3
     git commit -am "<message>"
-        only works for tracked modified files
+      only works for tracked modified files
 
 to discard changes of modified files in unstaged state
   this cannot be done for modified files in staged state
@@ -178,14 +178,14 @@ git push -u <remote> <local_branch>
 git fetch
     'fea' branch is created at github
     but 'fea' is not known by local git
-        error: the requested upstream branch 'origin/fea' does not exist
-        we can also check it with 'git branch -r'
-            there is no 'origin/fea' upstream branch
+      error: the requested upstream branch 'origin/fea' does not exist
+      we can also check it with 'git branch -r'
+        there is no 'origin/fea' upstream branch on the output
     with 'git fetch', local git updates upstream branches
-        now 'origin/fea' is available
+      now 'origin/fea' is available
 
     similarly, a document is updated at github
-    but this update is not knwon by local git
+    but this update is not known by local git
     'git status' still show that 'main' is up to date with 'origin/main'
     after 'git fetch', changes made at github is retrieved by local git
     now 'git status' shows that 'main' branch is behind 'origin/main' by 1 commit
