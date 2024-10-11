@@ -169,10 +169,15 @@ git remote set-url <name> <newurl>
     set the URL of the remote called <name>
 
 git push -u <remote> <local_branch>
-    push <local_branch> to <remote>
-    from now, <local_branch> will track its remote counterpart
+    set <remote> as upstream and push <local_branch> to <remote>
+    from now on, <local_branch> will track its remote counterpart
     * git push -u origin main
         branch 'main' set up to track 'origin/main'
+    after that, we can only use 'git push' for that operation.
+      it is not needed to set upstream every single time.
+      but if '-u <remote>' is not specified at first push operation,
+        following error will occur:
+        fatal: The current branch 'test' has no upstream branch
 
 
 git fetch
