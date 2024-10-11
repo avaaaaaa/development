@@ -2,7 +2,7 @@ git(local) -> github, gitlab(remote)
 
 .gitignore file
     the files&directories in ".gitignore" are not tracked with git
-    create this file in the root directory of the repo
+    create this file in the root directory of the git repository
     If you want to ignore a file that is already checked in,
       untrack the file first
         git rm --cached <file_name>
@@ -62,23 +62,23 @@ git branch (-d, -D) <branch>
     deletes <branch> branch
 
 git branch -u <upstream> [branch]
-    Set up <branchname>'s tracking information,
-    so <upstream> is considered <branchname>'s upstream branch
-    If no <branchname> is specified, then it defaults to the current branch.
+    Set up <branch>'s tracking information,
+      so <upstream> is considered <branch>'s upstream branch
+    If no <branch> is specified, then it defaults to the current branch.
 
-git branch --unset-upstream [<branchname>]
-    Remove the upstream information for <branchname>
-    If no branch is specified it defaults to the current branch.
+git branch --unset-upstream [<branch>]
+    Remove the upstream information for <branch>
+    If no branch is specified, it defaults to the current branch.
 
 git checkout <branch>
-    switches to the <branch> branch and updates working directory
+    switches to the <branch> and updates working directory
 
 git merge <branch>
-    merges <branch> branch into the current branch
+    merges <branch> into the current branch
     this is usually done in pull requests
 
 git diff <branch>
-    shows the difference between the current branch and <branch> branch
+    shows the difference between the current branch and <branch>
 
 
 
@@ -101,7 +101,7 @@ git log
 
 2 -> 1
     "git reset ." | "git reset"
-        unstages all files
+        unstages all staged files
     git reset <file>
     git restore --staged [<file> | .]
 
@@ -113,14 +113,14 @@ git log
         only works for tracked modified files
 
 to discard changes of modified files in unstaged state
+  this cannot be done for modified files in staged state
     git restore [<file> | .]
     git checkout [<file> | .]
-this cannot be done for modified files in staged state
 
 to see changes of modified files in unstaged state
+  this cannot be done for modified files in staged state
     "git diff ." | "git diff"
     git diff <file>
-this cannot be done for modified files in staged state
 
 git reset [--hard] <commit>
     Undoes all commits after <commit>, preserving changes locally
@@ -137,7 +137,7 @@ git remote
 git remote add <name> <URL>
     add a remote named <name> for the repository at <URL>
     this associates the <name> with the <URL>
-    <name> is origin by convention
+    <name> is set 'origin' by convention
 
 git remote get-url <name>
     get the URL of the remote called <name>
@@ -145,8 +145,8 @@ git remote get-url <name>
 git remote set-url <name> <newurl>
     set the URL of the remote called <name>
 
-git push -u <remote_name> <local_branch>
-    push <local_branch> to <remote_name>
+git push -u <remote> <local_branch>
+    push <local_branch> to <remote>
     from now, <local_branch> will track its remote counterpart
     * git push -u origin main
         branch 'main' set up to track 'origin/main'
@@ -161,7 +161,7 @@ git fetch
     with 'git fetch', local git updates upstream branches
         now 'origin/fea' is available
 
-    a document is updated at github
+    similarly, a document is updated at github
     but this update is not knwon by local git
     'git status' still show that 'main' is up to date with 'origin/main'
     after 'git fetch', changes made at github is retrieved by local git
