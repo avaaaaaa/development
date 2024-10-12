@@ -87,7 +87,7 @@ git branch (-m, -M) <branch>
     rename the current branch as <branch>
 
 git branch (-d, -D) <branch>
-    delete <branch> branch
+    delete <branch>
 
 git branch -u <upstream> [branch]
     Set up <branch>'s tracking information,
