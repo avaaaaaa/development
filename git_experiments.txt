@@ -57,7 +57,7 @@ git config [--global] user.email
 git init
     turn the current working directory into a git repo
 
-git clone [url]
+git clone [URL]
     clone (download) a repo that already exists on github
 
 
