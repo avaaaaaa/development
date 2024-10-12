@@ -219,7 +219,9 @@ git fetch
         to your local working branch without committing them.
       Unlike 'git pull', fetching allows you to review changes
         before committing them to your local branch.
-
+        to do that, you can use 'git diff origin/main'
+        if you are on local 'main' branch, this command will show
+          the differences between local 'main' and remote 'origin/main'
 
 git merge
     'remote -> local' operation
