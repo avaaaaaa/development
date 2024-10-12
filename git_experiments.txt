@@ -81,9 +81,10 @@ git branch -a
 
 git branch <branch>
     creates a new branch called <branch>
+    doesn't switch to <branch>, just creates it
 
 git branch (-m, -M) <branch>
-    rename the current branch as <branch>
+    renames the current branch as <branch>
 
 git branch (-d, -D) <branch>
     deletes <branch> branch
@@ -98,7 +99,10 @@ git branch --unset-upstream [<branch>]
     If no branch is specified, it defaults to the current branch.
 
 git checkout <branch>
-    switches to the <branch> and updates working directory
+    switches to <branch> and updates working directory
+
+git checkout -b <branch>
+    creates <branch>, switches to it and updates working directory
 
 git merge <branch>
     merges <branch> into the current branch
@@ -166,6 +170,9 @@ git remote add <name> <URL>
     add a remote named <name> for the repository at <URL>
     this associates the <name> with the <URL>
     <name> is set 'origin' by convention
+
+git remote rename <remote> <newname>
+    rename <remote> as <newname>
 
 git remote get-url <name>
     get the URL of the remote called <name>
