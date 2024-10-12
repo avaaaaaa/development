@@ -55,39 +55,39 @@ git config [--global] user.email
 
 ** create repos
 git init
-    turns the current working directory into a git repo
+    turn the current working directory into a git repo
 
 git clone [url]
-    clone(download) a repo that already exists on github
+    clone (download) a repo that already exists on github
 
 
 
 ** branch operations
 git status
-    shows the current branch and the current status
+    show the current branch and the current status
 
 git branch --help
     get help
 
 git branch
-    shows local branches and the current branch
+    show local branches and the current branch
     the current branch is marked with an asterisk
 
 git branch -r
-    shows remote branches
+    show remote branches
 
 git branch -a
-    shows all branches
+    show all branches
 
 git branch <branch>
-    creates a new branch called <branch>
+    create a new branch called <branch>
     doesn't switch to <branch>, just creates it
 
 git branch (-m, -M) <branch>
-    renames the current branch as <branch>
+    rename the current branch as <branch>
 
 git branch (-d, -D) <branch>
-    deletes <branch> branch
+    delete <branch> branch
 
 git branch -u <upstream> [branch]
     Set up <branch>'s tracking information,
@@ -99,17 +99,17 @@ git branch --unset-upstream [<branch>]
     If no branch is specified, it defaults to the current branch.
 
 git checkout <branch>
-    switches to <branch> and updates working directory
+    switch to <branch> and update working directory
 
 git checkout -b <branch>
-    creates <branch>, switches to it and updates working directory
+    create <branch>, switch to it and update working directory
 
 git merge <branch>
-    merges <branch> into the current branch
+    merge <branch> into the current branch
     this is usually done in pull requests
 
 git diff <branch>
-    shows the difference between the current branch and <branch>
+    show the difference between the current branch and <branch>
 
 
 
@@ -120,19 +120,19 @@ states
     3. committed
 
 git status
-    shows the current states on the current branch
+    show the current states on the current branch
 
 git log
-    lists version history for the current branch
+    list version history for the current branch
 
 1 -> 2
     git add .
-      tracks all files
+      track all files
     git add <file>
 
 2 -> 1
     "git reset ." | "git reset"
-      unstages all staged files
+      unstage all staged files
     git reset <file>
     git restore --staged [<file> | .]
 
@@ -155,7 +155,7 @@ to see changes of modified files in unstaged state
     git diff <file>
 
 git reset [--hard] <commit>
-    Undoes all commits after <commit>, preserving changes locally
+    Undo all commits after <commit>, preserving changes locally
 
 
 
@@ -164,7 +164,7 @@ git remote --help
     get help
 
 git remote
-    shows existing remotes
+    show existing remotes
 
 git remote add <name> <URL>
     add a remote named <name> for the repository at <URL>
@@ -223,11 +223,11 @@ git fetch
 
 git merge
     'remote -> local' operation
-    Combines remote tracking branch into current local branch
+    Combine remote tracking branch into current local branch
 
 git pull
     'remote -> local' operation
     update local git with upstream branch
-    Incorporates changes from a remote repository into the current branch
+    Incorporate changes from a remote repository into the current branch
     a combination of 'git fetch' and 'git merge'
 
