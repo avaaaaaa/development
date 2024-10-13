@@ -197,7 +197,7 @@ git push -u <remote> <local_branch>
         fatal: The current branch 'test' has no upstream branch
 
 
-git fetch
+git fetch [remote] [remote_branch]
     'remote -> local' operation
     'fea' branch is created at github
     but 'fea' is not known by local git
