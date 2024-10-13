@@ -1,15 +1,29 @@
 glossary
+    for reference
+      https://docs.github.com/en/get-started/learning-about-github/github-glossary
+      https://git-scm.com/docs/gitglossary
+
     git: an open source, distributed version-control system
+
     GitHub: a platform for hosting and collaborating on Git repositories
+
     commit: a Git object, a snapshot of your entire repository compressed into a SHA
+
     branch: A branch is a parallel version of a repository.
       It is contained within the repository, but does not affect the primary or main branch
         allowing you to work freely without disrupting the "live" version.
       When you've made the changes you want to make,
         you can merge your branch back into the main branch to publish your changes.
+
     clone: a local version of a repository, including all commits and branches
+
     remote: a common repository on GitHub that all team member use to exchange their changes
+
     fork: a copy of a repository on GitHub owned by a different user
+
+    HEAD: representing your current working directory.
+      the HEAD pointer can be moved to different branches, tags, or commits when using 'git checkout'
+
     pull request: a place to compare and discuss the differences
       introduced on a branch with reviews, comments, integrated tests, and more
       for reference
@@ -17,11 +31,18 @@ glossary
           /proposing-changes-to-your-work-with-pull-requests/about-pull-requests
         https://docs.github.com/en/pull-requests/collaborating-with-pull-requests
           /proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
-    HEAD: representing your current working directory.
-      the HEAD pointer can be moved to different branches, tags, or commits when using 'git checkout'
-    for reference
-      https://docs.github.com/en/get-started/learning-about-github/github-glossary
-      https://git-scm.com/docs/gitglossary
+
+    merge: Merging takes the changes from one branch (in the same repository or from a fork),
+      and applies them into another. This often happens as a "pull request"
+      (which can be thought of as a request to merge), or via the command line.
+      if there are no conflicting changes, a merge can be done through
+        a pull request via the GitHub.com web interface, or can always be done via the command line.
+
+    merge conflict: A difference that occurs between merged branches.
+      Merge conflicts happen when people make different changes to the same line of the same file,
+        or when one person edits a file and another person deletes the same file.
+      The merge conflict must be resolved before you can merge the branches.
+    
 
 git(local) -> github, gitlab(remote)
 
@@ -223,9 +244,10 @@ git fetch [remote] [remote_branch]
         if you are on local 'main' branch, this command will show
           the differences between local 'main' and remote 'origin/main'
 
-git merge
+git merge [--abort]
     'remote -> local' operation
     Combine remote tracking branch into current local branch
+    '--abort' can be used to undo the merge
 
 git pull
     'remote -> local' operation
