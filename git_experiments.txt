@@ -244,14 +244,57 @@ git fetch [remote] [remote_branch]
         if you are on local 'main' branch, this command will show
           the differences between local 'main' and remote 'origin/main'
 
+
 git merge [--abort]
     'remote -> local' operation
     Combine remote tracking branch into current local branch
     '--abort' can be used to undo the merge
+
+merge conflict example
+    create 'test.txt'
+    create 'fea' branch
+
+    checkout to 'fea' branch
+    edit 'test.txt'
+      type "1" at first line, and save
+    commit
+    checkout to 'main' branch
+    edit 'test.txt'
+      type "1" at first line, and save
+    commit
+    'git merge fea'
+      >> Merge made by the 'ort' strategy
+
+    checkout to 'fea' branch
+    edit 'test.txt'
+      type "2" at second line, and save
+    commit
+    checkout to 'main' branch
+    edit 'test.txt'
+      type "3" at second line, and save
+    commit
+    'git merge fea'
+      >> Auto-merging test.txt
+         CONFLICT (content): Merge conflict in test.txt
+         Automatic merge failed; fix conflicts and then commit the result.
+
+    now, checkout the markers at 'test.txt' on main branch
+    they inform about the conflict
+
+    at this point,
+      it is not possible to checkout to 'fea'
+      we can abort the merge with 'git merge --abort'
+      we can resolve the conflict manually on 'test.txt'
+        remove the markers and make your choice between the conflicting lines
+        save the file
+        git commit -am "<message>"
+
+    if 'git merge fea' is run after that,
+      >> Already up to date.
+
 
 git pull
     'remote -> local' operation
     update local git with upstream branch
     Incorporate changes from a remote repository into the current branch
     a combination of 'git fetch' and 'git merge'
-
