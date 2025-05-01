@@ -57,7 +57,13 @@ github flow: illustration at second page of github-cheat-sheet
       then add a rule to ignore it
     reference
       https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-      https://git-scm.com/docs/gitignore        
+      https://git-scm.com/docs/gitignore
+    * python/
+        all folders named "python" are ignored under the root directory
+        includes sub-folders
+      /python/
+        all folders named "python" are ignored at the root directory
+        does not include sub-folders
 
 ** check if git is installed
 git --version
