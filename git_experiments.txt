@@ -49,12 +49,13 @@ git(local) -> github, gitlab(remote)
 github flow: illustration at second page of github-cheat-sheet
 
 .gitignore file
-    the files&directories in ".gitignore" are not tracked with git
+    the files&directories in ".gitignore" are not tracked by git
     create this file in the root directory of the git repository
     If you want to ignore a file that is already checked in,
       untrack the file first.
         git rm --cached <file_name>
       then add a rule to ignore it
+      after untracking the file, if you push to the remote, the file on the remote will be deleted
     reference
       https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
       https://git-scm.com/docs/gitignore
