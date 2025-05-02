@@ -289,6 +289,7 @@ for each_name in name_list:
     print("entered non-alphabetic character(s)")
     exit()
 
+name = " ".join(name_list)  # get rid of unnecessary space between names
 name = name.upper()
 #  get ascii codes
 ascii_codes = [ord(letter) for letter in name]
