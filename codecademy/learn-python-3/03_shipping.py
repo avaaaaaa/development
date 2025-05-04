@@ -38,7 +38,7 @@ def _key_function(_list):
 exit_loop = False
 package_weight = 0
 
-# ask for the package weight until correct value is given
+# ask for the package weight until appropriate value is given
 while not exit_loop:
     package_weight = input("enter the package weight(lb): ")
     try:
@@ -47,7 +47,7 @@ while not exit_loop:
             raise ValueError
         exit_loop = True
     except ValueError:
-        print("Incorrect value, try again")
+        print("inappropriate value, try again")
 
 shipping_prices = [
     [ground_shipping(package_weight), "ground shipping"],
