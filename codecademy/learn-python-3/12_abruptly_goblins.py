@@ -81,4 +81,4 @@ for item in list_of_freq[::-1]:
     print(f"{item[0]}: {item[1]}", available_gamers(gamers, item[0]))
 
 best_night = list_of_freq[-1]
-print()
+print(best_night)
