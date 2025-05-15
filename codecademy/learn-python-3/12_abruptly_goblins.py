@@ -21,13 +21,13 @@ def freq_day(gamers):
             freq[day] += 1
     return freq
 
-def available_gamers_names(gamers, check_day):
-    return [gamer["name"] for gamer in gamers if check_day in gamer["availability"]]
+def available_gamers(gamers, check_day):
+    return [gamer for gamer in gamers if check_day in gamer["availability"]]
 
-def send_email(day, game, gamers):
-    gamers_names_attending = available_gamers_names(gamers, day)
-    for gamer_name_attending in gamers_names_attending:
-        print(f"{gamer_name_attending} will play {game} in {day}")
+def send_email(day, game, gamers_attending):
+    for gamer_attending in gamers_attending:
+        name = gamer_attending["name"]
+        print(f"{name} will play {game} in {day}")
 
 
 gamers = []
@@ -83,9 +83,29 @@ print(list_of_freq)
 
 print("Count Of attending People (Descending order)")
 for item in list_of_freq[::-1]:
-    print(f"{item[0]}: {item[1]}", available_gamers_names(gamers, item[0]))
+    print(f"{item[0]}: {item[1]}")
 
 best_night = list_of_freq[-1]
 print(best_night)
 
-send_email(best_night[0], "Abruptly Goblins", gamers)
+first_gamers = available_gamers(gamers, best_night[0])
+send_email(best_night[0], "Abruptly Goblins", first_gamers)
+
+
+# second_gamers are the gamers that couldn't attend the first game
+second_gamers = [gamer for gamer in gamers if gamer not in first_gamers]
+
+list_of_freq = list(freq_day(second_gamers).items())  # each item is a tuple: (day, frequency)
+print(list_of_freq)
+
+list_of_freq.sort(key=lambda x: x[1])
+print(list_of_freq)
+
+print("Count Of attending People at second game (Descending order)")
+for item in list_of_freq[::-1]:
+    print(f"{item[0]}: {item[1]}")
+
+second_best_night = list_of_freq[-1]
+print(second_best_night)
+
+send_email(second_best_night[0], "Abruptly Goblins", second_gamers)
