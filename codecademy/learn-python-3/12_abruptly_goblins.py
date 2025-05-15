@@ -21,8 +21,13 @@ def freq_day(gamers):
             freq[day] += 1
     return freq
 
-def available_gamers(gamers, check_day):
+def available_gamers_names(gamers, check_day):
     return [gamer["name"] for gamer in gamers if check_day in gamer["availability"]]
+
+def send_email(day, game, gamers):
+    gamers_names_attending = available_gamers_names(gamers, day)
+    for gamer_name_attending in gamers_names_attending:
+        print(f"{gamer_name_attending} will play {game} in {day}")
 
 
 gamers = []
@@ -70,7 +75,7 @@ add_gamer({
     'availability': [DAYS["Monday"], DAYS["Tuesday"], DAYS["Wednesday"]]},
     gamers)
 
-list_of_freq = list(freq_day(gamers).items())
+list_of_freq = list(freq_day(gamers).items())  # each item is a tuple: (day, frequency)
 print(list_of_freq)
 
 list_of_freq.sort(key=lambda x: x[1])
@@ -78,7 +83,9 @@ print(list_of_freq)
 
 print("Count Of attending People (Descending order)")
 for item in list_of_freq[::-1]:
-    print(f"{item[0]}: {item[1]}", available_gamers(gamers, item[0]))
+    print(f"{item[0]}: {item[1]}", available_gamers_names(gamers, item[0]))
 
 best_night = list_of_freq[-1]
 print(best_night)
+
+send_email(best_night[0], "Abruptly Goblins", gamers)
