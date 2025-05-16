@@ -6,3 +6,5 @@
 /codecademy/learn-python-3/abruptly-goblins
 __pycache__
 *.csv
+*.json
+/compromised_users.txt
