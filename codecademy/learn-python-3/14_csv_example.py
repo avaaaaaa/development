@@ -3,7 +3,7 @@ import csv
 
 file_path = "addresses.csv"
 
-# since commas are used to separate the same data (address),
+# since commas are used to separate the same address data,
 #  we must use a different delimiter to separate different data
 #  in this example, we will use ";"
 
