@@ -1,5 +1,4 @@
 import csv
-import os
 
 
 file_path = "users.csv"
