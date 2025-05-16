@@ -5,3 +5,4 @@
 /codecademy/learn-python-3/coded-correspondence
 /codecademy/learn-python-3/abruptly-goblins
 __pycache__
+*.csv
