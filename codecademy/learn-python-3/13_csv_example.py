@@ -2,9 +2,7 @@ import csv
 import os
 
 
-file_path = "C:" + os.path.sep
-file_path += os.path.join("Users", "galip furkan", "users.csv")
-print(file_path)
+file_path = "users.csv"
 
 with open(file_path, "w") as f:
     f.write("Name,Username,Email\n"
