@@ -34,7 +34,7 @@ class Menu:
                     f" and {self.end_time.time()}")
         return message
     def calculate_bill(self, purchased_items):
-        # -inf indicates that one or many purchased items
+        # -inf indicates that one or more purchased items
         #  are not on the menu
         price = [self.items.get(purchased_item, -math.inf)
                  for purchased_item in purchased_items]
