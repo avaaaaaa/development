@@ -49,12 +49,12 @@ __repr__(): string representation of the object, must return a string value
 
 * the problem of default list value on construction method: different objects share the same list.
 def __init__(self):
-    self.list = [ ]  # objects have their own list.
+    self.list = []  # objects have their own list.
 
-def __init__(self, list = [ ]):
-    self.list = [ ]  # objects have their own list.
+def __init__(self, list = []):
+    self.list = []  # objects have their own list.
 
-def __init__(self, list = [ ]):
+def __init__(self, list = []):
     self.list = list  # objects share the same list.
 
 
