@@ -1,0 +1,22 @@
+* a module is a file containing python code (<module_name>.py)
+
+
+* modules have a namespace containing arbitrary Python objects
+
+
+* to see if a module is imported or running standalone
+	if __name__ == ‘__main__’:
+		print(“running standalone”)
+	else:
+		print(“imported”)
+
+
+* giving alias
+	import math as m
+	m.pow(2, 2)
+	from math import pow as p
+	p(2, 2)
+
+
+* avoid '*' importing
+	from <module> import *

@@ -1,0 +1,5 @@
+* general structure
+for
+while
+break
+continue

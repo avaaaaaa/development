@@ -1,0 +1,13 @@
+* ‘pass’ statement – does nothing, used as a placeholder
+
+* to enter interactive mode
+type "py" and enter
+
+* get help in interactive mode
+help(<obj>)
+
+* to quit help page – press ‘q’
+
+* pip: python package managar
+
+* pypi.org: the python package index, place where python packages can be found

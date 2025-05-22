@@ -1,0 +1,22 @@
+* declaration
+	x = set()
+	x = {‘a’}
+
+
+* set operations
+x – y: difference
+x | y: union
+x & y: intersection
+# returns a new set
+
+
+*
+x = [1, 2, 2, 3]
+y = set(x)  # y = {1, 2, 3}, set doesn’t have duplications
+
+
+*
+x = set([1, 2])
+y = set([1, 2])
+x == y  # True
+x is y    #False, id(x) == id(y)

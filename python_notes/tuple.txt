@@ -1,0 +1,13 @@
+* tuples are immutable
+
+
+* tuples are more time&memory efficient than lists
+
+
+* declaration
+	x = ()
+	x = tuple()
+
+
+* tuple with one item
+	x = (2,)

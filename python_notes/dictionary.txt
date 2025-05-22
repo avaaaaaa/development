@@ -1,0 +1,62 @@
+* declaration
+	x = {}
+	x = dict()
+	x = {‘a’: 1}
+
+
+* dictionary keys must be hashable(immutable) data type.
+(tuple, string, numbers, boolean ...)
+
+
+* dictionary keys can be user-defined classes or instances(objects)
+class MyClass:
+    pass
+
+d = {MyClass: 1, MyClass(): 2}
+
+
+* some dictionary methods
+get, pop, keys, values, items, setdefault, update
+
+
+* deleting a key-value pair from a dictionary
+	del x[<key>]
+	x.pop(<key>)
+
+
+* setdefault method
+	name = “galip”
+	d = {}
+	y = d.setdefault(name, 0)
+		# if ‘name’ is already in ‘d’
+			y = d[name]
+		# if not, this will do the following:
+			d[name] = 0
+			y = 0
+
+
+* check if a key is present in a dictionary
+key = “galip”
+d = {}
+if d.setdefault(key, 0) == 0:
+	pass
+	# if code reaches there, it means the key was not in this dictionary before
+
+# it is assumed that values in this dictionary cannot be set 0 (zero) except by setdefault operation
+
+
+* dict comprehension
+x = ["a", "b", "c"]
+y = [1, 2, 3]
+z = {k:v for k, v in zip(x, y)}
+
+# from list to frequency dict
+my_list = [1, 1, 2, 3, 3, 4]
+keys = set(my_list)
+freq_dict = {key:my_list.count(key) for key in keys}
+print(freq_dict)
+    {1: 2, 2: 1, 3: 2, 4: 1}
+
+
+* add one (b) dictionary to another (a)
+a.update(b)

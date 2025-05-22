@@ -1,0 +1,15 @@
+* pep 8 is a convention guideline that is advised to follow for writing python code
+
+* use ( ), [ ] or { } instead of backslashes (\) for line continuation
+s = “hel\  -->   s = (“hel”
+    lo”	             “lo”)
+
+* four spaces per indentation level
+
+* don't exceed 79 characters per line
+
+* naming
+class: CamelCase
+object: lowercase with underscores
+module: lowercase with underscores
+

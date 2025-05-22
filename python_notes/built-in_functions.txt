@@ -1,0 +1,61 @@
+* char and ASCII code
+chr(65)  # ‘A’
+ord(‘A’)  # 65
+
+
+* get input from user
+# whatever the user types will be handled as a string
+	user_input = input([<prompt>])
+
+
+* to see available names (variables, functions, imported modules etc.) under a namespace
+	dir(): names under the current scope
+	dir(sys): names under the ‘sys’ module
+	dir(“abc”): names under the “abc” string
+
+
+* sorting user-defined objects with sorted()
+	# sorted() function is using ‘<’ operation to do sorting
+	# def __lt__(self, value) function must be implemented under the class definition for this operation
+	# this will define what comprasion will be based on during sorting
+
+	def __lt__(self, other):
+		return id(self) < id(other)
+		# based on id
+
+	def __lt__(self, other):
+		return self.value < other.value
+		# based on ‘value’ attribute on these objects
+
+
+* zip()
+iterate over several iterables in paralel,
+producing tuples with an item from each one
+
+
+* enumerate()
+
+
+* map()
+
+
+* filter()
+
+
+* isinstance()
+if not isinstance(<var>, (int, float)):
+    # <var> is not a number
+
+
+* check if an object has an attribute
+hasattr(<obj>, "<attr>") -> True|False
+
+
+* get an attribute of an object
+getattr(<obj>, "<attr>", 800)
+    # if <obj> has <attr>, returns <obj>.<attr>
+    # else returns 800
+
+
+* get all attributes of an object
+dir(<obj>)

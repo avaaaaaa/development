@@ -1,0 +1,30 @@
+* integer
+	x = 5
+	x = (5)
+	x = int(5)
+	x = int(5.72)  # 5
+	x = 1_000_729  # 1000729, to improve readability
+	x = 1_0	       # 10, this is also correct
+
+
+* float
+	x = .23
+	x = 5.0
+	x = float(5)
+	x = float(5.0)
+	x = 5 * 1.0
+	x = 5 / 1.0
+	x = 523.42
+	  x = 5.2342e2 (or ...e+2)
+	  x = 52342e-2
+
+
+* number literals vs string literals:
+it’s possible to access the available names with string literals
+but this is not the case for number literals. 
+So variable names can be used for that case
+	“abc”.format()
+	5.bit_length()  # SyntaxError
+	x = 5
+	x.bit_length()
+	(5).bit_length()

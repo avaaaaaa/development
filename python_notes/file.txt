@@ -1,0 +1,119 @@
+* instead of manually opening&closing files, "with" keyword
+invokes a context manager for the file and it will take care
+of opening the file when we call open() and closing the file
+after leaving the indented block
+
+f = open()    with open(...) as f:
+...       -->   ...
+f.close()     # file will be closed when the code leaves the with block
+
+
+* "with" statement makes sure the file is closed properly
+when the program has finished the accesing the file
+
+
+* read files
+whole content
+with open("<file_path>.txt") as f:
+    file_content = f.read()
+print(file_content)
+
+line by line
+with open("<file_path>.txt") as f:
+    for line in f.readlines():
+        print(line, end="")
+# there is "\n" at the end of every line
+# print also adds "\n" after each print by default
+# to remove unnecessary "\n"s, we can print with end=""
+# or print(line.rstrip())
+
+first two lines
+with open("<file_path>.txt") as f:
+    first_line = f.readline()
+    second_line = f.readline()
+print(first_line)
+print(second_line)
+
+
+* write files
+with open("<file_path>.txt", "w") as f:
+    f.write("hello world")
+
+if the file is found at the specified path
+    truncate the whole content in the file
+if the file is not found at the specified path
+    create the file
+write "hello world" to the file
+
+
+* append to files
+with open("<file_path>.txt", "a") as f:
+    f.write("hello")
+    f.write("world\n")
+    f.write("how are things?")
+
+if the file is not found at the specified path
+    create the file
+append the argument at the end of the file
+after writing, the file content would be:
+helloworld
+how are things?
+
+
+* read&write data with json module
+	# write some data
+	# python object --> json
+	import json
+
+	numbers = [1, 2, 3]
+	fn = "numbers.json"
+	with open(fn, "w") as f_obj:
+		json.dump(numbers, f_obj)
+
+	# read the data
+	# json --> python object
+	try:
+		with open(fn) as f:
+			read_numbers = json.load(f)
+	except FileNotFoundError:
+		print("couldn't find the file:", fn)
+	else:
+		print(read_numbers)
+
+
+* csv files
+comma-separated values
+uses a delimiter to separate the data
+even though it says comma-separated, different delimiters can be used like \t, @ etc.
+data from spreadsheet software (excel, google sheets etc.) usually
+    needs to be exported into a portable format like csv when it is needed
+
+
+* csv - reading "name" column
+with open("<file_path>.csv", newline="") as f:
+    reader = csv.DictReader(f)
+    for row in reader:
+        print(row["name"])
+
+# it is recommended to specify newline="" when working with csv files
+# to use a different delimiter (default is comma)
+#     reader = csv.DictReader(f, delimiter="@")
+
+
+* csv - writing
+user_list = [{"name":..., "password":..., "is_admin":...},
+{"name":..., "password":..., "is_admin":...},
+{"name":..., "password":..., "is_admin":...},
+...]
+fields = ["name", "password", "is_admin"]
+
+with open("<file_path>.csv", "w", newline="") as f:
+    writer = csv.DictWriter(f, fieldnames = fields)
+    writer.writeheader()  # write fields
+    for user in user_list:
+        writer.writerow(user)
+
+# instead of writing row by row,
+#    it is possible to write all rows with "writer.writerows(user_list)"
+# to use a different delimiter (default is comma)
+#     writer = csv.DictWriter(f, fieldnames = fields, delimiter="@")

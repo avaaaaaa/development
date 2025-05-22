@@ -1,0 +1,14 @@
+* generator objects don't create the entire result at once
+
+* useful when working with large datasets
+
+
+*
+x = [1, 2, 3]
+y = [i*2 for i in x]  # list comprehension, returns the entire list
+z = (i*2 for i in x)  # generator expression, returns an iterator
+print(y[2])
+    # 6
+print(z[2])
+    # TypeError: 'generator' object is not subscriptable
+    # need to iterate or list(z)[2]

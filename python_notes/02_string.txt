@@ -1,0 +1,64 @@
+* strings are immutable
+
+
+* f-string
+name = “galip”
+message = f”hey {name}, how are you”
+print(message)
+
+
+* raw string
+s1 = “hello\nworld”
+s2 = r“hello\nworld”
+s1 == “hello\nworld”
+	True
+s2 == “hello\\nworld”
+	True
+print(s1)
+	hello
+	world
+print(s2)
+	hello\nworld
+
+
+*
+s = “hey”
+‘{0:5}’.format(s): “hey  “ (two spaces at the end)
+‘{0:_^5}’.format(s): “_hey_”
+
+
+* space string
+space_count = 2
+space_list = [“ “ for i in range(space_count)]
+space_string = “”.join(space_list)
+
+
+*
+s = “hey”
+for i in s:
+    print(s)
+    s += “a”
+
+# hey
+# heya
+# heyaa
+# loop ends there
+
+s = “hey”
+i = 0
+while i < len(s):
+    i += 1
+    s += “a”
+
+# infinite loop
+
+
+*
+x = 5.55555555
+‘{0:.3}’.format(x): ‘5.56’ as a string
+‘{0:.3f}’.format(x): ‘5.556’ as a string
+
+
+* number to string
+“a” + 1  # TypeError
+“a” + str(1)  # “a1”

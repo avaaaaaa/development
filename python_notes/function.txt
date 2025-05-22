@@ -1,0 +1,27 @@
+* parameter and argument
+parameter: variables declared in function definition
+argument: actual values passed to the function call
+
+def fun(x, y):
+    return x + y
+
+print(fun(3, 5))
+
+# x, y --> parameters
+# 3, 5 --> arguments
+
+
+* variable number of arguments
+def func(*args, **kwargs):
+    for item in args:
+        print(item)
+    for k,v in kwargs.items():
+        print(k, v)
+
+func(1, 2, 3, 4, a=10, b=20, c=30)
+# args -> tuple
+# kwargs -> dictionary
+
+
+* parameters that accept variable number of arguments(* and **) 
+must be placed last in the function definition

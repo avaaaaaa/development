@@ -1,0 +1,36 @@
+* different projects may require different dependencies
+different versions of the same package, library, module etc.
+and these different versions may not be compliable with some projects.
+some projects may make use of module features that may got removed in later releases.
+some projects may make usf of module features that were not introduced in previous releases.
+to be able to handle this dependency problem, we can create a virtual environment
+that is dedicated only to a specific project without affecting other projects
+
+
+* creating a virtual environment with "pipenv" package
+install pipenv
+    pip install --user pipenv
+add "pipenv" to "PATH"
+
+
+* initialize a virtual env
+locate to the project root directory
+for python 3 projects
+    pipenv --three
+for python 2 projects
+    pipenv --two
+
+
+* installing packages in the virtual env
+the latest version
+    pipenv install numpy
+the exact version
+    pipenv install numpy==1.15.2
+
+
+* spawning a shell within the virtual env
+pipenv shell
+
+
+* reference
+pypi.org/project/pipenv
