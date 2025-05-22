@@ -1,10 +1,8 @@
+__pycache__
 /__kaynaklar__/
 /database/
 /python/
-/temp.py
+/__data__/
 /codecademy/learn-python-3/coded-correspondence
 /codecademy/learn-python-3/abruptly-goblins
-__pycache__
-*.csv
-*.json
-/compromised_users.txt
+/temp.py
