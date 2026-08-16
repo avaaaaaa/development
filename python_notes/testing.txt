@@ -1,0 +1,2 @@
+* testing the code
+	for reference, page 15&16 from python cheat sheet

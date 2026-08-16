@@ -1,0 +1,80 @@
+* if the body of arrow functions has only one return statement that is only one line,
+we can use implicit return feature
+	remove curly braces
+	remove return keyword
+	const |arrow_func| = |parameter(s)| => |return_value_without_return_keyword|;
+
+
+*
+const isLegal = age => {
+  return age >= 18;
+}
+const isLegalImplicit = age => age >= 18;
+
+isLegal(20);
+isLegalImplicit(20);
+// true
+// true
+
+
+* 
+const triple = value => value * 3;
+const multiply = (a, b) => a * b;
+const sum = (a=0, b=0) => a + b;
+const getRaisedGrades = (grades, raise) => grades.map(grade => grade + raise);
+const getPositiveTemperatures = temperatures => temperatures.filter(temperature => temperature > 0);
+const getStringSizes = strings => strings.map(str => str.length);
+// functions
+
+const numbersAboveTen = numbers.filter(number => number > 10);
+const doubled = numbers.map(number => number * 2);
+// variables
+
+
+*
+const getRaisedGrades = grades => {
+    // TODO: return all the grades raised by 1 (grades should not exceed 20)
+    return grades.map(grade => (grade + 1) > 20 ? 20 : grade + 1);
+}
+// the function body has only one return statement that is only one line
+// so we can use implicit return: drop {} and "return" keyword
+
+const getRaisedGrades = grades => grades.map(grade => (grade + 1) > 20 ? 20 : grade + 1);
+
+
+* classroom project
+
+const getNumberOfGrades = grades => grades.length;
+
+const getSumGrades = grades => grades.reduce((total, grade) => total + grade, 0);
+
+const getAverageValue = grades => getSumGrades(grades) / getNumberOfGrades(grades);
+
+const getPassingGrades = grades => grades.filter(grade => grade >= 10);
+
+const getFailingGrades = grades => grades.filter(grade => grade < 10);
+
+const getRaisedGrades = grades => grades.map(grade => (grade + 1) > 20 ? 20 : grade + 1);
+
+
+* unexpected result
+
+const getUser = (id, name) => {
+  return {id, name};
+};
+console.log(getUser(1, "a"))
+// { id: 1, name: 'a' }
+// so, technically there is only one return statement that is only one line
+// it seems we can make use of implicit return
+// but when we do that, we get undefined rather than the object
+
+const getUser = (id, name) => {id, name};
+console.log(getUser(1, "a"))
+// undefined
+// so, we cannot return an object using this feature, i guess?
+// {} around object might be interpreted as function body
+
+// update: putting () around {id, name} solved the issue
+const getUser = (id, name) => ({id, name});
+console.log(getUser(1, "a"))
+// { id: 1, name: 'a' }

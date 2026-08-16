@@ -1,0 +1,45 @@
+* can extend the functionality of a function without modifying the function itself.
+
+* useful for reusability
+
+
+*
+import functools
+
+
+def check_zero_divide(divide_func):
+    """checks if divider is zero"""
+    # wraps() is used to preserve docstring and function name
+    @functools.wraps(divide_func)
+    def wrapper(a, b):
+        """this is the docstring of wrapper"""
+        if b == 0:
+            return "divider cannot be zero"
+        else:
+            return divide_func(a, b)
+    return wrapper
+
+# “@check_zero_divide” equals to “divide = check_zero_divide(divide)”
+@check_zero_divide
+def divide(a, b):
+    """returns a / b"""
+    return a / b
+
+print(divide(3, 0))
+print(divide.__name__)
+print(divide.__doc__)
+
+# output will be
+# 	divider cannot be zero
+# 	divide
+# 	returns a / b
+# if ‘@functools.wraps()’ was not used, output would be
+#	divider cannot be zero
+#	wrapper
+#	this is the docstring of wrapper
+# we can also define wrapper function like this:
+# 	def wrapper(*args, **kwargs):
+#		x = args[0]
+#		y = args[1]
+#		if y == 0:
+#		...

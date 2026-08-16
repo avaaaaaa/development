@@ -1,0 +1,20 @@
+* the last item in a sequence: sequence[-1]
+  the second last item in a sequence: sequence[-2]
+
+
+* unpacking a sequence
+x = [1, 2]
+a, b = x       # a = 1, b = 2
+s = “hey”
+a, b, c = s    # a = ‘h’, b = ‘e’, c = ‘y’
+
+
+* reversing a sequence
+x = x[:: -1]
+
+
+* check if a sequence is empty
+if <sequence>:
+    # the sequence is not empty
+else:
+    # the sequence is empty

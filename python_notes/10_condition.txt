@@ -1,0 +1,14 @@
+* general structure
+if
+elif
+else
+
+
+*
+if 0 -> if False
+if None -> if False
+if -1 -> if True
+
+
+*
+‘if 0 <= 1 <= 2’ equals ‘if 0 <= 1 and 1 <= 2’

@@ -1,0 +1,16 @@
+* let's assume that the instance methods a, b, and c modifies the object
+if it is needed to call these methods together, we can chain them together
+to be able to chain them, they must have "return this" at the end of their method block
+"return this" will allow method chaining
+
+object.a();
+object.b();
+object.c();
+
+// instead, we can chain them
+
+object.a().b().c();
+
+// a() will return the object after modifying it
+// so, b() will be called by the object modified by a()
+// and then, c() will be called by the object modified by b()

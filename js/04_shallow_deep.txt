@@ -1,0 +1,35 @@
+* shallow copy
+
+const sam = {name: "sam"};
+const alex = {name: "alex"};
+
+const users = [sam, alex];
+const usersCopy = [...users];
+
+// usersCopy is a shallow copy of users
+// thus, changing usersCopy won't affect users
+
+usersCopy.push({name: "gg"});
+console.log(users);
+console.log(usersCopy);
+// [ { name: 'sam' }, { name: 'alex' } ]
+// [ { name: 'sam' }, { name: 'alex' }, { name: 'gg' } ]
+
+// but an original object and its shallow copies still share the same reference items
+// thus, changing sam or alex would affect the original object and its shallow copies
+
+sam.name = "SAM";
+usersCopy[1].name = "ALEX";
+console.log(users);
+console.log(usersCopy);
+// [ { name: 'SAM' }, { name: 'ALEX' } ]
+// [ { name: 'SAM' }, { name: 'ALEX' }, { name: 'gg' } ]
+
+
+* deep copy
+https://developer.mozilla.org/en-US/docs/Glossary/Deep_copy
+
+A deep copy of an object is a copy whose properties do not share the same references (point to the same underlying values) as those of the source object from which the copy was made. As a result, when you change either the source or the copy, you can be assured you're not causing the other object to change too. That behavior contrasts with the behavior of a shallow copy, in which changes to nested properties in the source or the copy may cause the other object to change too.
+
+If, for some reason, you need to create a deep copy (we call that a deep clone), you can use the structuredClone function provided by browsers. However, you generally won't need to use that method.
+also deep copy operations can cause some perfomance related issues

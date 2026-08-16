@@ -1,0 +1,51 @@
+* string methods
+myString.toUpperCase()
+myString.toLowerCase()
+myString.trim()
+myString.startsWith()
+myString.endsWith()
+myString.split()
+myString.at()
+myString.substring()
+myString.replace()
+myString.replaceAll()
+myString.padStart()
+myString.padEnd()
+
+
+** myString.split()
+let string = `23 - 12 - 2020`;
+string.split(" - "); // ["23", "12", "2020"]
+
+** myString.at(index)
+// negative indices count back from the last char
+let language = "JavaScript";
+language.at(0); // "J"
+language.at(1); // "a"
+language.at(-1); // "t"
+language.at(-2); // "p"
+
+** myString.substring(start, end)
+// start index is included, end index is excluded
+// end is optional, it is myString.length if omitted 
+let language = "JavaScript";
+language.substring(1, 4); //"ava"
+language.substring(4); //"Script"
+
+const x = "01234";
+x.substring(5);  // ""
+x.substring(0, 10);  // "01234"
+
+
+** myString.padStart(targetLength, padString)
+let month1 = "6";
+let month2 = "11";
+month1 = month1.padStart(2, "0");
+month2 = month2.padStart(2, "0");
+console.log(month1, month2); // "06", "11"
+
+** myString.padEnd(targetLength, padString)
+const email = "alex@example.com";
+const hidden = email.substring(0, 3).padEnd(email.length, "*");
+console.log(hidden); // "ale*************"
+

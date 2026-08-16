@@ -1,0 +1,43 @@
+* semi-colons are not a must
+they weren't used at the beginning of learning programming course
+but they are introduced later
+and it said that companies can have coding convention that require using them 
+
+
+* semi-colons are put after every single statement
+a statement is the minimal & distinguishable piece of code
+	variable declerations, value assignments, function calls etc.
+
+let x = 10;
+x = 20;
+console.log(x);
+
+
+*
+don't use semi-colons at the end of function and class definitions & if-conditions
+	function(...){
+	...
+	}
+	if(...){
+	...
+	}
+	class User{
+	...
+	}
+
+*
+let grades = [10, 5, 15, 20];
+
+grades.forEach(function(grade) {
+    console.log(grade);
+}//B);//A
+
+// A, there is ; at the end of the function call grades.forEach()
+// B, there is not ; at the end the function definition that is used as callback function
+
+
+* prettier can format your code automatically
+means that it can put the semi-colons where necessary
+but it can do more than just putting semi-colons
+see *prettier
+

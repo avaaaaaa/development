@@ -1,0 +1,116 @@
+* getter methods will let us to read values through virtual properties without accessing actual properties
+
+
+* setter methods will let us to write values through virtual properties without accessing actual properties
+
+
+* these virtual properties are the names of getter and setter methods
+
+
+* with getters and setters, we ensure that only through getters and setters we can access actual properties
+
+
+*
+// look at the name of the setter and getter below
+// their name "age" is the virtual property we will use to access actual property "storedAge"
+
+class User {
+    constructor(age) {
+        this.age = age;
+        // this will call setter method
+        // there is no "age" property actually
+        // it is an access point exposed by getters and setters to reach the actual property (storedAge)
+    }
+
+    get age() {
+        console.log("age getter");
+        return this.storedAge;
+        // this getter will be called every time "age" virtual property is read (this.age)
+    }
+
+    set age(value) {
+        console.log("age setter");
+        this.storedAge = Number.parseInt(value, 10);
+        // this setter will be called every time "age" virtual property is written (this.age = value)
+    }
+}
+
+const user = new User("30");
+console.log(user.age); // 30 (number)
+// user.age calls the getter
+// the getter returns user.storedAge without exposing storedAge property
+
+user.age = "31";
+console.log(user.age); // 31 (number)
+// user.age = "31" calls the setter
+// the setter sets storedAge property without exposing storedAge property
+
+
+* avoid infinite loop within setters
+When using a setter, a separate property (like storedAge) is needed to store the actual value. if the actual property name is the same as virtual property, it will cause an infinite loop. because the setter will keep calling itself
+
+set age(value) {
+        console.log("age setter");
+        this.age = Number.parseInt(value, 10);
+        // this.age = value will call the setter, so it will keep calling itself
+        // to avoid that, we need different name for actual property (storedAge in previous example)
+}
+
+
+* In real-world code, the internal storage property is usually written with a _ prefix as a convention.
+(_age instead of storedAge in previous example)
+The underscore is a convention meaning "this is internal, don't access it from outside the class." Nothing technically stops you from writing user._age; the convention is purely social, signalling intent to other developers. Modern JavaScript also provides proper private fields using #age
+
+
+* implicit return feature for arrow functions cannot be used for getter methods
+
+class User{
+  constructor(age){
+    this._age = age;
+  }
+  get age = () => this._age
+}
+// SyntaxError
+
+
+*
+class Payment {
+
+    constructor(amount) {
+        this.amount = amount;
+        // this will call the setter
+    }
+    set amount(value){
+        this._amount = value;
+        this._cents = value * 100;
+    }
+    get amount(){
+        return this._amount;
+    }
+    get cents(){
+        return this._cents;
+    }
+
+}
+
+// Sample usage - do not modify
+const payment = new Payment(10);
+console.log(payment.amount); // 10 (USD)
+console.log(payment.cents);  // 1000
+
+payment.amount = 7;
+console.log(payment.amount); // 7 (USD)
+console.log(payment.cents);  // 700
+
+// with setter and getter methods, the program can dynamically adapt to "payment.amount = 7" change
+// if we set properties under the constructor, payment.cents won't be updated
+
+class Payment {
+    constructor(amount) {
+        this.amount = amount;
+        this.cents = amount * 100;
+    }
+}
+
+// changing payment.amount from 10 to 7 will only affect payment.amount, won't affect payment.cents
+// so, payment.cents still would be 1000 even though it should be 700

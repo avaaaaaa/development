@@ -1,0 +1,9 @@
+* prettier.io
+automatically formats your code
+its purpose is different from minification
+	does not remove white-spaces or comments
+	it is used to make the code more clear, readable, easy to read & understand
+	not trying to reduce the file size necessarily
+
+in vscode, check for "format on save" option on settings
+this will format the code automatically after the file is saved 

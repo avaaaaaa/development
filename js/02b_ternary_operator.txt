@@ -1,0 +1,30 @@
+* short way of implementing if-else condition where there is only one-line of code in if and else block
+
+const a = 2;
+const b = 3;
+const c = (a > b) ? 4 : 5;
+console.log(c);  // 5
+
+/*
+let c;
+if(a > b){
+  c = 4;
+}
+else{
+  c = 5;
+}
+*/
+
+
+function evenOrOdd(number){
+  return (number % 2 === 0) ? "even": "odd";
+}
+
+/*
+function evenOrOdd(number){
+  if(number % 2 === 0){
+    return "even";
+  }
+  return "odd";
+}
+*/

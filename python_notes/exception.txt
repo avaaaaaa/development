@@ -1,0 +1,25 @@
+* general structure
+try
+except
+else
+
+
+*try-except-else
+	x = 2
+	y = 3
+	try:
+		result = x / y
+	except ZeroDivisionError:
+		print("divider cannot be zero")
+	else:
+		print(result)
+
+* if you are not sure what exception needs to be handled,
+avoid bare except block and use Exception to get info about the error
+	try:
+		...
+	except Exception as e:
+		print(e, type(e))
+	except:
+		# avoid this
+		pass

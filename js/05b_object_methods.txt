@@ -1,0 +1,72 @@
+* Object.keys(<object>)
+returns an array of keys of <object>
+
+const person = {
+  id : 1,
+  name: "gg",
+  interests : ["a", "b"],
+}
+
+const keys = Object.keys(person);
+keys.forEach(key => {
+  console.log("key:", key, "value:", person[key])
+});
+
+
+* Object.values(<object>)
+returns an array of values of <object>
+
+const user = {
+    id: 1,
+    name: "Sam Green",
+    age: 20
+};
+
+const values = Object.values(user);
+console.log(values); // [1, "Sam Green", 20]
+
+
+* Object.entries(<object>)
+returns an array of arrays that pair keys and corresponding values
+every array in the return array will represent k/v pairs
+
+const user = {
+    id: 1,
+    name: "Sam Green",
+    age: 20
+};
+
+const entries = Object.entries(user);
+// [["id", 1], ["name", "Sam Green"], ["age", 20]]
+// entries[0] is ["id", 1]
+// entries[1] is ["name", "Sam Green"]
+// entries[2] is ["age", 20]
+
+
+** Object.groupBy(<array of objects>, <callback func>)
+const books = [
+  {id: 1,
+   author: "gg",
+   pages: 200,},
+  {id: 2,
+  author: "ff",
+  pages: 300},
+  {id: 3,
+  author: "gg",
+  pages: 250},
+];
+
+const groupedByAuthor = Object.groupBy(books, book => book.author);
+/*
+{
+  gg: [
+    { id: 1, author: 'gg', pages: 200 },
+    { id: 3, author: 'gg', pages: 250 }
+  ],
+  ff: [ { id: 2, author: 'ff', pages: 300 } ]
+}
+*/
+
+
+* Object.getPrototypeOf(<object>)
+to inspect <object>.prototype

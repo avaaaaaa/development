@@ -1,0 +1,177 @@
+* define functions
+function myFunc(){
+...
+}
+function myFunc2(a, b){
+...
+}
+
+
+* calling functions
+myFunc()
+myFunc2(2, 3)
+
+
+* parameter vs argument
+myFunc2(2, 3)
+// a, b in the function definition are called parameters
+// 2, 3 are the arguments that are passed to the parameters when calling functions
+// so, parameters when defining, arguments when calling
+
+
+* defining the same function again
+
+function f1(){
+  return "a"
+}
+
+function f1(){
+  return "b"
+}
+
+console.log(f1())
+// b
+
+let f1 = 2;
+// SyntaxError: Identifier 'f1' has already been declared.
+
+
+* variable scope
+variables are visible only within the code block where they are declared & defined under
+
+function f1(){
+  let v1 = 1
+}
+
+function f2(){
+  console.log(v1)
+}
+
+f2()
+// ReferenceError: v1 is not defined
+
+
+* default parameter
+
+function printMessage(msg){
+  console.log(msg);
+}
+printMessage();  // undefined
+printMessage("hey");  // hey
+
+function printMessage(msg="No argument is provided"){
+  console.log(msg);
+}
+printMessage();  // No argument is provided
+printMessage("hey");  // hey
+
+
+* 'import', 'export' statements
+---a.js---
+export function sum(a, b){
+	return a + b
+}
+export function subtract(a, b){
+	return a - b
+}
+
+---b.js---
+import {sum, subtract} from "./a.js"
+let resultSum = sum(2, 3)
+let resultSubtract = subtract(2, 3)
+
+
+* improving the algorithm
+function isPositive(n){
+  if(n > 0){
+    return true
+  }
+  else{
+    return false
+  }
+}
+// can also be written as below
+function isPositive(n){
+  return n > 0
+}
+
+function getMessage(n){
+  let msg
+  if(n > 0){
+    msg = "positive"
+  }
+  else{
+    msg = "not positive"
+  }
+  return msg
+}
+// can also be written as below
+function getMessage(n){
+  let msg = "not positive"
+  if(n > 0){
+    msg = "positive"
+  }
+  return msg
+}
+
+
+* naming convention for funcs
+the same as variable naming convention
+check 00_datatype_variable_expression.txt
+
+
+* if program flow reaches to the end of execution of a function and haven't encountered a 'return' statement until that point, js will implicitly add 'return undefined" to the end of code block where
+program flow had reached
+
+function f(n){
+  if(n > 5){
+    return "> 5"
+  } else if(n < 5){
+    return "< 5"
+  }
+  // f(5) reaches and stops at this line but there is no 'return' statement there
+  // so, js imlicitly add 'return undefined' here
+}
+
+console.log(f(5))
+// undefined
+
+
+* 'return' and program flow
+if a function reaches a return statement, the function will be popped off from the call stack
+and the function at top of the call stack will continue from where it called the previous function
+
+function f1(){
+  f2()
+  console.log("f1")
+}
+
+function f2(){
+  console.log("f2")
+}
+
+f1()
+// "f2"
+// "f1"
+// if 'return' was added before f2() call,
+// the console log output would only show "f2" 
+
+
+* lines of code after 'return' statement are not accessible, i.e. won't be executed
+function f(){
+  let x = 1
+  return x
+  x = 2
+  return x
+}
+console.log(f())
+// 1
+
+
+* callback function
+it is a function that is passed as an argument, and that will be called by the programming language (sometimes at a later stage)
+check iteration from 04_array.txt
+
+* anonymous function
+it is a function without a name
+check iteration from 04_array.txt

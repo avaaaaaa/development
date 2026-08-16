@@ -1,0 +1,60 @@
+* The nullish coalescing "??" operator allows you to default to a certain value when the left-hand side is a nullish value.
+
+
+* A nullish value is a value that is either null or undefined.
+
+
+* ?? has low operator precedence
+to avoid unexpected results, wrap its operands with () if there are more operands than its operands
+
+
+*
+const getName = name => {
+    return name ?? "N/A";
+}
+
+console.log(getName("Sam")); // "Sam"
+console.log(getName(undefined)); // "N/A"
+console.log(getName(null)); // "N/A"
+
+
+*
+const getPlaceholder = () => {
+    console.log("getPlaceholder called");
+    return "N/A";
+}
+
+const sayHello = name => {
+    return `Hello ${name ?? getPlaceholder()}`;
+}
+
+console.log(sayHello("Sam")); // "Hello Sam"
+console.log(sayHello());  // "getPlaceHolder called" "Hello N/A"
+
+
+*
+const getWelcomeMessage = user => {
+    return `Welcome ${user?.fullName ?? "user"}`;
+}
+
+
+*
+let name = undefined;
+if (user.details && user.details.name && user.details.name.firstName) {
+    name = user.details.name.firstName;
+} else {
+    name = "N/A";
+}
+
+// the code above can be refactored to the code below using ?. and ?? operators
+const name = user.details?.name?.firstName ?? "N/A";
+
+
+*
+const getFullName = user => user.info?.name ?? "N/A";
+
+console.log(getFullName({info: {name: "Sam"}})); // "Sam"
+console.log(getFullName({info: null})); // "N/A"
+console.log(getFullName({})); // "N/A"
+console.log(getFullName()); // TypeError, because user is undefined, to avoid -> user?.info?.name
+

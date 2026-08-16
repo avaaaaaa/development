@@ -1,0 +1,127 @@
+* lists are mutable
+
+
+* deleting based on index
+	del x[1]
+	x.pop(1)
+
+
+* deleting based on value
+	x.remove(<value>)
+
+
+* sorting a list with key parameter
+	def _key_func_1(_list):
+		return _list[0]
+	def _key_func_2(_list):
+		return _list[1]
+
+	x = [[3, ‘a’], [2, ‘c’], [1, ‘b’]]
+	x.sort(key=_key_func_1)  # x = [[1, ‘b’], [2, ‘c’], [3, ‘a’]]
+	x.sort(key=_key_func_2)  # x = [[3, ‘a’], [1, ‘b’], [2, ‘c’]]
+
+
+* list comprehension
+
+	x = [1, 2, 3, 4, 5]
+	y = [i*2 for i in x] 
+		# y = [2, 4, 6, 8, 10]
+	y = [i*2 for i in x if i < 3]
+		# y = [2, 4]
+
+
+* copying a list
+	x = [1, 2]
+	y = x
+	x == y
+		# True (equal)
+	x is y
+		# True (identical), id(x) = id(y)
+	y = x[:]
+	x == y
+		# True (equal)
+	x is y
+		# False (not identical), id(x) != id(y)
+
+
+* copying a list
+	x = [1, 2]
+	y = list(x)
+	y == x
+		True (equal)
+	y is x
+		False (not identical)
+
+
+*
+x1 = [1, 1, 1]
+x2 = [2, 2, 2]
+y = [*x1, 99, *x2]
+	# y = [1, 1, 1, 99, 2, 2, 2]
+y = [x1, 99, x2]
+	# y = [[1, 1, 1], 99, [2, 2, 2]]
+
+
+*
+x = [1, 2]
+y = []
+y.append(x)
+	y =[[1, 2]]
+x.pop()
+	x = [1], y = [[1]]
+
+
+*
+x = [1, 2]
+y = []
+y.append(list(x))
+	y =[[1, 2]]
+x.pop()
+	x = [1], y = [[1, 2]]
+
+
+* sorting user-defined objects with sort()
+
+    class MyClass:
+        def __init__(self, a1, a2):
+            self.a1 = a1
+            self.a2 = a2
+        def __repr__(self):
+            return f"({self.a1}, {self.a2})"
+
+
+    obj_1 = MyClass(1, 1)
+    obj_2 = MyClass(0, 0)
+    obj_3 = MyClass(-1, 3)
+
+    my_list = [obj_1, obj_2, obj_3]
+
+    my_list.sort(key=lambda x: x.a1)
+    print(my_list)
+	[(-1, 3), (0, 0), (1, 1)]
+
+    my_list.sort(key=lambda x: x.a2)
+    print(my_list)
+	[(0, 0), (1, 1), (-1, 3)]
+
+    # x is applied to every item in the list
+    # thus, x represents MyClass objects  
+
+
+
+*remove duplications in a list
+list_x = list(set(list_x))
+
+
+*remove all '13' values in 'numbers' list
+while 13 in numbers:
+    numbers.remove(13)
+
+
+*
+x = y = [1]
+x.append(2)
+print(y)
+    # [1, 2]
+print(x == y)
+    # True, identical

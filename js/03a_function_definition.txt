@@ -1,0 +1,37 @@
+function sum1(a, b){
+  return a + b;
+}
+sum1;
+sum1(2, 3);
+
+const sum2 = function(a, b){
+  return a + b;
+}
+sum2;
+sum2(2, 3);
+
+const sum3 = (a, b) =>{
+   return a + b; 
+}
+sum3;
+sum3(2, 3);
+// arrow function
+
+/*
+[Function: sum1]
+5
+[Function: sum2]
+5
+[Function: sum3]
+5
+*/
+
+
+* wrapping parameters with () in arrow functions
+if there is only one parameter without a default value, () can be omitted
+otherwise, () have to be used
+
+const f1 = (a, b) => {}  // multiple parameters, () have to be used
+const f2 = (a) => {}     // one parameter with no default value, "const f2 = a => {}" is also correct
+const f3 = (a=1) => {}   // one parameter with a default value, () have to be used
+const f4 = () => {}      // there is no parameter, () have to be used

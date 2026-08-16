@@ -1,0 +1,3 @@
+* promises provide clearer syntax than callback pattern
+.then(callback) replaces the async success callback, will run after finishing the function
+.catch(callback) replaces the async error callback, will run if there is an error during execution

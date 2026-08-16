@@ -1,0 +1,13 @@
+it is a populer programming principle
+stands for Don't Repeat Yourself
+
+if we build our program using reusable functionalities,
+	it will be easy to test, maintain, change, debug the code
+
+so if there is a piece of code that is used repeatedly among the program,
+	it is a good practice to turn this piece of code into a reusable functionality
+	with that, it will be easy to change this functionality if we want to
+	rather than changing all the occurences, we will only need to change this reusable code
+	the rest will be changed according to the changes made in this reusable code
+
+usage of functions and classes is directly related to this principle

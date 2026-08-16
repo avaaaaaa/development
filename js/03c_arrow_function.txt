@@ -1,0 +1,62 @@
+* see 04_array for the methods used examples below
+
+
+* limitations in usage
+Arrow functions don't have their own bindings to "this", "arguments", or "super", and should not be used as METHODS. (avoid using arrow functions as class methods or instance methods)
+
+Arrow functions cannot be used as constructors. Calling them with "new" throws a TypeError. They also don't have access to the new.target keyword.
+
+Arrow functions cannot use "yield" within their body and cannot be created as generator functions.
+
+
+* arrow (=>) indicates that this will be a function
+so we drop "function" keyword
+{} wraps the body of functions
+if the body only has only one return statement that is only one line, we can drop {} and "return" keyword
+	see 03d_arrow_implicit
+so, => for "function" keyword
+implicit return for {} and "return" keyword
+
+
+*
+const getPositiveTemperatures = (temperatures) => {
+    return temperatures.filter(temperature => {
+        return temperature > 0;
+    });
+}
+getPositiveTemperatures([-5, 12, 3]);
+// [12, 3]
+
+
+*
+export const getDropdown = (countries) => {
+    console.log(countries);
+    let htmlString = `<option value="">Please select</option>`;
+    countries.forEach(country => {
+        const firstValue = country.toLowerCase();
+        const secondValue = firstValue[0].toUpperCase() + firstValue.substring(1);
+        htmlString += `<option value=${firstValue}>${secondValue}</option>`;
+    });
+    return htmlString;
+}
+getDropdown(["Netherlands", "Japan", "Germany"]);
+
+
+*
+const sumGrades = (grades) => {
+    return grades.reduce((total, grade)=> {
+        return total + grade;
+    }, 0);
+}
+sumGrades([1, 2, 3]);
+// 6
+
+
+*
+const doubleGrades = grades => {
+  return grades.map(grade => {
+    return grade * 2;
+  });
+}
+doubleGrades([1, 2, 3]);
+// [2, 4, 6]

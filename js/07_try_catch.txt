@@ -1,0 +1,18 @@
+* when a function call might fail, cause errors or does not exist at all,
+it is recommened to wrap the function call with try-catch block
+this will prevent errors breaking the code, so we can recover from them
+
+
+*
+console.log("Step 1");
+try {
+    nonExistentFunction();
+} catch (error) {
+    console.error(error); // Uncaught ReferenceError: nonExistentFunction is not defined
+}
+console.log("Step 2");
+
+// if the function above was called without try,
+	the program would be terminated with an uncaught error after logging "Step 1"
+// with try, we can still keep code running and do necessary actions about error that might happen
+	so we will see "Step 1", some information about caught error and then "Step 2"

@@ -1,0 +1,26 @@
+*
+const x = [1, 2];
+const y = x;
+y.push(3)
+console.log({x}, x === y)
+// { x: [ 1, 2, 3 ] } true
+
+
+*
+const x = {};
+const y = x;
+y.id = 1;
+console.log({x}, x === y);
+// { x: { id: 1 } } true
+
+
+* y is not a copy of x in above examples
+it is the same as x
+they have the same reference value
+so, changing y will affect x aswell
+but we can make shallow copies, so they won't have the same reference value anymore
+thus, changing one will not affect the other
+
+const y = [...x];  // making shallow copy for the first example
+const y = {...x};  // making shallow copy for the second example
+

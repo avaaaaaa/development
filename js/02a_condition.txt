@@ -1,0 +1,112 @@
+* boolean operators
+<, <=, >, >=
+=== (equality)
+!== (not equality)
+
+== can be used for equality check aswell but it has many flaws
+so it is recomended to use === instead of ==
+
+
+* negative zero is equal to zero
+-0 === 0;  // true
+
+
+* strict equal vs deep equal
+=== operand performs strict equal
+and this operation compares references when one of its operands is an object
+that's why two different object is not strict equal even if their properties are exactly the same
+two different objects are said to be deep equal if their properties are exactly the same
+deep equal is too slow to be used in front-end frameworks/libraries
+	which is why most of them rely on checking equality with ===
+see * array equality in 04a_array, * object equality in 05a_object
+
+
+*
+if(1), if(-1), if("h"), if([]), if({}) -> true
+if(0), if(""), if(null), if(undefined), if(NaN) -> false, these are called falsy values
+
+
+*
+boolean expressions are where operands combined with boolean operators
+these expressions yield boolean value i.e true or false
+
+let x = 1 > 2  // x is false
+let y = "abc" === "abC"  // y is false
+
+
+* if, else if, else
+conditions are built with "if", "else if" or "else" statements
+
+if(boolean_expression){
+// code block to execute if true
+} else if(boolean_expression){
+// code block to execute if true and
+// any conditions above are not true
+} else if(boolean_expression){
+// code block to execute if true and
+// any conditions above are not true
+} else{
+// code block to execute if any conditions above are not true
+}
+
+// "else" and "else if" are optional
+// there can be multiple "else if" as seen
+// but can only be one "else"
+
+
+* logical operators
+we can combine multiple boolean expressions with logical operators
+||(or), &&(and), !(not)
+let x = !(2 < 1)        // x is true, let x = ! 2 < 1 also works
+let y = 1 > 2 || 1 < 3  // y is true
+let z = 1 > 2 && 1 < 3  // z is false
+
+
+* using && as an if-condition
+const x = 10;
+const y = 20;
+x < y && console.log(`${x} is less than ${y}`);
+// '10 is less than 20'
+
+const x = 10;
+const y = 20;
+let z = 0;
+x < y && (z = 99);
+console.log(z);  // 99
+// () are needed for value assignment
+// x < y && z = 99; --> SyntaxError
+
+const x = 30;
+const y = 20;
+x < y || console.log(`${x} is less than ${y}`);
+// '30 is less than 20'
+
+
+* when there are a lot of equality checks, we can make use of objects and nullish coalescing
+see objects
+see nullish coalescing
+
+const getPushMessage = status => {
+    if (status === "received") {
+        return "Restaurant started working on your order.";
+    } else if (status === "prepared") {
+        return "Driver is picking up your food."
+    } else if (status === "en_route") {
+        return "Driver is cycling your way!";
+    } else if (status === "arrived") {
+        return "Enjoy your food!";
+    } else {
+        return "Unknown status";
+    }
+}
+
+const getPushMessage = status => {
+    const messages = {
+        received: "Restaurant started working on your order.",
+        prepared: "Driver is picking up your food.",
+        en_route: "Driver is cycling your way!",
+        arrived: "Enjoy your food!"
+    };
+
+    return messages[status] ?? "Unknown status";
+}

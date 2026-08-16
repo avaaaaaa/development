@@ -1,0 +1,9 @@
+minification is the process of reducing the file size
+	to do that, all the comments and white spaces will be removed
+	and semi colon(;) will be added to the end of every single statement
+	so statements will be distinguished from each other with these semi colons
+this process is automated with tools such as webpack, parcel, vite
+	don't do it manually
+you can use tools such as prettier
+	it will automatically insert semi-colons where needed
+	but it will not remove comments and white spaces

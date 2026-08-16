@@ -1,0 +1,75 @@
+* The goal of this chapter is to be able to "integrate" with other services from the Internet
+
+
+* Callbacks exist to handle tasks that take time to complete without blocking the execution of the rest of your code.
+In JavaScript, which runs on a single thread, blocking the execution of code would mean the browser or application becomes unresponsive until the task is complete.
+Without a mechanism like callbacks, JavaScript would have to stop everything else while waiting for the response.
+This would result in a poor user experience.
+Instead, JavaScript uses callbacks (and later promises and async/await) to allow the program to define what should happen once the task is complete.
+This way, the program can continue running other code in the meantime, and the callback is executed when the task finishes.
+
+The success callback is an asynchronous callback that will run when the function has finished its tasks
+The error callback is an asynchronous callback that will run when an error occurred during execution of the function
+this callback pattern can lead to confusion and callback hell, promises will replace this pattern later
+
+
+* When you ask a certain service/API for a request, the result will not be "instantaneous"
+It will take sometime anywhere between 100ms and 1s (on average)
+
+That's because your application has to send a request to another server, which then has to process it and then finally send you the response back
+
+
+* we will not work with an API yet
+so, we will use asynchronous callbacks to simulate this situation
+asyn callbacks are similar to the previous callbacks
+	but they run somewhere in the future
+	this will simulate the waiting time for a response
+
+setTimeout(() => {
+    console.log("One second has elapsed.");
+}, 1_000);
+// above code will log the output after 1000 ms
+
+
+* execution order
+js always runs the code from top to bottom
+but some parts of the code may be queued for the future
+
+console.log("A");
+setTimeout(() => {
+    console.log("B")
+}, 1_000);
+console.log("C");
+// A
+// C
+// B
+// setTimeout code runs immediately, however, it will queue the callback into the future
+
+
+console.log("A");
+
+setTimeout(() => {
+    console.log("B");
+}, 1_000);
+
+setTimeout(() => {
+    console.log("C");
+}, 2_000);
+
+console.log("D");
+/*
+A
+D
+B
+C
+*/
+
+
+*
+welcomeUser("Sam", () => {
+    console.log("Done welcoming user");
+});
+
+implementation of the function is omitted deliberately
+The example above assumes a function welcomeUser that accepts the name of the user as its first parameter, followed by the success callback.
+when execution of welcomeUser ended, the second parameter (async success callback) will be called

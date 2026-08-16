@@ -1,0 +1,70 @@
+* public instace variables
+
+class User{
+    publicVariable = 20;
+    constructor(a){
+        this.a = a;
+    }
+}
+const user1 = new User(1);
+const user2 = new User(2);
+user2.publicVariable ++;
+console.log(user1, user2);
+// Object { publicVariable: 20, a: 1 } Object { publicVariable: 21, a: 2 }
+// this shows that public variables are still instance variables, not class variables
+
+
+*
+class User{
+    name;
+
+    setName(name){
+        this.name = name;
+    }
+    getName(){
+        return this.name;
+    }
+}
+
+const user1 = new User;
+user1.setName("gg");
+console.log(user1.getName());  // gg
+
+
+* private instance variables and methods
+these variables and methods can be accessed only within the class definition where they are defined
+their names are prefixed with #(hash)
+before # is introduced, developers used _(underscore) as a prefix to signal it is private
+but using _ as a prefix is just a convention, javascript does not prevent these names to be accessed outside of the class
+private instance methods are often denoted as "helper" methods
+
+class User{
+    #name = "gg";
+    #testMethod(){
+        console.log("test");
+    }
+}
+const user = new User;
+console.log(user.#name);  // error
+console.log(user.name);  // undefined
+user.#testMethod();  // error
+user.testMethod();  // error, testMethod is not a function
+
+
+* to be able to set private instace variables within the constructor method, first we need to define these variables outside of the constructor, and then set their values within the constructor
+
+class User{
+    #name;
+    constructor(name){
+        this.#name = name; 
+    }
+    getName(){
+        return this.#name;
+    }
+}
+const user = new User("gg");
+console.log(user.getName());  // "gg"
+// if we comment #name; line, we will get an error
+
+
+

@@ -1,0 +1,13 @@
+* data type classes
+	numbers: int, float
+	sequences: string, list, tuple
+	dictionary
+	set
+	other built-in classes
+	user-defined classes
+
+
+* get type of an object
+x = 3
+type(x)  # <class ‘int’>
+type(type(x))  # <class ‘type’>

@@ -1,0 +1,49 @@
+* in javascript, classes are actually functions
+
+class Parent{
+
+}
+console.log(typeof(Parent));
+// function
+
+
+* class keyword is introduced in 2015 to make the code more readable, understandable
+
+
+* implementing constructor method and instance methods without class
+
+function User(firstName, lastName, age) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.age = age;
+}
+// this constructor method must be called with "new"
+
+// This has to be a function (not an arrow function)
+User.prototype.getFullName = function() {
+    return `${this.firstName} ${this.lastName}`;
+}
+
+// This has to be a function (not an arrow function)
+User.prototype.canVote = function() {
+    return this.age >= 18;
+}
+
+const user = new User("Sam", "Blue", 43);
+console.log(user.getFullName()); // "Sam Blue"
+console.log(user.canVote()); // true
+
+// You can think of the "prototype" as an object that contains all the instance methods that a certain function can have.
+
+
+*
+class MyClass{
+  printMessage(msg){
+    console.log(msg);
+  }
+}
+
+const test = new MyClass();
+test.printMessage("hello world");
+// printMessage method is not on "test" instance, it is on MyClass.prototype
+// all the instances of MyClass will have access to MyClass.prototype

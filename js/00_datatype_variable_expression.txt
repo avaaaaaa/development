@@ -1,0 +1,87 @@
+* variable definition and value assignment
+{let, const, var} <variable_name> = <value>
+
+
+* <value> types
+** number: 1, 1.2, -1
+** string: "hey", 'hey', `hey`
+** boolean: true, false
+** undefined
+let x;
+let y = undefined;
+** null
+let x = null;
+** NaN
+let x = NaN;
+
+
+* let, const, var
+
+** let for variables that can be re-assigned after declaration
+
+** const for variables that can't be re-assigned after declaration
+but their elements can be re-assigned
+for example, a const array cannot be re-assigned using the array name
+but its items can be re-assigned
+a const object cannot be re-assigned, but its properties can be re-assigned
+
+const x = [1, 2];
+x.push(3);
+console.log(x);  // [1, 2, 3]
+x = []; // TypeError: invalid assignment to const 'x'
+
+** var for old js, it is recommended to avoid using var, instead use let or const
+
+
+* NaN
+stands for Not a Number
+is often sign of a bug
+let x = NaN;
+let y = "abc" * 4;
+
+** check NaN
+Number.isNaN(NaN);  // true
+Number.isNaN("hello");  // false
+
+** how not to check NaN
+NaN === NaN  // false
+isNaN("hello")  // true
+
+
+* null vs undefined
+null for the object properties that are defined but do not have a value yet
+undefined for the object properties that does not exist yet
+see 05a_object.txt
+
+const user = {
+    id: 1,
+    name: "Sam",
+    age: null
+}
+
+console.log(user.age); // null
+console.log(user.birthday); // undefined
+// If we had given the value undefined to age (which is possible),
+// then this distinction won't hold true anymore.
+
+
+* expression
+combination of values, variables or functions with operators which yield a value
+examples of expression: 1 + 2, a + b, c + 3, a > b, c < 10
+
+
+* naming convension for variables
+names are case-sensitive in js -> "aB" is not equal to "ab"
+lowerCamelCase -> myNameYourAge, yourAgeMyName
+question tags for boolean variables -> isAdmin, hasLoggedIn, canVote
+starts with a letter or an underscore(_)
+	cannot start with a number
+
+
+* variable scope -> check 03_function.txt
+
+
+* cannot redefine the same variable within the code block where it is defined
+let x = 1
+let x = 3
+// SyntaxError: Identifier 'x' has already been declared.

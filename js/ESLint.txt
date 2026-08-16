@@ -1,0 +1,27 @@
+* a code style is a set of rules and guidelines that a certain team/person/company uses while developing a project. You don't necessarily need to have a code style, however, having a code style can make your code less prone to bugs, prevent some bugs ahead of time, all while making your code more homogeneous.
+
+
+* The most popular tool for enforcing/recommending certain code styles in JavaScript is called ESLint.
+
+
+* eslint.org
+
+
+* Setup ESLint for VSCode
+
+Open VSCode, click on the Extensions tab, and then search for ESLint
+click on the first result, "ESLint".
+Click on the Install button.
+
+At the root of your project, run "npm init @eslint/config" in the command line
+
+Answer the questions:
+    How would you like to use ESLint? To check syntax and find problems
+    What type of modules does your project use? JavaScript modules (import/export)
+    Which framework does your project use? None of these
+    Does your project use TypeScript? No
+    Where does your code run? Browser
+    Would you like to install them now? Yes
+    Which package manager do you want to use? npm
+
+

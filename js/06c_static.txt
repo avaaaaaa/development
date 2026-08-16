@@ -1,0 +1,45 @@
+* static methods and properties are accessed through class names
+
+
+* they are not specific to instances like instance methods & properties
+they represent general properties, functionalities reletad to classes
+
+
+*
+class User{
+  static users = [];
+  
+  static deleteUser(searchName){
+    const userNames = User.users.map(user => user.name);
+    const result = userNames.indexOf(searchName);
+    
+    if(result !== -1){
+        const left = User.users.slice(0, result);
+        //console.log(left, "left");
+
+        const right = User.users.slice(result + 1);
+        //console.log(right, "right");
+
+        User.users = [...left, ...right];
+        //console.log(User.users);
+    } else{
+        console.log(`user "${searchName}" not found`)
+    }
+  }
+
+  constructor(name){
+    this.name = name;
+    User.users.push(this);
+  }
+}
+new User("a");
+new User("b");
+new User("c");
+new User("d");
+
+console.log(User.users);
+
+User.deleteUser("f");
+
+console.log(User.users);
+

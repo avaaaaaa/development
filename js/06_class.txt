@@ -1,0 +1,150 @@
+* a class is a template for building the objects whose type is this class
+the class' properties will become the object's properties
+the class' methods will become the object's methods
+
+
+* first, we grouped related variables(properties) and functions(methods) into an object
+now, we group related objects into a class
+so, a class is a factory & blueprint that is used to create different objects from that class  
+
+
+*
+instantiation: creating an object from a class
+instance: the object that is created from a class is called an instance of that class
+
+
+* class naming convention: UpperCamelCase
+
+
+* class definition
+class User{
+...
+}
+
+
+* instantiation
+let user = new User();  // user is an instance of User class
+
+
+* class constructor
+this function will be called automatically every time an instance is created
+
+class User{
+  constructor(){
+    console.log("an instance is being created")
+  }
+}
+let user1 = new User();
+let user2 = new User();
+// 'an instance is being created'
+// 'an instance is being created'
+
+
+* export, import statements
+// class definition in user.js
+export default class User{
+  constructor(){
+    console.log("an instance is being created")
+  }
+}
+
+// class usage in index.js
+import User from "./user.js";
+let user1 = new User();
+let user2 = new User();
+
+
+* constructor with parameters, instance variables, instance methods
+instance variables are the variables the object have and can modify them for itself
+instance methods are the functions the object can call for itself
+	notice that "function" keyword is not used to define these functions
+
+class User{
+  constructor(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.secretFlag = false;
+    // this keyword refers to the current object that is being created
+  }
+  
+  getFullName(){
+    return `${this.firstName} ${this.lastName}`
+  }
+  // getFullName = () => `${this.firstName} ${this.lastName}`
+  
+  printMessage(msg){
+    return `this is the message from '${this.getFullName()}': ${msg}`
+  }
+  // printMessage = (msg) => `this is the message from '${this.getFullName()}': ${msg}`
+}
+let user1 = new User("gg1", "ff1");
+let user2 = new User("gg2", "ff2");
+console.log(user1.firstName, user2.lastName, user1.secretFlag);
+// 'gg1' 'ff2' false
+console.log(user1.getFullName());
+// 'gg1 ff1'
+console.log(user1.printMessage("hello world"));
+// "this is the message from 'gg1 ff1': hello world"
+
+
+* example
+export default class Stats {
+    /** @param {array} grades */
+    constructor(grades){
+        this.grades = grades;
+        // grades parameter is an array of numbers
+    }
+    getNumberOfGrades(){
+        return this.grades.length;
+    }
+    getFirstGrade(){
+        return this.grades[0];
+    }
+    getLastGrade(){
+        return this.grades[this.grades.length - 1];
+    }
+    getSumOfGrades(){
+        let grades = this.grades;
+        return grades.reduce(function(total, current){
+            return total + current
+        }, 0);
+    }
+    getAverageGrade(){
+        return this.getSumOfGrades() / this.grades.length;
+    }
+    exportCsv(){
+        return this.grades.join(", ");
+    }
+}
+
+
+* ToDo app example
+
+export default class Todos {
+    // Do NOT modify the constructor
+    constructor() {
+        // we don't capture any parameters here
+        // we're defining an array of todos with two example todos
+        this.todos = [{
+            title: "Learn JavaScript",
+            category: "work"
+        }, {
+            title: "Meditate",
+            category: "personal"
+        }];
+    }
+
+    // TODO: define remaining instance methods
+    getAll = () => this.todos
+    getCount = () => this.todos.length
+    add = (title, category) => {
+        const newToDo = {title, category};
+        this.todos.push(newToDo);
+    }
+    getWork = () => this.todos.filter(todo => todo.category === "work")
+    getWorkCount = () => this.getWork().length
+    getPersonal = () => this.todos.filter(todo => todo.category === "personal")
+    getPersonalCount = () => this.getPersonal().length
+    
+}
+

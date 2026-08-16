@@ -1,0 +1,307 @@
+glossary
+    for reference
+      https://docs.github.com/en/get-started/learning-about-github/github-glossary
+      https://git-scm.com/docs/gitglossary
+
+    git: an open source, distributed version-control system
+
+    GitHub: a platform for hosting and collaborating on Git repositories
+
+    commit: a Git object, a snapshot of your entire repository compressed into a SHA
+
+    branch: A branch is a parallel version of a repository.
+      It is contained within the repository, but does not affect the primary or main branch
+        allowing you to work freely without disrupting the "live" version.
+      When you've made the changes you want to make,
+        you can merge your branch back into the main branch to publish your changes.
+
+    clone: a local version of a repository, including all commits and branches
+
+    remote: a common repository on GitHub that all team member use to exchange their changes
+
+    fork: a copy of a repository on GitHub owned by a different user
+
+    HEAD: representing your current working directory.
+      the HEAD pointer can be moved to different branches, tags, or commits when using 'git checkout'
+
+    pull request: a place to compare and discuss the differences
+      introduced on a branch with reviews, comments, integrated tests, and more
+      for reference
+        https://docs.github.com/en/pull-requests/collaborating-with-pull-requests
+          /proposing-changes-to-your-work-with-pull-requests/about-pull-requests
+        https://docs.github.com/en/pull-requests/collaborating-with-pull-requests
+          /proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
+
+    merge: Merging takes the changes from one branch (in the same repository or from a fork),
+      and applies them into another. This often happens as a "pull request"
+      (which can be thought of as a request to merge), or via the command line.
+      if there are no conflicting changes, a merge can be done through
+        a pull request via the GitHub.com web interface, or can always be done via the command line.
+
+    merge conflict: A difference that occurs between merged branches.
+      Merge conflicts happen when people make different changes to the same line of the same file,
+        or when one person edits a file and another person deletes the same file.
+      The merge conflict must be resolved before you can merge the branches.
+    
+
+git(local) -> github, gitlab(remote)
+
+github flow: illustration at second page of github-cheat-sheet
+
+.gitignore file
+    the files&directories in ".gitignore" are not tracked by git
+    create this file in the root directory of the git repository
+    If you want to ignore a file that is already checked in,
+      untrack the file first.
+        git rm --cached <file_name>
+      then add a rule to ignore it
+      after untracking the file, if you push to the remote, the file on the remote will be deleted
+    reference
+      https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+      https://git-scm.com/docs/gitignore
+    * python/
+        all folders named "python" are ignored under the root directory
+        includes sub-folders
+      /python/
+        all folders named "python" are ignored at the root directory
+        does not include sub-folders
+
+** check if git is installed
+git --version
+
+** configuration
+# use "--global" flag if you want to apply to all local repositories
+git config [--global] user.name "[name]"
+git config [--global] user.email "[email_address]"
+git config [--global] color.ui auto
+
+** check configuration
+git config [--global] user.name
+git config [--global] user.email
+
+
+
+** create repos
+git init
+    turn the current working directory into a git repo
+
+git clone [URL]
+    clone (download) a repo that already exists on github
+
+
+
+** branch operations
+git status
+    show the current branch and the current status
+
+git branch --help
+    get help
+
+git branch
+    show local branches and the current branch
+    the current branch is marked with an asterisk
+
+git branch -r
+    show remote branches
+
+git branch -a
+    show all branches
+
+git branch <branch>
+    create a new branch called <branch>
+    doesn't switch to <branch>, just creates it
+
+git branch (-m, -M) <branch>
+    rename the current branch as <branch>
+
+git branch (-d, -D) <branch>
+    delete <branch>
+
+git branch -u <upstream> [branch]
+    Set up <branch>'s tracking information,
+      so <upstream> is considered <branch>'s upstream branch
+    If no <branch> is specified, then it defaults to the current branch.
+
+git branch --unset-upstream [<branch>]
+    Remove the upstream information for <branch>
+    If no branch is specified, it defaults to the current branch.
+
+git checkout <branch>
+    switch to <branch> and update working directory
+
+git checkout -b <branch>
+    create <branch>, switch to it and update working directory
+
+git merge <branch>
+    merge <branch> into the current branch
+    this is usually done in pull requests
+
+git diff <branch>
+    show the difference between the current branch and <branch>
+
+
+
+** workflow
+states
+    1. unstaged
+    2. staged
+    3. committed
+
+git status
+    show the current states on the current branch
+
+git log
+    list version history for the current branch
+
+1 -> 2
+    git add .
+      track all files
+    git add <file>
+
+2 -> 1
+    "git reset ." | "git reset"
+      unstage all staged files
+    git reset <file>
+    git restore --staged [<file> | .]
+
+2 -> 3
+    git commit -m "<message>"
+      If multiple -m options are given, their values are concatenated as separate paragraphs.
+
+1 -> 3
+    git commit -am "<message>"
+      only works for tracked modified files
+
+to discard changes of modified files in unstaged state
+  this cannot be done for modified files in staged state
+    git restore [<file> | .]
+    git checkout [<file> | .]
+
+to see changes of modified files in unstaged state
+  this cannot be done for modified files in staged state
+    "git diff ." | "git diff"
+    git diff <file>
+
+git reset [--hard] <commit>
+    Undo all commits after <commit>, preserving changes locally
+
+
+
+** remote operations
+git remote --help
+    get help
+
+git remote
+    show existing remotes
+
+git remote add <name> <URL>
+    add a remote named <name> for the repository at <URL>
+    this associates the <name> with the <URL>
+    <name> is set 'origin' by convention
+
+git remote rename <remote> <newname>
+    rename <remote> as <newname>
+
+git remote get-url <name>
+    get the URL of the remote called <name>
+
+git remote set-url <name> <newurl>
+    set the URL of the remote called <name>
+
+git remote show <remote>
+    get information (URLs, the tracking local branch etc.) about <remote>
+
+git push -u <remote> <local_branch>
+    'local -> remote' operation
+    set <remote> as upstream and push <local_branch> to <remote>
+    from now on, <local_branch> will track its remote counterpart
+    * git push -u origin main
+        branch 'main' set up to track 'origin/main'
+    after that initial push, we can use 'git push' for that operation without options and parameters.
+      this will push the current branch to the remote.
+      it is not needed to set upstream or specify the local branch name every time.
+      but if '-u <remote>' is not specified at first push operation,
+        following error will occur:
+        fatal: The current branch 'test' has no upstream branch
+
+
+git fetch [remote] [remote_branch]
+    'remote -> local' operation
+    'fea' branch is created at github
+    but 'fea' is not known by local git
+      error: the requested upstream branch 'origin/fea' does not exist
+      we can also check it with 'git branch -r'
+        there is no 'origin/fea' upstream branch on the output
+    with 'git fetch', local git updates upstream branches
+      now 'origin/fea' is available
+
+    similarly, a document is updated at github
+    but this update is not known by local git
+    'git status' still show that 'main' is up to date with 'origin/main'
+    after 'git fetch', changes made at github is retrieved by local git
+    now 'git status' shows that 'main' branch is behind 'origin/main' by 1 commit
+
+    so, in short
+      When you use 'git fetch'
+        you're adding changes from the remote repository
+        to your local working branch without committing them.
+      Unlike 'git pull', fetching allows you to review changes
+        before committing them to your local branch.
+        to do that, you can use 'git diff origin/main'
+        if you are on local 'main' branch, this command will show
+          the differences between local 'main' and remote 'origin/main'
+
+
+git merge [--abort]
+    'remote -> local' operation
+    Combine remote tracking branch into current local branch
+    '--abort' can be used to undo the merge
+
+merge conflict example
+    create 'test.txt'
+    create 'fea' branch
+
+    checkout to 'fea' branch
+    edit 'test.txt'
+      type "1" at first line, and save
+    commit
+    checkout to 'main' branch
+    edit 'test.txt'
+      type "1" at first line, and save
+    commit
+    'git merge fea'
+      >> Merge made by the 'ort' strategy
+
+    checkout to 'fea' branch
+    edit 'test.txt'
+      type "2" at second line, and save
+    commit
+    checkout to 'main' branch
+    edit 'test.txt'
+      type "3" at second line, and save
+    commit
+    'git merge fea'
+      >> Auto-merging test.txt
+         CONFLICT (content): Merge conflict in test.txt
+         Automatic merge failed; fix conflicts and then commit the result.
+
+    now, checkout the markers at 'test.txt' on main branch
+    they inform about the conflict
+
+    at this point,
+      it is not possible to checkout to 'fea'
+      we can abort the merge with 'git merge --abort'
+      we can resolve the conflict manually on 'test.txt'
+        remove the markers and make your choice between the conflicting lines
+        save the file
+        git commit -am "<message>"
+
+    if 'git merge fea' is run after that,
+      >> Already up to date.
+
+
+git pull
+    'remote -> local' operation
+    update local git with upstream branch
+    Incorporate changes from a remote repository into the current branch
+    a combination of 'git fetch' and 'git merge'

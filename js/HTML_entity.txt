@@ -1,0 +1,116 @@
+we can use html entities in js to put symbols on web pages
+web browsers will render these entities and put the symbol afterwards
+this is different from putting symbols on the console with unicode characters
+we are trying to put these symbols on actual web page
+
+they start with &(ampersand) and ends with semi-colon(;)
+&copy; for copyright symbol (©)
+&eur; for euro symbol (€)
+
+let x = "&copy;";
+console.log(x);
+// '&copy;'
+// as explained earlier, html entities are used to put symbols on web pages i.e. html files
+// so, 'x' won't be shown as copyright symbol on the console
+// to do that, we can use unicode equivalent -> let x = "\u{00A9}";  // '©'
+
+
+* example
+
+---data.js---
+let data = {
+  "request": {
+    "type": "City",
+    "query": "Amsterdam",
+    "language": "en",
+    "unit": "m"
+  },
+  "location": {
+    "name": "Amsterdam",
+    "country": "Netherlands",
+    "region": "North Holland",
+    "lat": "52.374",
+    "lon": "4.890",
+    "timezone_id": "Europe/Amsterdam",
+    "localtime": "2020-11-25 09:11",
+    "localtime_epoch": 1606295460,
+    "utc_offset": "1.0"
+  },
+  "current": {
+    "observation_time": "08:11 AM",
+    "temperature": 4,
+    "weather_code": 113,
+    "weather_icons": [
+      "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0001_sunny.png"
+    ],
+    "weather_descriptions": [
+      "Clear"
+    ],
+    "wind_speed": 17,
+    "wind_degree": 160,
+    "wind_dir": "SSE",
+    "pressure": 1014,
+    "precip": 0,
+    "humidity": 87,
+    "cloudcover": 0,
+    "feelslike": 1,
+    "uv_index": 1,
+    "visibility": 10,
+    "is_day": "yes"
+  }
+}
+
+export default data;
+
+
+---index.html---
+<nav class="navbar">
+    <h1 class="nav-brand">Weather report</h1>
+</nav>
+
+<main class="container">
+    <div class="card">
+        <h2 id="city-country"></h2>
+        <div class="icon-temp">
+            <img src="" alt="weather icon" id="icon" />
+            <h3 id="temperature"></h3>
+        </div>
+    </div>
+</main>
+
+
+---weather.js---
+export default class Weather {
+    /** @param {object} details */
+    constructor(details){
+        this.details = details;
+    }
+    getLocation(){
+        let city = this.details.location.name;
+        let country = this.details.location.country;
+        return city + ", " + country;
+    }
+    getIcon(){
+        return this.details.current.weather_icons[0];
+    }
+    getTemperature(){
+        return this.details.current.temperature + "&deg;" + "C";
+    }
+}
+
+
+---index.js---
+import data from "./data.js";
+import Weather from "./weather.js";
+
+let cityCountry = document.querySelector("#city-country");
+let icon = document.querySelector("#icon");
+let temperature = document.querySelector("#temperature");
+
+// Instantiate Weather with `data`. This data becomes the `details` parameter in the Weather class
+let weather = new Weather(data);
+
+cityCountry.textContent = weather.getLocation();
+icon.src = weather.getIcon();
+temperature.innerHTML = weather.getTemperature();
+

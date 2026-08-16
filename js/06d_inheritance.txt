@@ -1,0 +1,150 @@
+* inheritance
+see DRY.txt
+a child class inherits instance variables & methods (including constructor) from its parent class
+thus they won't be repeated in the child class definition
+a child class have one or more functionality & property that differs from its parent
+	so every child is also parent type, but not vise verca
+	for example every student is a human, but not every human is a student
+
+// Human is the parent class of Student and Doctor classes
+// Student and Doctor are the child classes of Human class
+// the parent class has to be implemented before its child class(es)
+	// otherwise, we will get ReferenceError
+
+class Human{
+  constructor(name, age){
+    this.name = name;
+    this.age = age;
+    // every human has a name and an age
+  }
+  eat(){};
+  sleep(){};
+  // every human eats and sleeps
+}
+
+class Student extends Human{
+  goToSchool(){};
+  // every student has a name, an age
+  // every student eats and sleeps
+  // but not every human goes to school
+}
+
+class Doctor extends Human{
+  treatPatients(){};
+  // every doctor has a name, an age
+  // every doctor eats and sleeps
+  // but not every human can treat patients
+}
+
+
+* override
+child classes can override the methods they inherited from their parent class
+
+class Parent{
+  constructor(a, b){
+    this.a = a;
+    this.b = b;
+  }
+  printMessage(msg){
+    return `message from parent: ${msg}`;
+  }
+}
+
+class Child extends Parent{
+  constructor(a, b, c){
+    super(a, b);
+    this.c = c
+  }
+  printMessage(msg){
+    return `message from child: ${msg}`;
+  }
+}
+
+child = new Child(1, 2, 3);
+console.log(child.printMessage("hello world"))
+
+// Child { a: 1, b: 2, c: 3 }
+// 'message from child: hello world'
+
+// super keyword can be used to call the parent constructor
+// in above, child class overrides constructor and printMessage methods
+// when implementing the child constuctor, we can call super() to set 'a' and 'b' instance variables
+// because a and b inherited from the parent, but c is specific to the child
+// think of parent as human, a and b as name and age
+// think of child as student, c as studentID
+
+
+** if the parent constructor is overridden, we still need to call the parent constructor with super()
+within the child constructor
+
+
+
+*
+class Parent{
+    constructor(){
+
+    }
+}
+class Child extends Parent{
+    constructor(){
+    	//super();
+        console.log();
+    }
+}
+new Child();
+// reference error
+// must call super constructor in derived class before accessing 'this' or returning from derived constructor
+// thus, we have to uncomment super(); line
+
+
+* calling parent methods with "super"
+
+class Employee {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    getFullName() {
+        return `${this.firstName} ${this.lastName}`;
+    }
+
+}
+
+class Manager extends Employee {
+    getFullName() {
+        return super.getFullName() + " [manager]";
+    }
+}
+
+const manager = new Manager("Sam", "Blue");
+console.log(manager.getFullName()); // "Sam Blue [manager]"
+
+// i tried to change getFullName into an arrow function in Employee as following
+// getFullName = () => `${this.firstName} ${this.lastName}`
+// but console output was only "Sam Blue" without "manager"
+// then i looked at mdn, it says
+	Arrow functions don't have their own bindings to "this", "arguments", or "super", and should not be used as methods.
+// so, there we have it, we were trying to use it as a method which something we should not do
+
+
+*
+class Parent{
+  printNumber(a){
+    console.log(a);
+  }
+}
+
+class Child extends Parent{
+  printNumber(a, b){
+    console.log(a, b);
+  }
+}
+
+const child = new Child();
+child.printNumber(1);
+
+// 1 undefined
+// i was curious if the parent method will be called or not in this case
+// but no, the overridden version is called still
+

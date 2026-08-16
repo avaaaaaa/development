@@ -1,0 +1,14 @@
+* anonymous functions
+
+
+* lambda [arguments]: [expression]
+there can be many arguments, but only one expression
+
+
+*
+add = lambda x, y: x + y
+print(add(3, 5))
+    # 8
+greeting = lambda name: f"Hello {name}"
+print(greeting("john"))
+    # "Hello john"

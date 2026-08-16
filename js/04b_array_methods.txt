@@ -1,0 +1,247 @@
+* array methods
+push, includes, toString, at,
+filter, find, join, forEach,
+map, reduce, every, some
+toSpliced
+
+
+** Array.push(item)
+adds item at the end of the array
+returns the length of the updated array
+
+const x = [1, 2]
+let lengthOfX = x.push(3);
+console.log(lengthOfX, x);
+// x = [1, 2, 3], lengthOfX = 3
+
+lengthOfX = x.push(4, 5);
+console.log(lengthOfX, x);
+// x = [1, 2, 3, 4, 5], lengthOfX = 5
+
+lengthOfX = x.push([6, 7]);
+console.log(lengthOfX, x);
+// x = [1, 2, 3, 4, 5, [6, 7]], lengthOfX = 6
+	
+
+** Array.includes(item)
+returns true if the item is in the array
+returns false otherwise
+
+
+** Array.toString()
+const x = [1, 2, 3, [4, 5]]
+x.toString();  // '1,2,3,4,5'
+
+const y = [1, true, "hey"];
+y.toString();  // '1,true,hey'
+
+
+** Array.at(index)
+returns the item at the index of the array
+negative indices count back from the last item
+
+const users = ["Sam", "Alex", "Charley", "Blane", "Crane"];
+users.at(0); //"Sam"
+users.at(1); //"Alex"
+users.at(-2); //"Blane"
+users.at(-1); //"Crane"
+
+
+** Array.filter()
+returns an array that have the items of the base array that satisfies the specified condition
+returns [] if there is no item in the base array satisfies the condition
+
+const numbers = [9, 5, 14, 3, 11];
+const filteredNumbers = numbers.filter(function(number){
+  return number > 10;
+});  // [14, 11]
+
+
+** Array.find()
+returns the only first item of the base array that satisfies the condition
+returns undefined otherwise
+
+const numbers = [9, 5, 14, 3, 11];
+const firstAboveTen = numbers.find(function(number){
+  return number > 10;
+});  // 14
+
+
+** Array.join(char)
+combines array items with char into a string
+myArray = [1, "0", true]
+myString = myArray.join(", ") // "1, 0, true"
+myString = myArray.join(";")  // "1;0;true"
+let array = [[1, 2], [3, 4]]
+array.join(",")  // "1,2,3,4"
+array.join(" A ")  // "1,2 A 3,4"
+
+// csv(comma-separated values)
+let array = [1, 2, 3, 4]
+let csvString = array.join(", ")  // "1, 2, 3, 4"
+
+
+** Array.forEach(function)
+calls the function for every item in the array
+useful when we want to check the value of every single item in the array
+see iteration
+
+
+** Array.map(function)
+transforms the array by using the function
+we want to create another array based on the array calling this function
+we don't need to access every single item and check their values
+	thus, iteration is not needed
+
+let array = [1, 2, 3]
+let doubleArray = array.map(function(item){
+	return item * 2
+	})  // [2, 4, 6]
+
+let names = ["galip", "furkan", "emre"]
+let firstAndLastLetter = names.map(function(name){
+	return name[0] + ", " + name[name.length - 1]
+	})  // [ "g, p", "f, n", "e, e" ]
+
+export function getRaisedGrades(grades) {
+    // TODO: return all the grades raised by 1 (no grade should exceed 20)
+    return grades.map(function(grade){
+        return (grade + 1 > 20) ? 20 : grade + 1;
+    });
+}
+
+export const renderTableRows = rows => {
+    console.log(rows);
+    const arrayRows = rows.map(row => `<tr><td>${row[0]}</td><td>${row[1]}</td></tr>`);
+    console.log(arrayRows.join(""));
+    return arrayRows.join("");
+}
+// [["Carbs", "17g"], ["Protein", "19g"], ["Fat", "5g"]] will be the argument
+
+export const getDropdown = (countries) => {
+    console.log(countries);
+    const optionsArray = countries.map(country =>{
+        const inLowerCase = country.toLowerCase();
+        const inCapital = inLowerCase[0].toUpperCase() + inLowerCase.substring(1);
+        return `<option value="${inLowerCase}">${inCapital}</option>`
+    });
+    console.log(optionsArray);
+    return `<option value="">Please select</option>` + optionsArray.join("");
+}
+// ["Netherlands", "Japan", "Mongolia"] will be the argument
+
+// we could use forEach for the last two examples.
+// but it is recommended to get used to this approach
+// because this (or similar approaches) is very frequently used in front-end
+// libraries & frameworks like (React, Angular, lit-element)
+// see https://learnjavascript.online/app.html?id=1549
+
+
+** Array.reduce(reducerFunction, initialValue)
+it will reduce the array into a single value
+reducerFunction takes 2 parameters: total, current
+	"total" is the current result of the reduce at the time
+		can also be called as accumulator
+	"current" will be the name of every single item from the array
+		every single of them will be passed to the reducer one by one
+		after the last item is processed by the reducer, the reducer will return "total"
+initialValue is the starting value of "total" (the accumulator)
+
+let array = [1, 2, 3]
+let reduceSum = array.reduce(function(total, current){
+	return total + current
+	// total will be (total + current) in the next function call
+	}, 0)  // 6
+// 0 is the initial value of the accumulator 
+
+let reduceMultiply = array.reduce(function(total, current){
+	return total * current
+	// total will be (total * current) in the next function call
+	}, 1)  // 6
+// 1 is the initial value of the accumulator
+
+
+** Array.every(callback)
+returns true if every item in the array returns true from the callback
+returns false otherwise
+
+const isAllEven = [1, 2, 4].every(number => number % 2 === 0);  // false
+const isAllEven = [0, 2, 4].every(number => number % 2 === 0);  // true
+
+
+** Array.some(callback)
+returns true if any item in the array returns true from the callback
+returns false otherwise, i.e. if every item in the array returns false
+
+const isThereOdd = [0, 2, 4].some(number => number % 2 === 1);  // false
+const isThereOdd = [1, 2, 4].some(number => number % 2 === 1);  // true
+
+
+** Array.toSpliced(start[, skipCount])
+removes [start, start + skipCount) portion of the array
+"skipCount" is optional, if omitted, removes from "start" until the end of the array
+the base array is not modified, a new array will be returned
+
+const numbers = [8, 12, 14, 6];
+numbers.toSpliced(0);     // []
+numbers.toSpliced(0, 1);  // [12, 14, 6]
+numbers.toSpliced(0, 2);  // [14, 6]
+numbers.toSpliced(1);     // [8]
+numbers.toSpliced(1, 1);  // [8, 14, 6]
+numbers.toSpliced(1, 2);  // [8, 6]
+numbers.toSpliced(-1);    // [8, 12, 14]
+numbers.toSpliced(-2);    // [8, 12]
+numbers.toSpliced(-2, 1); // [8, 12, 6]
+
+
+* iteration
+function logItem(item){
+  console.log(item)
+}
+array = [1, 2, 3, 4]
+array.forEach(logItem)
+
+// can also be written as
+array = [1, 2, 3, 4]
+array.forEach(function logItem(item){
+  console.log(item)
+})
+
+// logItem is the callback function that is called automatically by js
+
+// can also be written as
+array = [1, 2, 3, 4]
+array.forEach(function (item){
+  console.log(item)
+})
+
+// in this case, the function name is dropped
+// if the function is not going to be re-used, no need to declare it
+// this function is named as anonymous function
+
+
+let grades = [...]
+grades.forEach(function(grade)){
+	console.log(grade)
+}
+// so, "grade" will be the variable name for every single item in the "grades" array
+
+
+** sum of numbers in an array
+let grades = [10, 18, 14, 15]
+
+let sum = 0
+grades.forEach(function(grade){
+    sum += grade
+})
+console.log(sum)
+
+
+**
+function sumOddNumbers(numbers) {
+    let s = 0;
+    numbers.forEach(function(number){
+        s += ([-1, 1].includes(number % 2)) ? number : 0;
+    });
+    return s;
+}

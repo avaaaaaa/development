@@ -1,0 +1,86 @@
+* unicode characters
+let icon = "\u{23f3}";  // ⏳
+// we could also do this: let icon = "⏳";
+
+
+* template string
+a string that is enclosed with a backtick character
+let x = `this is a template string`
+
+
+* string interpolation
+let name = "gg"
+let age = 18
+let msg = `welcome, ${name.toUpperCase()}. it's nice to meet you!`
+// interpolation only works with template strings
+
+
+* string concatenation
+let string = "this " + "is " + "concatenation"
+a + b
+	a=3,   b=5,   8    (addition)
+	a="3", b=5,   "35" (concat.)
+	a=3,   b="5", "35" (concat.)
+	a="3", b="5", "35" (concat.)
+
+
+* string length -> myString.length
+it is a property, not a function call, myString.length() -> wrong
+
+
+* accessing string characters with []
+firstChar = string[0]
+secondChar = string[1]
+lastChar = string[string.length - 1]
+
+** exceeding string length
+const x = "hey";
+console.log(x[5]);  // undefined
+
+
+* multi-line strings
+we can define multi-line strings with ``(backtick)
+this is not possible with "", ''
+
+let message = `Welcome to
+our Website!`
+
+
+* escaping characters
+s = 'this is \'it\''
+	// s = "this is 'it'"
+	// s = `this is 'it'`
+s = "this is \"it\""
+	// s = 'this is "it"'
+	// s = `this is "it"`
+s = `this is \`it\``
+	// s = "this is `it`"
+	// s = 'this is `it`'
+
+
+* string to number
+// when reading values from textboxes, they are stored as strings even if they have only numbers
+// so, we have to convert this string to the number
+
+let string = "35";
+let radix = 10;
+let number = Number.parseInt(string, radix);
+console.log(string, radix, number);
+// '35' 10 35
+// radix parameter is optional and it doesn't always default to 10
+// thus, it is recommended to specifiy explicitly
+// there could be some edge cases where skipping radix might cause unexpected outcomes
+
+Number.parseInt("123abc", 10); // 123
+Number.parseInt("5 meters", 10); // 5
+Number.parseInt("a50", 10); // NaN
+
+
+* number to string
+let answer = 42;
+answer.toString(); //"42"
+
+let x = 22;
+let string = x + "";
+console.log(x, string);
+// 22 '22'

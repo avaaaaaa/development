@@ -1,0 +1,49 @@
+* child classes inherit all methods from its parent class in classical inheritance
+
+
+* javaScript takes a different approach called prototypal inheritance
+in practice, you'll rarely write prototypal inheritance code directly
+this approach let's you cherry-pick the methods you want to inherit from parent classes
+
+assuming A, B and C is a class
+A has a1(), a2() methods
+B has b1(), b2() methods
+
+let's say we only want to have b2() from B, and a1() from A in C
+in classical inheritance, we end up inheriting all the methods even though we will use only two of them
+in prototypal inheritance, we can cherry-pick the methods we want to inherit
+
+function A(){}
+A.prototype.a1 = function(){
+    console.log("a1");
+}
+A.prototype.a2 = function(){
+    console.log("a2");
+}
+
+function B(){}
+B.prototype.b1 = function(){
+    console.log("b1");
+}
+B.prototype.b2 = function(){
+    console.log("b2");
+}
+
+function C(){}
+C.prototype.a1 = A.prototype.a1;
+C.prototype.b2 = B.prototype.b2;
+
+
+const test = new C();
+test.a1();
+test.b2();
+// a1
+// b2
+
+
+* "extends" always inherits all of the parent's methods — it doesn't let you cherry-pick
+under the hood, js links Child.prototype to Parent.prototype
+when you access a method on an instance, js walks up the prototype chain until it finds it
+
+
+* In practice, you will almost always use "extends". It covers nearly every real-world case, it's easier to read, and it's what other developers will expect to see in your codebase. The cherry-picking ability of prototypal inheritance is rarely needed in modern JavaScript.

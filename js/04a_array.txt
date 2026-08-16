@@ -1,0 +1,108 @@
+*
+giving plural names for arrays, and singular names for its items would improve readability
+
+
+* define array
+let values = [1, "a", true]
+let items = []  // empty array
+
+
+* access array items
+let firstItem = values[0]
+let secondItem = values[1]
+let lastItem = values[values.length - 1]
+
+
+* exceeding the array length
+let values = [1, 2]
+let value = values[2]  // value is undefined
+
+
+* emptying an array
+const numbers = [1, 2, 3];
+numbers.length = 0;
+console.log(numbers);  // []
+
+let items = [1, 2, 3];
+items = items.toSpliced(0);
+console.log(items);  // [], see Array.toSpliced() in array methods
+
+
+* array equality
+every array is an object & instance of Array class
+even if they have the same items, they are not the same
+they are shallow copy of each other
+[] === []   // false
+[1] === [1] // false
+
+
+* getting a shallow copy of an array using spread operator (...)
+const x = [1, 2, 3];
+const y = [...x];
+console.log(x, y);  // [ 1, 2, 3 ] [ 1, 2, 3 ]
+console.log(x === y);  // false, thus changing one of them won't affect the other
+
+
+* functions can modify array parameters
+
+// example 1
+function myFunc(array){
+  array[0] = 999
+}
+let myArray = [1, 2, 3]
+myFunc(myArray)
+console.log(myArray)
+// [ 999, 2, 3 ]
+
+// example 2
+function myFunc(array){
+  array.push(99)
+}
+let myArray = [1, 2, 3]
+myFunc(myArray)
+console.log(myArray)
+// [ 1, 2, 3, 99 ]
+
+
+* array destructuring
+const [a, b] = [10, 20];
+// a = 10, b = 20
+
+const numbers = [0, 1, 2, 3, 4, 5, 6, 7];
+const [first, second, third] = numbers;
+// first = 0, second = 1, third = 2
+
+let n1 = 1;
+let n2 = 2;
+[n1, n2] = [n2, n1];
+// swapping values between two variables
+// n1 = 2, n2 = 1
+
+
+* array concatenation
+... is called the spread operator
+
+const array1 = [1, 2, 3];
+const array2 = [4, 5, 6];
+const array3 = [array1, array2];
+const array4 = [...array1, ...array2];
+const array5 = array1 + array2
+array3
+array4
+array5
+
+/*
+[ [ 1, 2, 3 ], [ 4, 5, 6 ] ]
+[ 1, 2, 3, 4, 5, 6 ]
+'1,2,34,5,6'
+*/
+
+const x = [1, 2, 3];
+const [first, ...rest] = x;
+first
+rest
+
+/*
+1
+[ 2, 3 ]
+*/

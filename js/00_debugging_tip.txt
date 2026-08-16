@@ -1,0 +1,49 @@
+* the more logs to the console, the harder to map the console output with the corresponding log
+to make it easier, we can wrap the variable with {}, or we can add another log next to the variable
+
+const sum = (a, b) => {
+    console.log(a); // 1
+    console.log(b); // 3
+    let total = a + b;
+    console.log(total); // 4
+    return total;
+}
+
+// Sample usage
+sum(1, 3);
+
+// one way to make it more readable
+const sum = (a, b) => {
+    console.log({a}); // {a: 1}
+    console.log({b}); // {b: 3}
+    let total = a + b;
+    console.log({total}); // {total: 4}
+    return total;
+}
+
+// Sample usage
+sum(1, 3);
+
+
+// another way
+const sum = (a, b) => {
+    console.log(a, "a"); // 1 "a"
+    console.log(b, "b"); // 3 "b"
+    let total = a + b;
+    console.log(total, "total"); // 4 "total"
+    return total;
+}
+
+// Sample usage
+sum(1, 3);
+
+
+* wrapping the value with {} doesn't work on object properties, though
+but we can still use the second approach
+
+const user = {
+  name: "gg",
+  age: 18,
+}
+console.log({user.age});  // SyntaxError
+console.log("age", user.age);  // "age" 18

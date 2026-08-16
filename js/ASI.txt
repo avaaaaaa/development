@@ -1,0 +1,40 @@
+* stands for Automatic Semi-colon Insertion
+
+
+* Some specific statements in JavaScript need to end with a semi-colon. So, if the programmer leaves them out, the JavaScript engine will automatically place a semi-colon. This is called Automatic Semi-colon Insert and only applies in very specific cases.
+
+
+* Here are the most common statements where ASI applies:
+let/const variable declarations.
+import/export statements.
+return.
+
+
+*
+function App() {
+    return 
+        <div>
+            Hello
+        </div>
+}
+// the code above is React code with JSX
+// javascript will automatically insert ; after return
+// so, the function will return undefined
+// to avoid that, we can use ()
+
+function App() {
+    return (
+        <div>
+            Hello
+        </div>
+    )
+}
+
+// we can also do the following
+
+function App() {
+    return <div>
+            Hello
+        </div>
+}
+

@@ -1,0 +1,317 @@
+* an object is a combination of key/value pairs
+let person = {
+    firstName: "Sam",
+    lastName: "Doe",
+    age: 21,
+    email: "sam@gmail.com",
+    isVerified: true,
+    interests: ["games", "programming", "basketball"]
+};
+keys are firstName, lastName, age, email, isVerified, interests
+values of these keys are "sam", "doe", 21, "sam@gmail.com", true, ["games"...]
+
+
+* empty object -> let person = {};
+
+
+* immutable object is an object that cannot be changed
+as we cannot modify an immutable object, we create an entirely new object based on the original
+	leaving the original object unchanged
+
+
+* nested object
+let person = {
+	name: "name",
+	age: 20,
+	currentCourse: {
+		name: "course name",
+		instructor: "instructur name",
+		isCompleted: false
+	},
+};
+console.log(person.currentCourse.name)  // "course name"
+
+
+* read a key
+console.log(person.age)
+console.log(person["age"])
+console.log(person.interests[0])
+console.log(person["interests"][0])
+
+
+* update the value of a key
+person.age = 25
+person["age"] = 25
+person.interests[0] = "reading"
+person["interests"][0] = "reading"
+
+// if the key does not exist, the key will be added to the object
+// if we want to update values of only existed keys, we can do the following
+const person = {
+  
+};
+person.age && (person.age = 29);
+console.log(person.age);  // undefined
+// this way, age won't be added to the person object
+// but if there was the age key whose value is not nullish, its value would be 29 
+
+
+* adding a new k/v pair
+let person = {};
+person.name = "name";
+person.age = 33;
+
+
+* check if a key exists in an object
+const check = "name";
+const person = {name: undefined, id: 1};
+
+** in operator
+check in person
+// true, even though the value is undefined (or null)
+"isAdmin" in person
+// false
+
+** []
+if(person[check]){}
+// this approach will successfully check the existed keys unless their values are null or undefined
+// so, in this case, "name" key is existed but its value is undefined
+// thus, this approach will fail and the program will not enter this if-block
+
+** Object.keys(person).includes(check)
+// true
+
+
+* object equality
+every object is a different reference from each other even if they have the exact same k/v pairs
+
+console.log({id: 1} === {id: 1})  // false
+console.log({} === {})  // false
+
+
+* functions can modify object parameters
+function f(personObject){
+  personObject.age = 30;
+}
+let person = {
+    age: 20
+};
+
+f(person);
+console.log(person.age) // 30
+
+
+* a function that is accessed through an object is called a method
+a variable that is declared under an object is called a property
+
+let person = {
+	name: "gg",
+	age: 21,
+	interests: ["gaming", "programming"],
+	currentCourse: {
+		name: "course name",
+		isCompleted: false
+	},	
+	greet: function(){
+		return `hello ${this.name}`;
+	},
+	canVote: function(){
+		return this.age >= 18;
+	},
+  printMessage: function(msg){
+    return `here is your message: ${msg}`;
+  }
+};
+
+person.greet();
+person.canVote();
+person.printMessage("how are you?");
+
+// 'hello gg'
+// true
+// 'here is your message: how are you?'
+
+// name, age, interests, currentCourse --> properties
+// greet, canVote, printMessage --> methods
+
+
+* arrays of objects
+let users = [
+  {
+    firstName: "Sam",
+    lastName: "Blue",
+    age: 21,
+  },  // users[0].firstName -> "Sam"
+  {
+    firstName: "Charlie",
+    lastName: "Bon",
+    age: 38,
+  },  // users[1].lastName -> "Bon"
+  {
+    firstName: "Okaley",
+    lastName: "Drijf",
+    age: 24,
+  }  // users[2].age -> 24
+];
+
+
+* name of users
+let userNames = users.map(function(user){
+	return user.firstName + " " + user.lastName;
+	}
+);
+
+
+* conditional property
+function createTodo(data) {
+    let icon = "⏳";
+    // "\u{23F3}"
+    if (data.isCompleted) {
+        icon = "✅";
+        // "\u{2705}"
+    }
+
+    let todo = {
+    icon: icon,
+    // other properties...
+    };
+    
+    return todo;
+}
+// assuming "data" object has "isCompleted" property 
+
+
+* reading values dynamically
+const person = {
+  id : 1,
+  name: "gg",
+  interests : ["a", "b"],
+}
+
+const getValue = (person, key) => person[key];
+
+getValue(person, "id");			// 1
+getValue(person, "name");		// "gg"
+getValue(person, "interests");	// ["a", "b"]
+
+// dot notation requires exact name matching
+// let key = "id";
+// person.key will return undefined, because there is no "key" property
+// but person[key] is equal to person["id"], and it will return 1
+
+
+* object shorthand
+
+const age = 19;
+const name = "gg";
+
+const user = {
+  age,  // equal to age: age
+  name, // equal to name: name
+};
+
+console.log(user.name);
+console.log(user.age);
+// "gg"
+// 19
+
+
+* object destructuring
+
+const config = {
+    id: 1,
+    isAdmin: false,
+    theme: {
+        dark: false,
+        accessibility: true
+    }
+};
+
+const {isAdmin, theme, id} = config;
+console.log(id, isAdmin, theme);
+// 1 false { dark: false, accessibility: true }
+
+const {dark, accessibility} = config.theme;
+console.log(dark, accessibility);
+// false true
+
+// name of variables must match with the name of the keys
+const {isAdmin, themee, id} = config;
+console.log(id, isAdmin, themee);
+// 1 false undefined
+
+
+** destructuring with a default value
+if the variable name does not exist as a key, we can give it a default value
+
+const user = {
+    id: 1,
+    name: "Sam",
+    // isAdmin: true
+};
+
+const {name, isAdmin = false} = user;
+console.log(isAdmin); // false
+// however, if we uncomment the isAdmin line, isAdmin would be true (overrides the default value)
+
+
+** destructuring and renaming
+it is possible to rename the variable different from keys
+but first, we still need the exact key name
+
+const user = {
+  name: "gg",
+  age: 19,
+};
+const {age: userAge, name: userName = "default"} = user;
+console.log(userName, userAge);  // "gg" 19
+
+
+* spreading object properties 
+
+const firstPerson = {
+    name: "Sam",
+    age: 18
+}
+
+const secondPerson = {
+    age: 25,
+    type: "admin"
+}
+
+const mergedObjects = {...firstPerson, ...secondPerson};
+console.log(mergedObjects); // {name: "Sam", age: 25, type: "admin"}
+// regarding the age, since it exists in both objects, only the 2nd one persisted.
+
+
+const book = {
+    id: 1,
+    title: "Harry Potter",
+    year: 2017,
+    rating: 4.5
+}
+
+const {year, ...rest} = book;
+console.log(rest); // { id: 1, title: "Harry Potter", rating: 4.5}
+console.log(book); // {id: 1, title: "Harry Potter", year: 2017, rating: 4.5} (unchanged)
+
+
+* getting a shallow copy of an object using spread operator (...)
+const person = {};
+const copyPerson = {...person};
+console.log(person === copyPerson)  // false, so changing copyPerson won't affect the original object
+
+
+* immutable update
+
+const user = {
+    id: 1,
+    age: 23
+};
+const clonedUser = {
+    ...user,
+    age: user.age + 1
+};
+console.log(clonedUser); // {id: 1, age: 24} (new object not related to 'user')
+console.log(user); // {id: 1, age: 23} (unchanged)
+
