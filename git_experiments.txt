@@ -1,3 +1,13 @@
+* tutorial from github repository page, showing pushing a local file to github repository
+echo "# development" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/avaaaaaa/development.git
+git push -u origin main
+
+
 glossary
     for reference
       https://docs.github.com/en/get-started/learning-about-github/github-glossary
