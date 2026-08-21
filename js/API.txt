@@ -1,2 +1,3 @@
 stands for application programming interface
 computer programs can communicate with each other using APIs
+Most popular APIs communicate in a common language, which is JSON (see 10_json)

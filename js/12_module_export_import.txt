@@ -1,0 +1,87 @@
+* Every JavaScript file is called a Module or ES Module
+ES  is short for EcmaScript
+
+
+* we can use "export" to make modules available for other modules
+and then we can use "import" to use variables, classes, functions etc. from exported classes
+
+a named export is an exported variable, function, class
+you can have several named exports in the same file 
+
+The "import" keyword has to be at the top of your file.
+You cannot run any other kind of JavaScript code before the import statements.
+So always start with the import statements at the top of the file.
+This limitation does not apply to "export" statements.
+
+
+* for "import" and "export" statements to work,
+you need to use a module bundler (such as webpack, parcel, vite)
+or you need to link your html page to your script (assuming the script is named "index.js"): 
+	<script type="module" src="index.js"></script>
+
+
+* example
+// config.js
+export const votingAge = 18;
+
+export const settings = {
+    theme: "light",
+    admin: false
+};
+
+// index.js
+import {votingAge} from "./config.js";
+// OR
+import {settings} from "./config.js";
+// OR
+import {settings, votingAge} from "./config.js";
+// depending on which variables you need
+// make sure the path to "config.js" is correct
+
+
+* default export
+Scenarios where default export makes sense:
+    either export only one variable/function/class.
+    or, it will export several variables/functions/classes. However, one of these is considered the main one (or the most important one).
+
+The most common use case for default exports is when you define a class in a file that you expect to use outside of that file.
+
+When writing your own modules, you can decide to ignore default exports and always use named exports.
+
+you can rename default exports, and drop curly braces when importing them
+it is also possible to rename named exports
+
+// helpers.js
+export default class Helper {}
+export const votingAge = 18;
+
+// index.js
+import StringHelper, {votingAge as ageLimit} from "./helpers.js";
+const helper = new StringHelper();
+console.log(ageLimit);
+// StringHelper is the default export, votingAge is a named export
+
+
+* importing from a library
+the package name will be put instead of the path(./) to the script
+
+import React, {useState, useContext} from "react";
+
+Notice how the React object is the default import
+useState and useContext are named imports.
+
+
+* dynamic import
+Dynamic imports allow you to import another file/module only when necessary.
+The syntax is similar, except that import is used as a function. For example:
+
+import("./helpers.js").then(module => {
+    console.log(module);
+});
+
+
+* importing JSON files directly
+import data from './data.json' with { type: "json" };
+// instead of having to fetch and JSON.parse them yourself at runtime
+
+

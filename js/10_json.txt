@@ -1,0 +1,55 @@
+* JSON stands for JavaScript Object Notation.
+It's a format for storing and sending data. 
+It's very commonly used on the web because it's lightweight.
+Most popular APIs communicate in JSON
+
+Here's an example of a JSON object in an example file called person.json:
+{
+    "firstName": "Sam",
+    "lastName": "Green",
+    "age": 24
+}
+Notice that the keys had to be wrapped in "" ("firstName", "lastName", and "age").
+
+json objects don't have functions
+
+when communicating with APIs, we or the API cannot send or recieve objects directly
+thus, we frequently need to convert objects into json strings
+and then convert the received json strings into objects again to process them
+object --> json_string ---send------------receive-> json_string --> object
+
+The major benefit of JSON is that it doesn't really matter in which programming language the API we're trying to talk to is written in. As long as it can read and receive JSON, we can both communicate.
+
+
+* json_string example
+let's assume this is the json_string we received from an API: '{"firstName":"Sam","lastName":"Green"}'
+
+we can convert it back to an object in JavaScript like this
+const data = {
+    firstName: "Sam",
+    lastName: "Green"
+};
+
+
+* json_string --> object, JSON.parse()
+In order to convert from a JSON string into an object, you can use the JSON.parse(string) method:
+
+const string = '{"firstName":"Sam","lastName":"Green","age": 32}';
+const person = JSON.parse(string); // {firstName: "Sam", lastName: "Green", age: 32}
+console.log(person.firstName); // "Sam"
+
+This function is synchronous. This means that it will block the main thread of JavaScript. So, assuming you had a very long response from an API (several MBs), then the browser will become unusable for a second or two. This is not good.
+
+later, we'll learn about an asynchronous and non-blocking method that parses JSON strings. That method will return a promise (which you will have to resolve with .then()) because it's asynchronous.
+
+
+* json_object --> json_string, JSON.stringfy()
+In order to convert from an object into a JSON string, you have to use the JSON.stringify(object) method:
+
+const person = {
+    firstName: "Sam",
+    lastName: "Green",
+    age: 32
+};
+const string = JSON.stringify(person);
+console.log(string); //'{"firstName":"Sam","lastName":"Green","age":32}'

@@ -1,0 +1,71 @@
+* response codes
+When you perform a fetch request to an API, it will respond with a status code that could be in one of the following ranges:
+100-199 (or 1xx)
+200-299 (or 2xx)
+300-399 (or 3xx)
+400-499 (or 4xx)
+500-599 (or 5xx)
+Every response has a response code and every response code has a response text.
+
+1xx is for informational responses.
+As a web developer, you will rarely ever encounter this group.
+
+2xx is for successful responses.
+This is one of the most common range. The most common code here is 200 which has a response text of OK. This means that the request succeeded so the response is "OK" ☑️.
+
+3xx is for redirects.
+When you browse to http://learnjavascript.online, you will automatically get transferred to the secure version (https) and land on https://learnjavascript.online. This is what we call a redirect.
+There are 2 common codes:
+    301 with a response text of Moved Permanently.
+    302 with a response text of Found.
+The main difference between these two is that 301 is a permanent redirect whereas 302 is a temporary one.
+
+4xx is for client errors.
+The famous 404 Not Found is in this group.
+Client errors means that the error is most likely due to the client (you, the developer).
+	404 means that you entered a URL that does not exist.
+	401 with a response text of Unauthorized which is used when a resource (or page) requires authentication (it requires you to be logged in).
+
+5xx is for server errors.
+500 is reserved for server errors. This means that the error is most likely from the server.
+The most common error codes here are:
+    500 with status text Internal Server Error meaning there's a bug in the code (that's running on the server).
+    504 with status text Gateway Timeout. You often see this one when a website suddenly becomes popular and is unable to keep up with the incoming traffic.
+
+
+* handling fetch errors
+The fetch() promise rejects on network errors (when fetch request couldn't complete)
+	thus, catch() callback will execute
+
+The fetch() promise does not reject on error codes (4xx and 5xx).
+	that means fetch() request completed but the server responded with an error code
+	in this case, the promise won't reject
+	so, catch() callback will NOT execute
+	for example, if you make a fetch request for a URL that does not exist (a 404), the fetch() promise will be fulfilled and the .then(callback) will execute as usual
+	to handle such cases, we can make us of "ok" field of "response" object (for most APIs)
+		this field becomes true when the response was successful (status in the 2xx range)
+
+fetch(URL)
+    .then(response => {
+        if (!response.ok) {
+            // 4xx or 5xx error
+            throw new Error("API issues.");
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+        // we can use implicit return feature here: error => console.error(error)
+    });
+
+The throw new Error("API issues.") will reject the promise, so, the code stops running the current .then(callback) and then jumps to the .catch(callback).
+
+The end result here is that both network errors and API errors will end up rejecting the fetch() promise. So, you can handle both of them with a single .catch(callback).
+
+Always handle the rejected state of fetch() with a .catch(callback) (regardless of the API design).
+
+When you fetch a URL that has to redirect (3xx), fetch will automatically follow the redirect. So, if you try to read the response.ok, it will be for the URL to which you have been redirected.
+

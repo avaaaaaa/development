@@ -1,0 +1,163 @@
+* Most of the time you will be consuming (using) functions that return a promise (like the fetch API). but, you will benefit by better understanding how promises work.
+
+
+* Let's see how we can implement the waitOneSecond function that resolves successfully after 1 second.
+We start by defining the function:
+
+const waitOneSecond = () => {
+
+}
+
+Now, this function must return a new promise:
+
+const waitOneSecond = () => {
+    return new Promise(() => {
+
+    });
+}
+
+This means that the waitOneSecond function is doing some asynchronous work.
+So, its result will not be directly accessible because it has to resolve sometime in the future
+This Promise class receives one argument which is called the executor (() => {}).
+The executor will run immediately.
+Also, this executor receives the first argument as a function that you can call whenever the promise has completed its work. Even though you can call this argument whatever you want, it is very common to call it resolve.
+
+const waitOneSecond = () => {
+    return new Promise((resolve) => {
+        // do some work
+        // when it's done, call resolve()
+    });
+}
+
+in our use case, we need to wait 1 second before resolving, thus the code will be:
+
+const waitOneSecond = () => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve();
+        }, 1_000);
+    });
+}
+
+When you call resolve(), the promise state will be changed from pending to fulfilled.
+This is why when you call resolve(), the .then() callback will execute.
+Here's how you can use the waitOneSecond function:
+
+waitOneSecond().then(() => {
+    console.log("Waited one second");
+});
+
+
+* resolving with data
+resolve() can pass some data to .then(callback)
+
+const wait = milliseconds => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const seconds = milliseconds / 1_000;
+            resolve(seconds);
+            // "seconds" argument will be available in the .then(callback)
+        }, milliseconds);
+    });
+}
+
+wait(2_000).then(seconds => {
+    console.log(seconds); // 2 (seconds)
+});
+// we have given "seconds" name to the resolved data coming from the promise
+
+
+* rejecting promises
+the executor function of promises can have another argument
+the first one was resolve(), it changes the promise state change from pending to fulfilled
+	resolve() triggers .then(callback)
+the second one is reject(), it changes the promise state change from pending to rejected
+	reject() triggers .catch(callback)
+these names of function arguments can be different than resolve and reject
+but resolve and reject makes them easier to understand and differentiate
+reject() can also pass some data to .catch(callback) just like resolve() can pass data to .then(callback)
+
+
+const alwaysFail = () => {
+    return new Promise((resolve, reject) => {
+        reject("Failed. That's the only thing I do.")
+    });
+}
+
+alwaysFail()
+  .then(() => {
+    // will never be called
+  })
+  .catch(data => {
+    console.error(data); // "Failed. That's the only thing I do."
+  });
+
+
+* resolve and reject
+
+const fakeFetch = endpoint => {
+    // TODO: implement fake fetch
+  return new Promise((resolve, reject) => {
+    if(endpoint === "flight-status"){
+      setTimeout(()=>{
+        resolve({departed: false, delayed: true,});
+      }, 1000);
+    }
+    else{
+		reject("endpoint not supported");
+    }
+  });
+}
+
+// Sample usage - do not modify
+fakeFetch("flight-status")
+  .then((data) => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+fakeFetch("user-details")
+  .then((data) => {
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+// 'endpoint not supported', this is first because it is rejected immediately
+// { departed: false, delayed: true }, this is second because it took 1 second to respond
+
+if we don't put reject() within an else-block, the promise will be rejected even if it should not 
+because the promise will be resolved after 1 second
+but js will keep executing the code from top to bottom
+so js will see reject() before resolve()
+and once it sees reject, the promise will be rejected even endpoint === "flight-status" evaluates "true"
+so, console output would be the following in this case
+// 'endpoint not supported'
+// 'endpoint not supported'
+
+we could also do the following:
+
+const fakeFetch = endpoint => {
+    // TODO: implement fake fetch
+    return new Promise((resolve, reject) => {
+      if(endpoint !== "flight-status"){
+        reject("endpoint not supported.")
+      }
+      setTimeout(()=>{
+        resolve({departed: false, delayed: true,});
+      }, 1000);
+    });
+}
+
+
+* promise chaining
+it is possible for .then() to return a promise
+in that case we can chain .then() methods together when needed
+
+<>.then(...).then(...)
+
+first .then() returns a promise
+second .then() will execute only when the promise returned by first .then resolved successfully

@@ -1,0 +1,164 @@
+* promises provide clearer syntax than callback patterns
+.then(callback) replaces the async success callback, will run after finishing the function
+.catch(callback) replaces the async error callback, will run if there is an error during execution
+.finally(callback) will be called after either then() or catch()
+we can call then(), and catch() on functions that return a new Promise
+
+
+* try-catch statement does not work with promises
+
+
+* example
+const wait = milliseconds => {
+    // this function returns a new promise
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, milliseconds);
+    });
+}
+
+wait(1_000).then(() => {
+    console.log("waited 1 second");
+});
+
+
+* promises can have 3 states
+pending, fulfilled, rejected
+when a promise is created, it will start in the pending state
+when it has been completed successfully, it will become fulfilled
+when an error has occured, it will become rejected
+
+
+*
+// wait() from the previous example
+const result = wait(1_000);
+console.log(result); // A
+result.then(() => {
+    console.log(result); // B
+});
+console.log(result); // C
+// A: Promise {<pending>}
+// C: Promise {<pending>}
+// B: Promise {<fulfilled: undefined}
+
+
+* some promises will resolve with data
+that means the promise is givin us an answer after it has been completed
+some promises will resolve with nothing, so they will return "undefined" ({<fulfilled: undefined})
+
+
+* resolving with data and rejected example
+
+export const getWeatherDescription = (city) => {
+    return new Promise((resolve, reject) => {
+        if (!city || typeof city !== "string") {
+            reject("City must be a string");
+        }
+        if (!["amsterdam", "tokyo"].includes(city.toLowerCase())) {
+            reject("City must be Amsterdam or Tokyo");
+        }
+        // simulate network request
+        setTimeout(() => {
+            if (city.toLowerCase() === "amsterdam") {
+                resolve("Cloudy");
+            }
+            if (city.toLowerCase() === "tokyo") {
+                resolve("Sunny");
+            }
+        }, 1_000);
+    });
+};
+
+const logWeatherDescription = cityName => {
+    getWeatherDescription(cityName)
+    .then(resolve =>{
+        console.log(resolve);
+        // "resolve" here is the variable name we have given
+        // to the resolved data coming from the promise once it has completed successfully 
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+logWeatherDescription("tokyo");
+logWeatherDescription("istanbul");
+// City must be Amsterdam or Tokyo
+// sunny
+
+
+* another resolve & reject example
+
+// helpers.js
+export const waitForCompleteClick = () => {
+    return new Promise((resolve, reject) => {
+        document.querySelector("#complete-btn").addEventListener("click", () => {
+            resolve();
+            // resolve after clicking on #complete-btn
+        });
+        document.querySelector("#fail-btn").addEventListener("click", () => {
+            reject();
+            // reject after clicking on #fail-btn
+        });
+    });
+}
+
+// index.js
+import {waitForCompleteClick} from "./helpers.js";
+
+waitForCompleteClick()
+.then(()=>{
+    console.log("Complete clicked");
+})
+.catch(() => {
+    console.error("Fail clicked");
+})
+
+// index.html
+<h1>Promise demo</h1>
+<button id="complete-btn">Complete</button>
+<button id="fail-btn">Fail</button>
+
+
+* finally() executes either after then() or catch()
+
+getWeatherIn("Amsterdam")
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    })
+    .finally(() => {
+        console.log("Done fetching weather");
+    });
+
+finally() will be called after the promise is either fulfilled or rejected
+instead of repeating "Done fetching weather" at the end of .then and .catch
+	we can put it within .finally
+
+
+* manually rejecting a promise
+
+getWeatherIn("Amsterdam")
+    .then(data => {
+        throw new Error("Stopped.");
+        console.log(data);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+Assuming the getWeatherIn() is fulfilled, the .then() callback will execute. However, the throw new Error("Stopped.") will immediately reject the promise.
+So, the rest of the .then callback is ignored, and the .catch callback will execute.
+We will use this pattern to handle fetch calls when the API returns an error
+
+
+* Promise.all
+Promise.all() returns a Promise that fulfills when all the promises it receives have been fulfilled. It rejects when one of these promises fails. This allows you to execute more than one promise at the same time and wait until all of them have fulfilled.
+For example, this could be useful if you need to load a JavaScript file and a CSS file before rendering a component and you don't want to render it before both files have loaded.
+
+
+* Promise.any
+What if you want to execute more than one promise at a time but only care about the first one that successfully resolves? In that case, you can use the Promise.any method. The result you will get will contain the value of the first successful promise (the one that's faster).

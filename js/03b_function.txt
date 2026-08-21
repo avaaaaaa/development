@@ -51,6 +51,27 @@ f2()
 // ReferenceError: v1 is not defined
 
 
+const a = 3;
+
+function test(){
+  console.log(a);
+}
+
+test();
+// 3
+
+
+let a = 9;
+
+function test(){
+  a = 20;
+}
+
+test();
+console.log(a);
+// 20
+
+
 * default parameter
 
 function printMessage(msg){

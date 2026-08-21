@@ -1,0 +1,117 @@
+* The fetch API is used to send and/or receive data from a service (an API) without reloading the page.
+think of twitter notifications page, it gets updated dynamically without needing to refresh the page
+fetch itself is a generic browser function and is not only meant for reading JSON.
+
+
+* fetch(URLstring)
+The fetch API expects a URL as its first parameter
+this is how you fetch a URL
+don't forget to turn the URL into a string
+When working with APIs, you will often hear developers say the word "endpoint" more frequently than URL.
+
+fetch("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json")
+
+this code will send a request (sometimes called AJAX request or XMLHttpRequest for historical reasons). This request will go to the Internet, reach the URL you specified and finally come back to you with the response (result) from that URL. this result can be Text, JSON, Binary data, or even other formats.
+
+Fetch always returns a promise .
+This is because fetch has to go to the network, this could take anywhere between a couple of milliseconds and a second (on average). So, we cannot freeze the entire browser while the fetch request is working.
+Thus, by design, fetch returns a promise that we can resolve once the request has finished.
+This means that we'll have to add a .then() after the fetch() call.
+
+
+* fetch resolve
+fetch(URL) will resolve with a Response.
+A Response is a generic response object. The browser doesn't know if it's text, JSON, or Binary, etc...
+
+if you expect a json response, you need to manually parse it as a json object
+we can do that with fetch(URL).then(response => response.json())
+
+This .json() method on response is almost exactly the same as JSON.parse(string).
+The only difference, however, is that response.json() is non-blocking and asynchronous, meaning that it returns a promise. because it returns a promise, we will need another .then() to access the actual data.
+
+fetch(URL)
+	.then(response => response.json())
+	.then(data => {
+		console.log(data)
+	})
+
+
+* common mistake when extracting data
+
+const baseURL = "https://jsonplaceholder.typicode.com/todos/1";
+
+let apiData = "gg";
+
+fetch(baseURL)
+.then(response => response.json())
+.then(data => {
+    console.log(data.title);  // 'delectus aut autem'
+    apiData = data.title;
+});
+console.log(apiData); // "gg"
+
+this does not work as expected
+because by the time apiData is logged, the promise would still be in the pending state
+The only way to write similar code is with async/await
+
+
+* example
+
+const getTweetDetails = () => {
+    // TODO
+    const baseURL = "https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/tweet/1080777336298049537.json";
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => {
+            //console.log(data.author.details);
+            const details = data.author.details;
+            const fullName = details.firstName + " " + details.lastName;
+            showAuthorName(fullName);
+        })
+
+}
+
+// do NOT modify this function
+function showAuthorName(fullName) {
+    console.log(fullName);
+}
+
+// Sample usage - do not modify
+getTweetDetails();
+
+
+* example
+
+export const getWeather = city => {
+    // TODO: fetch the correct url depending on city and call showTemperature with the temperature
+    city = city.toLowerCase();
+    const baseURL = `https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/${city}.json`;
+
+    fetch(baseURL)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.current);
+            showTemperature(data.current.temperature);
+        });
+
+}
+
+// Do NOT modify the code below
+const result = document.querySelector("#result");
+const showTemperature = temperature => {
+    result.textContent = `It's ${temperature} degrees celsius.`;
+}
+
+
+* Why not just get the data in one go?
+
+You might be wondering: why do we have to call fetch() and then .json()?
+
+When you call fetch(), the browser opens the connection and reads just the headers of the response, basically the envelope or preview that tells you whether the request succeeded (the status code) and what kind of data is coming back. The actual body of the response isn't downloaded yet.
+
+This is useful because:
+    If the status is bad, you can stop right there and save the bandwidth of downloading the body.
+    The body might be huge. Imagine downloading a large video file. You get to choose how to read it. For small responses, .json() or .text() is fine. For very large ones, there are more advanced ways to read the data piece by piece.
+
+Later we'll write our own little wrapper around fetch() to hide this complexity, so you can call it in one line.
+

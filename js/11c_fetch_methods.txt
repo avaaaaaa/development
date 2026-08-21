@@ -1,0 +1,121 @@
+* there are 4 common methods
+GET for reading data
+POST for creating data
+PUT for updating data
+DELETE for deleting data
+
+
+* When you send a network request with the fetch method, you are performing a fetch with a method GET by default.
+
+
+* request body
+Requests made with method PUT, POST, or DELETE can have an extra field called body. The body can contain any information that you want to send with the request. However, requests made with GET are not allowed to have a body.
+
+because with GET, you are reading information. You're not sending information.
+Whereas with the other methods, you are sending information. For example, to update a user, you have to provide the new details. Another example, to create a new user, you have to provide the details of that user.
+
+These details go in the body of the fetch request
+
+Some APIs require you to send a specific header with the fetch request when you need to send a body. This header is Content-Type with a value of "application/json".
+Headers are additional pieces of information sent with every request.
+
+The reason why some endpoints require this header is that they don't know that you're sending them JSON (since they support other formats, too). Here's what the code looks like:
+
+
+* PUT, POST or DELETE request with fetch
+second parameter of fetch() will be the request body
+we can omit .then() methods if we don't need to see the server response
+in the following examples, we omitted headers because they weren't needed
+
+fetch(URL, {
+    method: "POST", // or PUT or DELETE
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        key1: 'value1', // replace with key/value based on documentation
+        key2: 'value2', // same as above (if needed)
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data); // read server response
+})
+.catch(error => {
+    console.error(error);
+});
+
+
+* example
+let's say there is an endpoint that posts a tweet
+it would require the tweet text.
+Here's what its documentation would look like:
+
+Base URL: https://example.com/api
+Send a tweet. POST /tweets Body: {tweet: "Your tweet here..."}
+
+Based on this documentation, here's how you'd write the full fetch request:
+
+fetch("https://example.com/api/tweets", {
+    method: "POST",
+    body: JSON.stringify({
+        tweet: "Your tweet here..."
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data); // read the server response
+})
+.catch(error => {
+    console.error(error);
+});
+
+
+* example, enter grade
+API Documentation
+
+Base URL: https://api.learnjavascript.online/demo/ Endpoint: grades.json Method: POST
+Body: {grade: 15} (replace 15 with the actual grade)
+
+const saveGrade = grade => {
+    // TODO
+    const baseURL = "https://api.learnjavascript.online/demo/";
+    const endPoint = "grades.json";
+
+    fetch(baseURL + endPoint, {
+        method: "post",
+        body: JSON.stringify({grade: grade}),
+    })
+        .catch(error => console.error(error));
+}
+
+
+* example, update the user
+
+API Documentation
+
+Base URL: https://api.learnjavascript.online/demo/
+Endpoint: user.json
+Method: PUT
+Body: {firstName: "Sam", lastName: "Green"} (replace with values from the form)
+
+const updateUserProfile = (firstName, lastName) => {
+    // TODO
+    const baseURL = "https://api.learnjavascript.online/demo/";
+    const endPoint = "user.json";
+
+    fetch(baseURL + endPoint, {
+        method: "put",
+        body: JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error(error));
+}
+
+
