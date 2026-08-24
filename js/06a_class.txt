@@ -58,6 +58,7 @@ let user2 = new User();
 instance variables are the variables the object have and can modify them for itself
 instance methods are the functions the object can call for itself
 	notice that "function" keyword is not used to define these functions
+reminder: do not use arrow functions as methods
 
 class User{
   constructor(firstName, lastName){
@@ -75,7 +76,6 @@ class User{
   printMessage(msg){
     return `this is the message from '${this.getFullName()}': ${msg}`
   }
-  // printMessage = (msg) => `this is the message from '${this.getFullName()}': ${msg}`
 }
 let user1 = new User("gg1", "ff1");
 let user2 = new User("gg2", "ff2");
@@ -135,16 +135,28 @@ export default class Todos {
     }
 
     // TODO: define remaining instance methods
-    getAll = () => this.todos
-    getCount = () => this.todos.length
-    add = (title, category) => {
+    getAll(){
+        return this.todos;
+    }
+    getCount(){
+        return this.todos.length;
+    }
+    add(){
         const newToDo = {title, category};
         this.todos.push(newToDo);
     }
-    getWork = () => this.todos.filter(todo => todo.category === "work")
-    getWorkCount = () => this.getWork().length
-    getPersonal = () => this.todos.filter(todo => todo.category === "personal")
-    getPersonalCount = () => this.getPersonal().length
+    getWork(){
+        return this.todos.filter(todo => todo.category === "work");
+    }
+    getWorkCount(){
+        return this.getWork().length;
+    }
+    getPersonal(){
+        return this.todos.filter(todo => todo.category === "personal");
+    }
+    getPersonalCount(){
+        return this.getPersonal().length;
+    }
     
 }
 

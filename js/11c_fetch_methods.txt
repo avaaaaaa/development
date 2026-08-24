@@ -18,8 +18,7 @@ These details go in the body of the fetch request
 
 Some APIs require you to send a specific header with the fetch request when you need to send a body. This header is Content-Type with a value of "application/json".
 Headers are additional pieces of information sent with every request.
-
-The reason why some endpoints require this header is that they don't know that you're sending them JSON (since they support other formats, too). Here's what the code looks like:
+The reason why some endpoints require this header is that they don't know that you're sending them JSON (since they support other formats, too).
 
 
 * PUT, POST or DELETE request with fetch
@@ -74,7 +73,9 @@ fetch("https://example.com/api/tweets", {
 * example, enter grade
 API Documentation
 
-Base URL: https://api.learnjavascript.online/demo/ Endpoint: grades.json Method: POST
+Base URL: https://api.learnjavascript.online/demo/
+Endpoint: grades.json
+Method: POST
 Body: {grade: 15} (replace 15 with the actual grade)
 
 const saveGrade = grade => {
@@ -84,7 +85,7 @@ const saveGrade = grade => {
 
     fetch(baseURL + endPoint, {
         method: "post",
-        body: JSON.stringify({grade: grade}),
+        body: JSON.stringify({grade}),
     })
         .catch(error => console.error(error));
 }
@@ -107,8 +108,8 @@ const updateUserProfile = (firstName, lastName) => {
     fetch(baseURL + endPoint, {
         method: "put",
         body: JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
+            firstName,
+            lastName,
         })
     })
         .then(response => response.json())

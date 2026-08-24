@@ -4,8 +4,8 @@ fetch itself is a generic browser function and is not only meant for reading JSO
 
 
 * fetch(URLstring)
-The fetch API expects a URL as its first parameter
 this is how you fetch a URL
+The fetch API expects a URL as its first parameter
 don't forget to turn the URL into a string
 When working with APIs, you will often hear developers say the word "endpoint" more frequently than URL.
 

@@ -57,7 +57,7 @@ fetch(URL)
         console.log(data);
     })
     .catch(error => {
-        console.error(error);
+        console.error(error);  // network issues
         // we can use implicit return feature here: error => console.error(error)
     });
 

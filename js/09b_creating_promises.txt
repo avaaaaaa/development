@@ -1,4 +1,4 @@
-* Most of the time you will be consuming (using) functions that return a promise (like the fetch API). but, you will benefit by better understanding how promises work.
+* Most of the time you will be consuming (using) functions that return a promise (like the fetch API). but, you will benefit by better understanding how promises are created.
 
 
 * Let's see how we can implement the waitOneSecond function that resolves successfully after 1 second.
@@ -69,9 +69,9 @@ wait(2_000).then(seconds => {
 
 * rejecting promises
 the executor function of promises can have another argument
-the first one was resolve(), it changes the promise state change from pending to fulfilled
+the first one was resolve(), it changes the promise state from pending to fulfilled
 	resolve() triggers .then(callback)
-the second one is reject(), it changes the promise state change from pending to rejected
+the second one is reject(), it changes the promise state from pending to rejected
 	reject() triggers .catch(callback)
 these names of function arguments can be different than resolve and reject
 but resolve and reject makes them easier to understand and differentiate
@@ -126,7 +126,7 @@ fakeFetch("user-details")
     console.error(error);
   });
 
-// 'endpoint not supported', this is first because it is rejected immediately
+// 'endpoint not supported', this is first because "user-details" is rejected immediately
 // { departed: false, delayed: true }, this is second because it took 1 second to respond
 
 if we don't put reject() within an else-block, the promise will be rejected even if it should not 

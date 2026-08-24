@@ -41,14 +41,20 @@ private instance methods are often denoted as "helper" methods
 class User{
     #name = "gg";
     #testMethod(){
-        console.log("test");
+        console.log(this.#name);
     }
+    callPrivateMethod(){
+    	this.#testMethod();
+    }
+    // #name and #testMethod() are only accessible within User{}
 }
+
 const user = new User;
 console.log(user.#name);  // error
 console.log(user.name);  // undefined
 user.#testMethod();  // error
 user.testMethod();  // error, testMethod is not a function
+user.callPrivateMethod();  // "gg"
 
 
 * to be able to set private instace variables within the constructor method, first we need to define these variables outside of the constructor, and then set their values within the constructor

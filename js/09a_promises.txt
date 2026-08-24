@@ -13,7 +13,7 @@ const wait = milliseconds => {
     // this function returns a new promise
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve();
+            resolve();  // will trigger .then(callback)
         }, milliseconds);
     });
 }
@@ -60,10 +60,11 @@ export const getWeatherDescription = (city) => {
         }
         // simulate network request
         setTimeout(() => {
-            if (city.toLowerCase() === "amsterdam") {
+        	city = city.toLowerCase();
+            if (city === "amsterdam") {
                 resolve("Cloudy");
             }
-            if (city.toLowerCase() === "tokyo") {
+            if (city === "tokyo") {
                 resolve("Sunny");
             }
         }, 1_000);
@@ -85,7 +86,9 @@ const logWeatherDescription = cityName => {
 logWeatherDescription("tokyo");
 logWeatherDescription("istanbul");
 // City must be Amsterdam or Tokyo
+	this is the first because "istanbul" is rejected instantly
 // sunny
+	this is the second because it takes one second to resolve
 
 
 * another resolve & reject example

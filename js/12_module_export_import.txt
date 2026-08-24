@@ -37,7 +37,13 @@ import {settings} from "./config.js";
 import {settings, votingAge} from "./config.js";
 // depending on which variables you need
 // make sure the path to "config.js" is correct
-
+! in vscode, this was not that straight-forward
+! we encountered SyntaxError: Cannot use import statement outside a module
+! Warning: To load an ES module, set "type": "module" in the package.json or use the .mjs extension.
+! we created package.json file and put the following code: {"type": "module"}
+	problem is solved
+! we also tried to change both scripts' extension to ".mjs" without package.json
+	this also solved the problem
 
 * default export
 Scenarios where default export makes sense:
@@ -83,5 +89,6 @@ import("./helpers.js").then(module => {
 * importing JSON files directly
 import data from './data.json' with { type: "json" };
 // instead of having to fetch and JSON.parse them yourself at runtime
+! this didn't work. need more specific examples of this usage
 
 

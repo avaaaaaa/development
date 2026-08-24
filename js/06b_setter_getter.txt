@@ -53,16 +53,18 @@ set age(value) {
         console.log("age setter");
         this.age = Number.parseInt(value, 10);
         // this.age = value will call the setter, so it will keep calling itself
-        // to avoid that, we need different name for actual property (storedAge in previous example)
+        // to avoid that, we need different name for actual property
+        // this.storedAge = Number.parseInt(value, 10);
 }
 
 
 * In real-world code, the internal storage property is usually written with a _ prefix as a convention.
-(_age instead of storedAge in previous example)
-The underscore is a convention meaning "this is internal, don't access it from outside the class." Nothing technically stops you from writing user._age; the convention is purely social, signalling intent to other developers. Modern JavaScript also provides proper private fields using #age
+(_age instead of storedAge in the previous example)
+The underscore is a convention meaning "this is internal, don't access it from outside the class." Nothing technically stops you from writing user._age; the convention is purely social, signalling intent to other developers. Modern JavaScript also provides proper private fields using # (#age)
 
 
 * implicit return feature for arrow functions cannot be used for getter methods
+avoid using arrow functions as methods
 
 class User{
   constructor(age){
@@ -103,7 +105,7 @@ console.log(payment.amount); // 7 (USD)
 console.log(payment.cents);  // 700
 
 // with setter and getter methods, the program can dynamically adapt to "payment.amount = 7" change
-// if we set properties under the constructor, payment.cents won't be updated
+// if we set properties under the constructor without setter and getter, payment.cents won't be updated
 
 class Payment {
     constructor(amount) {

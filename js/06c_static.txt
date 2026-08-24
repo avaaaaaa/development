@@ -22,8 +22,9 @@ class User{
 
         User.users = [...left, ...right];
         //console.log(User.users);
+        console.log(`user "${searchName}" got deleted`);
     } else{
-        console.log(`user "${searchName}" not found`)
+        console.log(`user "${searchName}" not found`);
     }
   }
 
@@ -40,6 +41,7 @@ new User("d");
 console.log(User.users);
 
 User.deleteUser("f");
+User.deleteUser("d");
 
 console.log(User.users);
 
