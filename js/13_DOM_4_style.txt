@@ -1,0 +1,31 @@
+* we can make use of style property of an element (element.style) to change its style from JS
+but it is recommended to update the class attribute instead of styles directly
+
+
+* CSS property names are in kebab-case
+to be able to use them in js, convert them to lowerCamelCase
+
+CSS					JS
+background-color	backgroundColor
+color				color
+font-size			fontSize
+z-index				zIndex
+
+
+* change the background color
+<div id="banner">Welcome!</div>
+
+const banner = document.querySelector("#banner");
+banner.style.backgroundColor = "red";
+
+
+* show/hide an element
+<div id="banner">Welcome!</div>
+
+const banner = document.querySelector("#banner");
+
+// hide the element
+banner.style.display = "none";
+
+// Show the element by resetting its display
+banner.style.display = ""; //or "initial"

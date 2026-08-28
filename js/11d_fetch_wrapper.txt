@@ -1,0 +1,68 @@
+* A real-life app would have anywhere between 20 and 100+ fetch requests to the same API (same base URL but different endpoints). This means there will be a lot of code repetition
+
+for example,
+Base URL: https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app
+Endpoints:
+    GET /notifications/new.json
+    GET /chapters/all.json
+If we have to send two fetch requests to both endpoints, we'll have quite some repetition:
+
+fetch(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json`)
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+
+fetch(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/chapters/all.json`)
+.then(response => response.json())
+.then(data => {
+    console.log(data);
+});
+
+
+with a fetch wrapper class, 
+	the code is a lot shorter.
+	it automatically calls response => response.json() and JSON.stringify().
+	it automatically sets the default Content-Type header.
+we can re-write the code above such that it looks like the following:
+
+
+const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
+
+API.get("/notifications/new.json").then(data => {
+    console.log(data);
+});
+
+API.get("/chapters/all.json").then(data => {
+    console.log(data);
+});
+
+
+The benefits are even clearer once you work with PUT, POST, or DELETE.
+
+
+fetch("https://api.learnjavascript.online/demo/grades.json", {
+    method: "PUT",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        grade: 18
+    })
+})
+.then(response => response.json())
+.then(data => {
+    console.log(data); // read server response
+});
+
+
+the code above can be re-written as:
+
+
+const API = new FetchWrapper("https://api.learnjavascript.online");
+
+API.put("/demo/grades.json", {
+    grade: 18
+}).then(data => {
+    console.log(data);
+});

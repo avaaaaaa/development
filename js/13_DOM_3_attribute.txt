@@ -1,0 +1,42 @@
+* html elements can have zero or more attributes
+class, id and disabled are some of the most common attributes
+
+
+* element.getAttribute(attribute)
+read the value of an attribute of the element
+
+
+<div id="banner">
+    <button disabled="disabled" id="login">Login</button>
+</div>
+
+const banner = document.querySelector("#banner");
+banner.getAttribute("id"); // "banner"
+banner.getAttribute("disabled"); // null (attribute not found on this element)
+
+const button = document.querySelector("#login");
+button.getAttribute("disabled"); // "disabled"
+
+
+** a note on "disabled" attribute
+if "disabled" attribute exists, it will be considere present regardless of its value
+disabled, disabled="", disabled="gg", disabled="null", disabled=null, disabled="disabled", 
+	all of them have the same functionality
+	as long as disabled is there, it makes this attribute present regardless of its value
+	even though the first one does not have a value, it is still the same as rest
+if it is not present, its value will be null
+	not "null" as string, just null
+
+
+* element.removeAttribute(attribute)
+removes the attribute from the element
+
+
+* element.setAttribute(attribute, value)
+if attribute is present in the element, updates its value with second parameter
+otherwise, adds attribute and its value to the element
+
+
+* element.hasAttribute(attribute)
+if attribute is present in the element, returns true
+otherwise, returns false

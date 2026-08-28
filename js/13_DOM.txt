@@ -1,0 +1,207 @@
+* stands for document object model
+it is an API that represents the HTML of web pages
+it lets you interact with the elements on web pages using javascript (read, change, delete and more)
+you can access the DOM in js with the "document" variable
+you can access the <body> tag in js with "document.body"
+you can access the <html> tag in js with "document.documentElement"
+
+
+
+* selecting a single item from the DOM
+document.querySelector("your-CSS-selector-here");
+
+this returns the item that matches specified selector
+	null if there is no match
+If there is more than one items that matches your selector, then the first item is selected.
+
+selectors types
+
+<h1>Big heading</h1>
+<a href="/contact-us" class="menu-link">Contact us</a>
+<div id="banner">
+    <div class="item"></div>
+</div>
+<input type="text" placeholder="Your name here" disabled>
+<script>
+	const typeSelector = document.querySelector("h1");
+		// returns <h1>Big heading</h1>
+
+	// "dot" (.) for class
+	const classSelector = document.querySelector(".menu-link");
+		// returns <a href="/contact-us" class="menu-link">Contact us</a>
+
+	// "hash" (#) for ID
+	const idSelector = document.querySelector("#banner");
+		// returns <div id="banner">...</div>
+
+    // "space character" ( ) for descendant
+    const descendantSelector = document.querySelector("#banner .item");
+    	// returns <div class="item"></div>
+
+    // find the element with the disabled attribute
+    const attributeSelector = document.querySelector("[disabled]");
+    	// returns <input type="text" placeholder="Your name here" disabled>
+</script>
+
+
+<div class="card active">EUR</div>
+to select this item, document.querySelector(".card.active");
+
+
+* document.querySelector alternatives
+While using document.getElementById is perfectly fine, you should completely avoid other alternatives as they are old, outdated & have unexpected behavior. If you find code on the Internet that uses those methods, you should refactor it to use document.querySelector.
+
+Those methods are:
+    ❌ getElementsByTagName()
+    ❌ getElementsByClassName()
+
+Do not use these methods!
+
+
+* element.textContent
+it is a property that returns the text inside the element
+
+const getTextFromSelector = cssSelector => {
+    return document.querySelector(cssSelector)?.textContent ?? "";
+}
+
+
+* selecting multiple elements
+document.querySelectorAll("CSS-selector") returns a NodeList of elements that match the selector
+a NodeList is very similar to an array, but not exactly the same
+
+
+<p id="first">First paragraph</p>
+<p id="second">Second paragraph</p>
+
+const test = document.querySelectorAll("p");
+test[0] // <p id="first">
+test[1] // <p id="second">
+
+
+const getDivElements = () => {
+    // TODO: return all the div elements
+    return document.querySelectorAll("div");
+}
+
+const getFooterLinks = () => {
+    // TODO: return all the links that are in the footer-wrapper
+    return document.querySelectorAll("#footer-wrapper a");
+}
+
+const getAboutLinks = () => {
+    // TODO: return all the links that point to the About Us page
+    return document.querySelectorAll("a.about")
+}
+
+const getNumberOfLinks = () => {
+    return document.querySelectorAll("a").length;
+}
+
+const logLinksTexts = () => {
+    const links = document.querySelectorAll("a");
+    links.forEach(link => {
+        console.log(link.textContent);
+    });
+}
+
+
+* convert NodeList to Array
+We know that NodeList only supports .length and .forEach()
+but what if, for some reason, you need to use .map() or .filter()?
+
+const divs = document.querySelectorAll("div"); // NodeList
+const items = [...divs]; // Array
+// const items = [...document.querySelectorAll("div")]; // Array
+
+
+*
+const getShortTextParagraphs = () => {
+    const pars = [...document.querySelectorAll("p")];
+    return pars.filter(par => par.textContent.length < 10);
+}
+
+
+* example of clicking & toggling
+
+const getSelectedCurrencies = () => {
+    const cards = [...document.querySelectorAll(".card.active")];
+    return cards.map(card => card.textContent);
+}
+
+document.querySelectorAll(".cards .card")
+.forEach(card => {
+    card.addEventListener("click", event => {
+        event.currentTarget.classList.toggle("active");
+        console.log(getSelectedCurrencies());
+    });
+})
+
+
+** dynamic approach
+instead of getting all active cards every single time, we can implement a more dynamic approach
+
+
+const getSelectedCurrencies = cards => {
+    return Object.keys(cards);
+}
+
+const activeCards = {};
+
+document.querySelectorAll(".cards .card")
+.forEach(card => {
+    card.addEventListener("click", event => {
+        if(event.currentTarget.classList.toggle("active")){
+            activeCards[event.currentTarget.textContent] = "";
+        } else{
+            delete activeCards[event.currentTarget.textContent];
+        }
+        //console.log(activeCards);
+        console.log(getSelectedCurrencies(activeCards));
+    });
+})
+
+// html file for this example is below
+// look at the name of the script file in <script> tag
+// make sure it matches the actual name of the script file
+// then open this html file in a web browser and inspect the source code
+// click on buttons and check the console
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+
+  <body>
+    <nav id="navbar">
+      <a href="" class="nav-brand">App</a>
+      <ul>
+        <li class="nav-item"><a href="about.html">About us</a></li>
+        <li><a href="" class="nav-item btn btn-default">Register</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h2>Select your preferred currencies</h2>
+      <div class="cards">
+        <button class="card">EUR</button>
+        <button class="card">USD</button>
+        <button class="card">GBP</button>
+        <button class="card">MXN</button>
+        <button class="card">INR</button>
+        <button class="card">SGD</button>
+      </div>
+    </div>
+
+    <footer id="footer-wrapper">
+      <a href="about.html" target="_blank">About us</a>
+      <a href="contact.html" target="_blank">Contact us</a>
+    </footer>
+  </body>
+  <script src="test.js"></script>
+</html>
+
+

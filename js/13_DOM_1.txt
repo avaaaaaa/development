@@ -1,0 +1,171 @@
+* innerHTML vs textContent
+when reading from textContent,
+	html tags will be stripped out
+when reading from innerHTML,
+	html tags will be kept
+
+when writing to textContent,
+	html tags won't be rendered & interpreted, only used as text
+when writing to innerHTML,
+	html tags will be rendered & interpreted
+The reason for that is that users can write malicious JavaScript, and, that will cause security issues on your website. When you use textContent however, any <script> tags or JavaScript will be written as text rather than interpreted by the browser. Making it a safe operation.
+
+
+** reading values
+<div id="test">This is a <strong>sample text</strong></div>
+
+const element = document.querySelector("#test");
+console.log(element.textContent); // "This is a sample text"
+console.log(element.innerHTML); // "This is a <strong>sample text</strong>"
+
+
+** writing values
+<div id="test"></div>
+
+const element = document.querySelector("#test");
+element.textContent = "<strong>Hello</strong>";
+// check out the html file, "<strong>Hello</strong>" will be written on the page
+
+element.innerHTML = "<strong>Hello</strong>";
+// check out the html file, "Hello" will be written in bold on the page
+
+
+** security note
+If the string that you're rendering is coming from your users (for example, a string coming from a comment box that the user can fill), then you should avoid using innerHTML as your users will be able to write HTML & JavaScript code inside of your page which may lead to security issues. This is called a Cross-Site Scripting (XSS) attack.
+
+Here's an example. Let's say you have a comment box, and the user writes the following code inside the comment box:
+<script>alert("You got hacked");</script>
+
+And then, you take this user input and render it as an HTML string somewhere on the page:
+document.querySelector("#test").innerHTML = userComment;
+
+The browser will end up running the script written by that user. The user can do a lot more malicious things like redirecting users to another website or stealing their cookies, which allows the attacker to impersonate users, etc.
+
+So the bottom line is: if the string you're rendering is coming from your users, you should then stick to element.textContent = string and never change the innerHTML property to avoid ending up with unwanted HTML on your page.
+
+
+* emptying an element
+You can use the textContent or innerHTML to empty the contents of an element without removing it.
+
+<div id="banner">
+    <h1>Hello World</h1>
+    <p>lorem ipsum</p>
+</div>
+
+const banner = document.querySelector("#banner");
+banner.innerHTML = ""; // OR banner.textContent = "";
+
+
+This will empty all the content inside the div with id "banner", without removing the banner itself. So in this example, it only removes the h1 and p that are inside.
+
+
+* removing an element
+element.remove();
+
+
+* value property
+write to & read the written content of an
+	<input>
+	<select>
+	<textarea>
+you have to use the "value" property
+
+<form>
+    <input type="email" id="email" placeholder="Enter your email">
+</form>
+
+// type something in the box and then check the email.value
+// email.value will be updated dynamically
+const email = document.querySelector("#email");
+console.log(email.textContent); // undefined
+console.log(email.value); // the text written in the email field
+
+
+* pre-fill the value property within <input>
+you can pre-fill the input with value attribute
+
+<form>
+    <input type="email" id="email" placeholder="Enter your email" value="test@test.com">
+</form>
+
+"test@test.com" will be written in the input box
+
+
+* event.preventDefault()
+without this method
+	the first log isn't written on the console (the second is written though)
+	console output is cleared every time when submitted
+
+// index.html
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Page</title>
+</head>
+<body>
+    <div class="container" id="main">
+        <form id="name-form">
+            <label for="user-name">First name</label>
+            <input id="user-name" type="text" placeholder="Enter your name">
+            <input type="submit" value="Continue">
+        </form>
+    </div>
+</body>
+<script src="test.js"></script>
+</html>
+
+
+// test.js
+const getUserName = () => {
+    return document.querySelector("#name-form #user-name").value;
+}
+
+// Sample usage - do not modify
+document.querySelector("#name-form").addEventListener("submit", event => {
+    event.preventDefault();
+    console.log(getUserName());
+    console.log("second log");
+});
+
+
+* read values from <select>
+
+<select id="countries-dropdown">
+    <option value="">Please select</option>
+    <option value="netherlands">Netherlands</option>
+    <option value="belgium">Belgium</option>
+    <option value="japan">Japan</option>
+    <option value="russia">Russia</option>
+</select>
+<script src="test.js"></script>
+
+
+const dropdown = document.querySelector("#countries-dropdown");
+
+const getSelectedCountry = () => {
+    return dropdown.value;
+}
+
+dropdown.addEventListener("change", () => {
+    console.log(getSelectedCountry());
+});
+
+
+* read the text within <textarea> dynamically
+
+<textarea id="user-comment"></textarea>
+<script src="test.js"></script>
+
+
+const textarea = document.querySelector("#user-comment");
+
+const getText = () => {
+    return textarea.value;
+}
+
+textarea.addEventListener("keyup", ()=>{
+    console.log(getText());
+});
+
+

@@ -1,0 +1,129 @@
+* we will put repetitive code parts in fetch calls into the fetch wrapper class
+
+
+* get
+
+class FetchWrapper{
+    constructor(baseURL){
+        this.baseURL = baseURL;
+    }
+    get(endPoint){
+        return fetch(this.baseURL + endPoint)
+                    .then(response => response.json());
+    }
+}
+
+
+const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
+API.get("/notifications/new.json").then(data => {
+        console.log(data);
+    });
+
+
+* get
+
+import FetchWrapper from "./fetch-wrapper.js";
+
+const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
+
+const getTweetDetails = () => {
+    // TODO
+    API.get("tweet/1080777336298049537.json").then(data => {
+        console.log(data.author.details);
+        const details = data.author.details;
+        showAuthorName(details.firstName + " " + details.lastName);
+    });
+}
+
+
+// do NOT modify this function
+function showAuthorName(fullName) {
+    console.log(fullName);
+}
+
+// Sample usage - do not modify
+getTweetDetails();
+
+
+* put
+
+class FetchWrapper{
+    constructor(baseURL){
+        this.baseURL = baseURL;
+    }
+    get(endPoint){
+        return fetch(this.baseURL + endPoint)
+                    .then(response => response.json());
+    }
+    put(endPoint, body){
+        const requestBody = {
+            method: "put",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }
+        return fetch(this.baseURL + endPoint, requestBody)
+                    .then(response => response.json());
+    }
+}
+
+
+const API = new FetchWrapper("https://api.learnjavascript.online");
+
+API.put("/demo/grades.json", {
+    grade: 18
+}).then(data => {
+    console.log(data);
+});
+
+
+* put, post, delete
+since these methods have the same request body except "method" property, we can create another function
+to call these function not to repeat the same code again
+
+class FetchWrapper {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+    }
+
+    get(endpoint) {
+        return fetch(this.baseURL + endpoint)
+            .then(response => response.json());
+    }
+
+    put(endpoint, body) {
+        return this.#send("put", endpoint, body);
+    }
+
+    post(endpoint, body) {
+        return this.#send("post", endpoint, body);
+    }
+
+    delete(endpoint, body) {
+        return this.#send("delete", endpoint, body);
+    }
+
+    #send(method, endpoint, body) {
+        return fetch(this.baseURL + endpoint, {
+            method,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(body)
+        }).then(response => response.json());
+    }
+}
+
+const API = new FetchWrapper("https://api.learnjavascript.online/demo/");
+
+const saveGrade = grade => {
+    // TODO
+    API.post("grades.json", {grade})
+    	.then(data => {
+    	console.log(data)  // server response
+    	});
+};
+
+saveGrade(30);
+// { error: 'The grade cannot be more than 20.' }

@@ -74,9 +74,7 @@ console.log(child.printMessage("hello world"))
 // think of child as student, c as studentID
 
 
-** if the parent constructor is overridden, we still need to call the parent constructor with super()
-within the child constructor
-
+** even if the parent constructor is overridden or does not exist, we still need to call the parent constructor with super() within the child constructor
 
 
 *
@@ -95,6 +93,8 @@ new Child();
 // reference error
 // must call super constructor in derived class before accessing 'this' or returning from derived constructor
 // thus, we have to uncomment super(); line
+// we deleted the parent constructor entirely, but we still need to call super()
+// otherwise, the same error will occur again
 
 
 * calling parent methods with "super"

@@ -1,0 +1,46 @@
+* element.classList
+the classList object allows us to manipulate the class attribute of the selected element
+
+
+** adding classes
+
+<ul id="shopping-list">
+    <li id="first-item">Carrots</li>
+    <li>Avocado</li>
+</ul>
+
+const element = document.querySelector("#first-item");
+element.classList.add("highlighted", "underlined");
+
+// #first-item becomes <li id="first-item" class="highlighted underlined">Carrots</li>
+
+
+* removing classes
+
+<ul id="shopping-list">
+    <li id="first-item" class="highlighted vegetables">Carrots</li>
+    <li>Avocado</li>
+</ul>
+
+const element = document.querySelector("#first-item");
+element.classList.remove("highlighted", "underlined");
+
+// #first-item becomes <li id="first-item" class="vegetables">Carrots</li>
+
+
+* toggling a class
+classList.toggle("class-name")
+	if "class-name" exists, it got removed and the method returns false
+	if "class-name" doesn't exist, it got added and the method returns true
+
+
+* check if a class exists
+classList.contains("class-name")
+	returns true if "class-name" is in the classList of the element
+	false otherwise
+
+
+* replacing a class
+classList.replace("old-class", "new-class")
+	replaces "old-class" with "new-class"
+
