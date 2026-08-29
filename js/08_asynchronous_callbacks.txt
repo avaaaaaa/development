@@ -8,8 +8,10 @@ This would result in a poor user experience.
 Instead, JavaScript uses callbacks (and later promises and async/await) to allow the program to define what should happen once the task is complete.
 This way, the program can continue running other code in the meantime, and the callback is executed when the task finishes.
 
-The success callback is an asynchronous callback that will run when the function has finished its tasks
-The error callback is an asynchronous callback that will run when an error occurred during execution of the function
+The success callback is an asynchronous callback
+	that will run in the future if the function has completed successfully
+The error callback is an asynchronous callback
+	that will run in the future if an error occurred during execution of the function
 this callback pattern can lead to confusion and callback hell, promises will replace this pattern later
 
 

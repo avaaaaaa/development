@@ -11,26 +11,28 @@ Every response has a response code and every response code has a response text.
 As a web developer, you will rarely ever encounter this group.
 
 2xx is for successful responses.
-This is one of the most common range. The most common code here is 200 which has a response text of OK. This means that the request succeeded so the response is "OK" ☑️.
+This is one of the most common range.
+	200 with a response text of "OK" is the most common code here
+	This means that the request succeeded so the response is "OK" ☑️.
 
 3xx is for redirects.
 When you browse to http://learnjavascript.online, you will automatically get transferred to the secure version (https) and land on https://learnjavascript.online. This is what we call a redirect.
 There are 2 common codes:
-    301 with a response text of Moved Permanently.
-    302 with a response text of Found.
+    301 with a response text of "Moved Permanently".
+    302 with a response text of "Found".
 The main difference between these two is that 301 is a permanent redirect whereas 302 is a temporary one.
 
 4xx is for client errors.
 The famous 404 Not Found is in this group.
 Client errors means that the error is most likely due to the client (you, the developer).
-	404 means that you entered a URL that does not exist.
-	401 with a response text of Unauthorized which is used when a resource (or page) requires authentication (it requires you to be logged in).
+	404 with a response text of "Not Found" means that you entered a URL that does not exist.
+	401 with a response text of "Unauthorized" which is used when a resource (or page) requires authentication (it requires you to be logged in).
 
 5xx is for server errors.
 500 is reserved for server errors. This means that the error is most likely from the server.
 The most common error codes here are:
-    500 with status text Internal Server Error meaning there's a bug in the code (that's running on the server).
-    504 with status text Gateway Timeout. You often see this one when a website suddenly becomes popular and is unable to keep up with the incoming traffic.
+    500 with status text "Internal Server Error" meaning there's a bug in the code (that's running on the server).
+    504 with status text "Gateway Timeout". You often see this one when a website suddenly becomes popular and is unable to keep up with the incoming traffic.
 
 
 * handling fetch errors

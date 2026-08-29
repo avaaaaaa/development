@@ -46,7 +46,7 @@ if (user.details && user.details.name && user.details.name.firstName) {
     name = "N/A";
 }
 
-// the code above can be refactored to the code below using ?. and ?? operators
+// the code above can be refactored to the code below using ?. and ?? operators together
 const name = user.details?.name?.firstName ?? "N/A";
 
 

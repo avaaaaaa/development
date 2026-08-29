@@ -27,7 +27,7 @@ let name = undefined;
 if (user.details && user.details.name && user.details.name.firstName) {
     name = user.details.name.firstName;
 }
-// with optional chaining, we can refactore this code above into the following
+// with optional chaining, we can refactor this code above into the following
 // const name = user.details?.name?.firstName;
 // but user can be null or undefined too, so it is better to add ?. after user
 // const name = user?.details?.name?.firstName;
@@ -70,7 +70,7 @@ const settings = {
 
 settings?.theme && (settings.theme = "dark");
 console.log(settings); // {theme: "dark"}
-// if we set "theme" as nullish value in the definition, this won't work
+// if "theme" is a nullish value in the definition, this won't work
 
 // we can do the following if "theme" is set as nullish value
 "theme" in settings && (settings.theme = "dark");

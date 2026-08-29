@@ -69,9 +69,9 @@ wait(2_000).then(seconds => {
 
 * rejecting promises
 the executor function of promises can have another argument
-the first one was resolve(), it changes the promise state from pending to fulfilled
+the first argument was resolve(), it changes the promise state from pending to fulfilled
 	resolve() triggers .then(callback)
-the second one is reject(), it changes the promise state from pending to rejected
+the second argument is reject(), it changes the promise state from pending to rejected
 	reject() triggers .catch(callback)
 these names of function arguments can be different than resolve and reject
 but resolve and reject makes them easier to understand and differentiate
@@ -127,7 +127,7 @@ fakeFetch("user-details")
   });
 
 // 'endpoint not supported', this is first because "user-details" is rejected immediately
-// { departed: false, delayed: true }, this is second because it took 1 second to respond
+// { departed: false, delayed: true }, this is second because "flight-status" took 1 second to respond
 
 if we don't put reject() within an else-block, the promise will be rejected even if it should not 
 because the promise will be resolved after 1 second
@@ -160,4 +160,4 @@ in that case we can chain .then() methods together when needed
 <>.then(...).then(...)
 
 first .then() returns a promise
-second .then() will execute only when the promise returned by first .then resolved successfully
+second .then() will execute only when the promise returned by first .then() resolved successfully

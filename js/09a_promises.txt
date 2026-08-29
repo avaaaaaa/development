@@ -87,8 +87,8 @@ logWeatherDescription("tokyo");
 logWeatherDescription("istanbul");
 // City must be Amsterdam or Tokyo
 	this is the first because "istanbul" is rejected instantly
-// sunny
-	this is the second because it takes one second to resolve
+// Sunny
+	this is the second because "tokyo" takes one second to resolve
 
 
 * another resolve & reject example

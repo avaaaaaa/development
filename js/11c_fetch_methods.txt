@@ -1,4 +1,4 @@
-* there are 4 common methods
+* there are 4 common fetch methods
 GET for reading data
 POST for creating data
 PUT for updating data
@@ -16,7 +16,7 @@ Whereas with the other methods, you are sending information. For example, to upd
 
 These details go in the body of the fetch request
 
-Some APIs require you to send a specific header with the fetch request when you need to send a body. This header is Content-Type with a value of "application/json".
+Some APIs require you to send a specific header with the fetch request when you need to send a body. This header is "Content-Type" with a value of "application/json".
 Headers are additional pieces of information sent with every request.
 The reason why some endpoints require this header is that they don't know that you're sending them JSON (since they support other formats, too).
 
@@ -24,7 +24,7 @@ The reason why some endpoints require this header is that they don't know that y
 * PUT, POST or DELETE request with fetch
 second parameter of fetch() will be the request body
 we can omit .then() methods if we don't need to see the server response
-in the following examples, we omitted headers because they weren't needed
+in the later examples, we omitted headers because they weren't needed
 
 fetch(URL, {
     method: "POST", // or PUT or DELETE

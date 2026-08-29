@@ -45,7 +45,7 @@ person["age"] = 25
 person.interests[0] = "reading"
 person["interests"][0] = "reading"
 
-// if the key does not exist, the key will be added to the object
+// if the key does not exist, this method will add the key and its value to the object
 // if we want to update values of only existed keys, we can do the following
 const person = {
   
@@ -196,7 +196,7 @@ getValue(person, "interests");	// ["a", "b"]
 
 // dot notation requires exact name matching
 // let key = "id";
-// person.key will return undefined, because there is no "key" property
+// person.key will return undefined, because there is no "key" property in the person object
 // but person[key] is equal to person["id"], and it will return 1
 
 
@@ -206,14 +206,12 @@ const age = 19;
 const name = "gg";
 
 const user = {
-  age,  // equal to age: age
-  name, // equal to name: name
+  age,  // equal to age: 19
+  name, // equal to name: "gg"
 };
 
-console.log(user.name);
-console.log(user.age);
-// "gg"
-// 19
+console.log(user);
+// { age: 19, name: 'gg' }
 
 
 * object destructuring
@@ -312,6 +310,6 @@ const clonedUser = {
     ...user,
     age: user.age + 1
 };
-console.log(clonedUser); // {id: 1, age: 24} (new object not related to 'user')
+console.log(clonedUser); // {id: 1, age: 24} (clonedUser is not related to 'user')
 console.log(user); // {id: 1, age: 23} (unchanged)
 
