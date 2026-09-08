@@ -6,7 +6,6 @@ you can access the <body> tag in js with "document.body"
 you can access the <html> tag in js with "document.documentElement"
 
 
-
 * selecting a single item from the DOM
 document.querySelector("your-CSS-selector-here");
 

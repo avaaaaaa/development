@@ -19,10 +19,10 @@ button.getAttribute("disabled"); // "disabled"
 
 
 ** a note on "disabled" attribute
-if "disabled" attribute exists, it will be considere present regardless of its value
+if "disabled" attribute exists, it will be considered present regardless of its value
 disabled, disabled="", disabled="gg", disabled="null", disabled=null, disabled="disabled", 
 	all of them have the same functionality
-	as long as disabled is there, it makes this attribute present regardless of its value
+	as long as disabled is there, this attribute is present regardless of its value
 	even though the first one does not have a value, it is still the same as rest
 if it is not present, its value will be null
 	not "null" as string, just null

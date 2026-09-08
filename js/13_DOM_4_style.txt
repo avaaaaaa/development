@@ -1,5 +1,5 @@
 * we can make use of style property of an element (element.style) to change its style from JS
-but it is recommended to update the class attribute instead of styles directly
+but it is recommended to update the class attribute instead of style property directly
 
 
 * CSS property names are in kebab-case

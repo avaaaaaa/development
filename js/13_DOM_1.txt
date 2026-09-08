@@ -56,11 +56,12 @@ const banner = document.querySelector("#banner");
 banner.innerHTML = ""; // OR banner.textContent = "";
 
 
-This will empty all the content inside the div with id "banner", without removing the banner itself. So in this example, it only removes the h1 and p that are inside.
+This will empty all the content inside the div with id "banner", without removing the banner itself. So in this example, it only removes the "h1" and "p" that are inside.
 
 
 * removing an element
 element.remove();
+// this removes the element itself and the elements within this element 
 
 
 * value property
