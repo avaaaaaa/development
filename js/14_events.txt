@@ -71,7 +71,7 @@ if we want to inspect the event details, we can do it as following:
 
 * event.currentTarget
 it refers to the element to which the event listener has been attached
-When we refactor the event listener callback into a named function, it becomes absolutely necessary to use event.currentTarget because the button variable will not be defined in that function
+When we refactor the event listener callback into a named function, it becomes absolutely necessary to use event.currentTarget because the button variable will not be available within that function
 the reason why we refactored the callback function into a named function is
 	to improve readability and flexibility
 	with named functions it is easier to notice & change & reuse the functionality of event listeners 
@@ -80,7 +80,7 @@ the reason why we refactored the callback function into a named function is
 const buttons = document.querySelectorAll("button");
 
 const handleButtonClick = event => {
-    console.log(event.currentTarget); // the 'button' that was clicked.
+    console.log(event.currentTarget); // event.currentTarget is the 'button' that was clicked.
     // console.log(button) won't work, because button is not defined here
 }
 

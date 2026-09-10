@@ -45,6 +45,7 @@ import {settings, votingAge} from "./config.js";
 ! we also tried to change both scripts' extension to ".mjs" without package.json
 	this also solved the problem
 
+
 * default export
 Scenarios where default export makes sense:
     either export only one variable/function/class.
