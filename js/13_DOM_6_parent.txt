@@ -1,0 +1,10 @@
+* You should not rely a lot on these propertys & methods as changing the HTML would then break your JavaScript code. It's recommended that you add "id"s and "class"es whenever possible.
+
+
+* element.parentElement
+this property returns the parent of the element
+
+
+* element.closest("CSS-selector")
+this methods returns the element itself if it matches the "CSS-selector"
+otherwise it returns the first parent of the element that matches the "CSS-selector"

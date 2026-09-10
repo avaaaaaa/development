@@ -1,0 +1,45 @@
+* Datasets allow you to store data in your HTML (most likely coming from the server).
+
+
+* to avoid potential conflicts with the browser, prefix custom attributes with "data-"
+these custom attributes are called data attributes
+data attributes can be accessed with "dataset" property of the element
+"dataset" property automatically collects attributes with "data-" prefix
+
+
+<form id="payment-form" data-currency="EUR" data-user-id="2">
+    ...
+</form>
+
+const form = document.querySelector("#payment-form");
+console.log(form.dataset);
+
+// output will be:
+{
+    userId: "2",
+    currency: "EUR"
+}
+
+
+* write to "dataset"
+
+<div id="navbar" data-user-id="42"></div>
+
+const navbar = document.querySelector("#navbar");
+navbar.dataset.userId = 43;
+navbar.dataset.rememberMe = false;
+
+// navbar becomes the following
+<div id="navbar" data-user-id="43" data-remember-me="false"></div>
+
+
+* read from "dataset"
+remember that the values read from "dataset" will be string
+dont forget to convert them when needed
+
+<div id="navbar" data-user-id="42"></div>
+
+const navbar = document.querySelector("#navbar");
+const userId = Number.parseInt(navbar.dataset.userId);
+const rememberMe = navbar.dataset.rememberMe === "true";
+

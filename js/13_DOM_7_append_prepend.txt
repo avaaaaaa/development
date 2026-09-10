@@ -1,0 +1,70 @@
+* There are a lot of scenarios where you need to add some HTML to an existing element.
+if you want to overwrite all the previous values, use innerHTML = ...
+	don't use innerHTML += ... for updating purposes, this is not efficient
+		this can also remove existing event listeners, so be cautious
+if you want to keep previous values and add some HTML at the beginning or end, use insertAdjacentHTML()
+	use insertAdjacentHTML() for updating purposes
+
+
+** security note
+The insertAdjacentHTML() presents the same security risk as innerHTML.
+So, you should not use it if the variables you're interpolating might be coming from the user.
+Similarly, we've got insertAdjacentText() that will insert text without interpreting HTML.
+
+
+* element.insertAdjacentHTML("beforeend", htmlString)
+this methods inserts htmlString at the END of the element (append)
+
+
+* element.insertAdjacentHTML("afterbegin", htmlString)
+this methods inserts htmlString at the BEGINNING of the element (prepend)
+
+
+* it is recommended to use backticks for htmlString (template string)
+with that, htmlString can span multiple lines and we can use interpolation when needed
+
+
+*
+<div id="job-positions">
+    <div class="position">2009-2013</div>
+    <div class="position">2013-2015</div>
+</div>
+
+const positions = document.querySelector("#job-positions");
+positions.insertAdjacentHTML("beforeend", `<div class="position">2015-2020</div>`);
+positions.insertAdjacentHTML("afterbegin", `<div class="position">2007-2009</div>`);
+
+// job-positions becomes the following:
+<div id="job-positions">
+    <div class="position">2007-2009</div>
+    <div class="position">2009-2013</div>
+    <div class="position">2013-2015</div>
+    <div class="position">2015-2020</div>
+</div>
+
+
+* other positions
+While there are other positions, they are very rarely used.
+If you're curious, take a look at the MDN reference
+
+
+*
+<ul id="apps-list"></ul>
+
+const apps = ["Calculator", "Phone", "Messages"];
+const list = document.querySelector("#apps-list");
+
+apps.forEach(app => {
+    list.insertAdjacentHTML("beforeend", `<li>${app}</li>`);
+});
+
+// the list becomes
+<ul id="apps-list">
+    <li>Calculator</li>
+    <li>Phone</li>
+    <li>Messages</li>
+</ul>
+
+// instead of iterating over every array item, we can also do the following:
+const htmlString = apps.map(app => `<li>${app}</li>`).join("");
+list.innerHTML = htmlString;

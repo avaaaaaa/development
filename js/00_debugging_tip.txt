@@ -1,3 +1,14 @@
+* debugger statement
+we can use "debugger" statement to pause the execution so that we can inspect the situation
+
+func1();
+debugger;
+func2();
+
+// execution pauses after "debugger;" statement
+// so we can inspect the changes after func1() call
+
+
 * the more logs to the console, the harder to map the console output with the corresponding log
 to make it easier, we can wrap the variable with {}, or we can add another log next to the variable
 

@@ -1,0 +1,116 @@
+* we can react & respond to user actions with .addEventListener(event, callback) method
+event is the user action we want to respond
+callback is the respond to the event
+
+
+* button click
+
+<button id="app-button" style="height: 100px; width: 100px;">Click Me</button>
+<script>
+    let counter = 0;
+    const button = document.querySelector("#app-button");
+    button.addEventListener("click", ()=>{
+        counter ++;
+        button.textContent = `You clicked ${counter} time(s)`;
+    })
+</script>
+
+
+** disable the button and change the text on click
+
+const button = document.querySelector("#app-button");
+
+button.addEventListener("click", () => {
+    button.setAttribute("disabled", "");
+    button.textContent = "Loading...";
+});
+
+
+** accessibility note for click events
+It's important to note that in order to make your website accessible for users with screen readers, you should only add a click event listener on <button> and <a> elements.
+
+While it is possible to add it on other items, you may end up making those elements not accessible for screen reader users if you don't add the necessary attributes (role & tabindex).
+
+An easier solution would be to wrap any item with a <button> element and then adjust the styles of that button to not make it look like a button. For example, if you want to make an img element clickable, you can wrap it with a <button> and style it with all: unset which removes all the styles of the <button>:
+
+// html
+<button class="clickable">
+    <img src="..." alt="...">
+</button>
+
+// css
+.clickable {
+    all: unset;
+    outline: revert; /* keep the outline so that it's focusable */
+}
+With the code above, you can have the click event listener on the <img> without breaking accessibility!
+
+
+** show/hide sidebar on click
+
+const menuSidebar = document.querySelector("#menu-sidebar");
+const appSidebar = document.querySelector("#app-sidebar");
+
+menuSidebar.addEventListener("click", ()=>{
+    appSidebar.classList.toggle("show");
+});
+
+
+* event details
+second parameter can provide us a lot of information about the event
+the most used one is called "currentTarget"
+if we want to inspect the event details, we can do it as following:
+
+.addEventListener("click", event => {
+	console.log(event);
+	}
+)
+// if we don't need details, we can skip it as before
+// it is recommended to name the second argument "event"
+
+
+* event.currentTarget
+it refers to the element to which the event listener has been attached
+When we refactor the event listener callback into a named function, it becomes absolutely necessary to use event.currentTarget because the button variable will not be defined in that function
+the reason why we refactored the callback function into a named function is
+	to improve readability and flexibility
+	with named functions it is easier to notice & change & reuse the functionality of event listeners 
+
+
+const buttons = document.querySelectorAll("button");
+
+const handleButtonClick = event => {
+    console.log(event.currentTarget); // the 'button' that was clicked.
+    // console.log(button) won't work, because button is not defined here
+}
+
+buttons.forEach(button => {
+    button.addEventListener("click", handleButtonClick);
+});
+
+
+** a note on "currentTarget"
+when inspecting this property on browsers' dev tool console, its value will be null
+currentTarget is only available when the event is triggered (example: when the button is clicked)
+but you won't be able to read its value later on in the dev tool console.
+You can either log event.currentTarget directly (rather than event) or, you can add a debugger; statement which will pause the execution of your code and thus allowing you to see the event.currentTarget in the dev tools console:
+
+button.addEventListener("click", event => {
+    console.log(event);
+    debugger; // pause execution so that we can see event.currentTarget in the dev tools
+});
+
+
+**
+// TODO: The user can select a currency by clicking on it (add the class `active`). However, only one currency can be chosen at a time.
+
+const cards = document.querySelectorAll(".card");
+cards.forEach(card => {
+    card.addEventListener("click", event => {
+        const activeCard = document.querySelector(".card.active");
+        activeCard?.classList.remove("active");
+        event.target.classList.add("active");
+    });
+});
+
+// activeCard?. is required for the initial situation where no card is selected

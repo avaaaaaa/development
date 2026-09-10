@@ -8,7 +8,6 @@ when writing to textContent,
 	html tags won't be rendered & interpreted, only used as text
 when writing to innerHTML,
 	html tags will be rendered & interpreted
-The reason for that is that users can write malicious JavaScript, and, that will cause security issues on your website. When you use textContent however, any <script> tags or JavaScript will be written as text rather than interpreted by the browser. Making it a safe operation.
 
 
 ** reading values
@@ -17,6 +16,28 @@ The reason for that is that users can write malicious JavaScript, and, that will
 const element = document.querySelector("#test");
 console.log(element.textContent); // "This is a sample text"
 console.log(element.innerHTML); // "This is a <strong>sample text</strong>"
+
+
+<ul id="apps-list">
+    <li>Calculator</li>
+    <li>Phone</li>
+    <li>Messages</li>
+</ul>
+
+const element = document.querySelector("#apps-list");
+
+element.textContent
+"
+    Calculator
+    Phone
+    Messages
+"
+element.innerHTML
+"
+    <li>Calculator</li>
+    <li>Phone</li>
+    <li>Messages</li>
+"
 
 
 ** writing values
