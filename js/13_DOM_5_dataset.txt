@@ -43,3 +43,34 @@ const navbar = document.querySelector("#navbar");
 const userId = Number.parseInt(navbar.dataset.userId);
 const rememberMe = navbar.dataset.rememberMe === "true";
 
+
+* showing the related content on click with dataset property
+see events.txt for the click event
+in this example, we will embed some data in html
+and then use this data to show related content that is linked to the embedded data
+
+<ul>
+	<li><button class="tab active" data-content="#about-us">About us</button></li>
+	<li><button class="tab" data-content="#the-team">The team</button></li>
+	<li><button class="tab" data-content="#others-say">What others say</button></li>
+</ul>
+<p id="about-us" class="tab-content show">About us content here</p>
+<p id="the-team" class="tab-content">The team content here</p>
+<p id="others-say" class="tab-content">What others say content here</p>
+
+const tabs = document.querySelectorAll(".tabs .nav-tabs button");
+tabs.forEach(tab => {
+    tab.addEventListener("click", event => {
+        // TODO: highlight the button
+        const lastActive = document.querySelector(".tabs .nav-tabs .tab.active");
+        lastActive?.classList.remove("active");
+        event.target.classList.add("active");
+
+        // TODO: show the information
+        const lastParagraph = document.querySelector(".tab-content.show");
+        lastParagraph?.classList.remove("show");
+        const paragraphId = event.target.dataset.content;
+        const paragraph = document.querySelector(paragraphId);
+        paragraph.classList.add("show");
+    });
+});

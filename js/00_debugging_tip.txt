@@ -1,5 +1,5 @@
 * debugger statement
-we can use "debugger" statement to pause the execution so that we can inspect the situation
+we can use "debugger" statement to pause the execution so that we can inspect the current situation
 
 func1();
 debugger;
@@ -49,7 +49,7 @@ const sum = (a, b) => {
 sum(1, 3);
 
 
-* wrapping the value with {} doesn't work on object properties, though
+* wrapping the value with {} doesn't work on object properties though
 but we can still use the second approach
 
 const user = {

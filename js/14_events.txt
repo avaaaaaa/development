@@ -57,7 +57,7 @@ menuSidebar.addEventListener("click", ()=>{
 
 
 * event details
-second parameter can provide us a lot of information about the event
+second parameter can provide us various information about the event
 the most used one is called "currentTarget"
 if we want to inspect the event details, we can do it as following:
 
@@ -114,3 +114,27 @@ cards.forEach(card => {
 });
 
 // activeCard?. is required for the initial situation where no card is selected
+
+
+* event.target
+this will return the element that was clicked
+	but not necessarily the element to which the event listener has been attached.
+
+
+<button>
+    Hello <strong>world</strong>
+</button>
+
+const button = document.querySelector("button");
+
+button.addEventListener("click", event => {
+    console.log(event.target); // not recommended
+});
+
+depending on where the user clicks inside the button.
+	The event.target here might return either the <button> element or the <strong> element
+you will rarely ever need it.
+	There is, however, one use case for event.target and that is "event delegation"
+	this can also be useful in some scenarios when building User Interface libraries
+This is why you should stick to event.currentTarget.
+	here, it'll always return the <button> no matter where the user has clicked inside that button.

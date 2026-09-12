@@ -17,10 +17,10 @@ let msg = `welcome, ${name.toUpperCase()}. it's nice to meet you!`
 // be aware of that interpolation only takes the string, not quotes
 const mode = "dark-mode";
 const htmlString = `<div class=${mode}>Hello World</div>`;
-	<div class=dark-mode>Hello World</div> which is NOT CORRECT HTML code
+	...class=dark-mode... which is NOT CORRECT HTML code
 	we need to wrap ${mode} with ""
 		const htmlString = `<div class="${mode}">Hello World</div>`;
-			<div class="dark-mode">Hello World</div> which is CORRECT HTML code
+			...class="dark-mode"... which is CORRECT HTML code
 
 
 * string concatenation

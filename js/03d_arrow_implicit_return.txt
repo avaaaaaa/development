@@ -1,4 +1,4 @@
-* if the body of arrow functions has only one return statement that is only one line,
+* if the body of arrow functions has only one line that is a return statement,
 we can use implicit return feature
 	remove curly braces
 	remove return keyword
@@ -36,7 +36,7 @@ const getRaisedGrades = grades => {
     // TODO: return all the grades raised by 1 (grades should not exceed 20)
     return grades.map(grade => (grade + 1) > 20 ? 20 : grade + 1);
 }
-// the function body has only one return statement that is only one line
+// the function body has only one line that is a return statement
 // so we can use implicit return: drop {} and "return" keyword
 
 const getRaisedGrades = grades => grades.map(grade => (grade + 1) > 20 ? 20 : grade + 1);
@@ -64,7 +64,7 @@ const getUser = (id, name) => {
 };
 console.log(getUser(1, "a"))
 // { id: 1, name: 'a' }
-// so, technically there is only one return statement that is only one line
+// so, technically there is only one line that is a return statement
 // it seems we can make use of implicit return
 // but when we do that, we get undefined rather than the object
 
@@ -72,7 +72,7 @@ const getUser = (id, name) => {id, name};
 console.log(getUser(1, "a"))
 // undefined
 // so, we cannot return an object using this feature, i guess?
-// {} around object might be interpreted as function body
+// {} around object might be interpreted as the body of the arrow function
 
 // update: putting () around {id, name} solved the issue
 const getUser = (id, name) => ({id, name});

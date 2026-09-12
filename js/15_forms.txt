@@ -1,0 +1,125 @@
+* <form> elements are used to group related inputs together
+if there are multiple <form> elements
+	when one of them gets submitted, only its inputs will be sent
+
+
+* the submit event
+these will trigger the submit event
+	clicking on the submit button
+	pressing enter on the keyboard while the focus of the mouse cursor is on one of the form inputs
+
+requirements for the submit event
+	have a <form> element
+	have at least <input> or <textarea> inside of <form>
+	have a button with type "submit" like:
+		<input type="submit" value="click to submit">
+		<button type="submit">click to submit</button>
+
+the submit event fires only on the <form>
+	so we need to attach the submit event listener on the <form>, not on the <button> 
+
+
+an example:
+<form id="address-form">
+    <input type="text" placeholder="Enter your address">
+    <input type="submit" value="Save">
+</form>
+
+const form = document.querySelector("#address-form");
+form.addEventListener("submit", event => {
+    // event callback (when the form is submitted)
+});
+
+
+* event.preventDefault()
+when a form is submitted, the browser will collect and send all the inputs to the backend of your website
+	by default, the backend is the same URL as where the user submitted the form (the current webpage)
+		and this will cause the current page to be reloaded
+		you can override the default with "action" attribute of the <form>
+
+
+for example:
+If you have the index.html open and you fill in your email & password and click submit, the browser will send your email and password to the index.html page which will make the page refresh/reload.
+
+This is the default behavior for forms. The reason behind it is rather historical. Before the fetch API (and its recent predecessor) made it to browsers, this was the only way of submitting data from the frontend to the backend.
+
+However, nowadays we've got the fetch API, and thus we don't want to reload the page every time the user sends some information. and we can prevent this default behavior with event.preventDefault()
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    // the form will not reload anymore
+});
+
+but sometimes you want to rely on this behavior if you're not using fetch. That would be the case if your backend is written in Rails/Laravel/Symfony/etc. and you'd like to submit the data without using fetch.
+
+
+**
+<form id="app-form">
+    <input id="user-input" type="text" placeholder="enter your input">
+    <input type="submit" value="submit">
+</form>
+<script>
+    const form = document.querySelector("#app-form");
+    const userInput = document.querySelector("#user-input");
+    form.addEventListener("submit", event =>{
+        console.log(userInput.value);
+        console.log("second log");
+    });
+</script>
+
+typed "test" on the textbox and then submitted
+the output:
+	second log
+
+activated "persist logs" in the console settings
+typed "test" on the textbox and then submitted
+the output:
+	Navigated to file:///home/gfe/Desktop/test/index.html?
+	test
+	second log
+
+added "event.preventDefault()" inside of the event listener
+typed "test" on the textbox and then submitted
+the output:
+	test
+	second log
+adding this method before, after or between console.log() methods did not change the output
+
+
+* FormData class
+when the <form> has a lot of input fields, it won't be convenient to get their values with document.querySelector(). this will lead to code repetition. instead, we can make use of FormData class
+for such cases
+
+FormData matches input values with "name" attribute of the <input>
+so, if <input> does not have "name" attribute, it won't be registered in FormData
+also, if <input> has "disabled" attribute, it won't be registered in FormData even it has "name"
+
+
+<form id="signup-form">
+    <input type="text" name="username" placeholder="Username">
+    <input type="email" name="email" placeholder="Email">
+    <input type="password" name="password" placeholder="Password">
+    <input type="submit" value="Sign up">
+</form>
+<script>
+    const form = document.querySelector("#signup-form");
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        console.log(data);
+    });
+</script>
+
+output:
+FormData(3) { username → "test", email → "test@test.com", password → "test" }
+
+
+** FormData.get(inputName)
+returns the value of the <input> whose "name" attribute is "inputName"
+	if there are multiple inputs that have the same "name", returns the value of the first one 
+
+// data from the previous example
+data.get("username");
+	returns "test"
+data.get("email");
+	returns "test@test.com"

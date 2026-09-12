@@ -73,7 +73,7 @@ const y = 20;
 let z = 0;
 x < y && (z = 99);
 console.log(z);  // 99
-// () are needed for value assignment
+// () are needed for value assignments
 // x < y && z = 99; --> SyntaxError
 
 const x = 30;
