@@ -58,7 +58,7 @@ const filteredNumbers = numbers.filter(function(number){
 
 
 ** Array.find()
-returns the only first item of the base array that satisfies the condition
+returns the only first item of the array that satisfies the condition
 returns undefined otherwise
 
 const numbers = [9, 5, 14, 3, 11];
@@ -159,6 +159,10 @@ let reduceMultiply = array.reduce(function(total, current){
 	// total will be (total * current) in the next function call
 	}, 1)  // 6
 // 1 is the initial value of the accumulator
+
+const sumOfOdds = numbers.reduce((total, current) => {
+    return (current %2 === 0) ? total : total + current;
+}, 0);
 
 
 ** Array.every(callback)
