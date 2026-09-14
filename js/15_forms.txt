@@ -1,17 +1,18 @@
 * <form> elements are used to group related inputs together
+Forms are often combined with the fetch API
 if there are multiple <form> elements
 	when one of them gets submitted, only its inputs will be sent
 
 
 * the submit event
-these will trigger the submit event
+these will trigger the submit event:
 	clicking on the submit button
 	pressing enter on the keyboard while the focus of the mouse cursor is on one of the form inputs
 
 requirements for the submit event
 	have a <form> element
 	have at least <input> or <textarea> inside of <form>
-	have a button with type "submit" like:
+	have a button with type "submit":
 		<input type="submit" value="click to submit">
 		<button type="submit">click to submit</button>
 
@@ -86,6 +87,19 @@ the output:
 adding this method before, after or between console.log() methods did not change the output
 
 
+* form.reset()
+After a user submits, you often want to empty the form so they can start fresh or just so they get visual feedback that something happened. Instead of clearing each input manually with input.value = "", call .reset() on the form. This restores every field to its initial state: empty for text inputs, unchecked for checkboxes, and back to the default option for dropdowns.
+
+
+const form = document.querySelector("form");
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    form.reset(); // clears all the inputs
+});
+
+
 * FormData class
 when the <form> has a lot of input fields, it won't be convenient to get their values with document.querySelector(). this will lead to code repetition. instead, we can make use of FormData class
 for such cases
@@ -116,10 +130,98 @@ FormData(3) { username → "test", email → "test@test.com", password → "test
 
 ** FormData.get(inputName)
 returns the value of the <input> whose "name" attribute is "inputName"
-	if there are multiple inputs that have the same "name", returns the value of the first one 
+	if there are multiple inputs that have the same "name", returns only the value of the first one 
 
 // data from the previous example
 data.get("username");
 	returns "test"
 data.get("email");
 	returns "test@test.com"
+
+
+**
+<form id="register-form" novalidate>
+    <label for="register-name">Name</label>
+    <input id="register-name" name="name" type="text" placeholder="Enter your name">
+    <label for="register-email">Email</label>
+    <input id="register-email" name="email" type="email" placeholder="Enter your email">
+    <label for="register-password">Password</label>
+    <input id="register-password" name="password" type="password" placeholder="Enter your password">
+    <input type="submit" value="Register" id="submit-button">
+</form>
+
+<script>
+    const form = document.querySelector("#register-form");
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        completeRegistration(
+            data.get("name"),
+            data.get("email"),
+            data.get("password")
+        );
+    });
+
+    function completeRegistration(name, email, password) {
+        console.log({name, email, password});
+    }
+</script>
+
+
+** FormData.getAll(inputName)
+returns the array of the all <input>s that have the same value of "name" attribute as "inputName"
+
+
+** getting all the ticked checkboxes
+<form id="prefs-form">
+    <label>
+        <input type="checkbox" name="interests" value="music">
+        Music
+    </label>
+    <label>
+        <input type="checkbox" name="interests" value="sports">
+        Sports
+    </label>
+    <label>
+        <input type="checkbox" name="interests" value="movies">
+        Movies
+    </label>
+    <input type="submit" value="Save">
+</form>
+
+<script>
+    const form = document.querySelector("#prefs-form");
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        console.log(data.getAll("interests"));
+    });
+</script>
+
+// Music and Sports are selected then submitted
+// the output: Array [ "music", "sports" ]
+
+
+** getting all the selected options from <select multiple>
+<form id="prefs-form">
+    <select multiple id="countries-dropdown" name="location">
+        <option value="netherlands">Netherlands</option>
+        <option value="belgium">Belgium</option>
+        <option value="japan">Japan</option>
+        <option value="russia">Russia</option>
+    </select>
+    <input type="submit" value="Save">
+</form>
+
+<script>
+    const form = document.querySelector("#prefs-form");
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        const data = new FormData(form);
+        console.log(data.getAll("location"));
+    });
+</script>
+
+// select Belgium
+// press & hold ctr and then select Russia
+// after submit, the output is: Array [ "belgium", "russia" ]

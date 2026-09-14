@@ -138,3 +138,47 @@ you will rarely ever need it.
 	this can also be useful in some scenarios when building User Interface libraries
 This is why you should stick to event.currentTarget.
 	here, it'll always return the <button> no matter where the user has clicked inside that button.
+
+
+* removing an event listener
+we cannot remove an event listener whose callback function is anonymous
+
+
+const button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+    console.log("button clicked");
+});
+
+button.removeEventListener("click", () => {
+    console.log("button clicked");
+});
+// this does not remove the event listener
+// "button clicked" will be print on the output after click
+
+
+const handleClick = () => {
+    console.log("button clicked");
+}
+
+button.addEventListener("click", handleClick);
+
+button.removeEventListener("click", handleClick);
+// this removes the event listener
+// nothing will be print on the output after click
+
+
+* once event listener
+If you need to add an event listener that only runs once, there's an easier way instead of adding an event listener and then removing it. You can add an event listener and specify once: true in its options.
+
+
+const button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+    console.log("button clicked");
+}, {
+    once: true
+});
+
+After the user clicks on the button the first time, the event listener will be automatically removed by the browser.
+
