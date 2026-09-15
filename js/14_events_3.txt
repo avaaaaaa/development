@@ -1,0 +1,86 @@
+* other events
+"click" and "submit" events are by far the most common events
+The click event also works on mobile (as long as you have the <meta name="viewport"> defined with a content such as "width=device-width,initial-scale=1" in the <head> of your page).
+
+
+* focus, blur
+focus event happens when an element is selected to receive the user input from the keyboard
+blur event happens when an element loses the focus
+you can listen to both events on text boxes
+
+
+<input type="text" id="name" placeholder="Enter your name">
+
+const name = document.querySelector("#name");
+
+name.addEventListener("focus", () => {
+    console.log("user focused inside the name");
+});
+
+name.addEventListener("blur", () => {
+    console.log("user removed focus from the name");
+});
+
+
+* DOMContentLoaded
+This event fires on the document element only. It signifies that the HTML has been loaded successfully by the browser.
+This means that the browser has finished reading all of the content of your HTML file. It doesn't mean however that images and other assets have finished loading.
+This event used to be quite popular a few years ago, but nowadays, you can place your <script> at the end of the page (right before the closing tag of the body) and you won't have to worry about waiting until the DOM is ready.
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM is ready");
+});
+
+
+* scroll
+The scroll event triggers on any element that scrolls.
+However, adding a scroll event will most likely slow down your page. Its usage is discouraged as it makes scrolling slow, especially for scroll-based animations. You may be able to use the scroll event performantly if you debounce the event.
+Debouncing the event means you listen to changes much less than usual to preserve resources. You can get a debounce function from the Internet or from popular libraries such as lodash.
+Scroll-based animations will be possible in a performant way in the future once CSS Houdini becomes stable and supported by all browsers.
+
+It is often used on the window object as follows:
+
+
+window.addEventListener("scroll", () => {
+    console.log("page scrolled");
+});
+
+
+* change
+The change event is often used on the <select> element.
+It lets you know when the user has selected a new choice.
+The change event will only trigger when the user chooses a new value. So, since by default we see Select a country, the event will only trigger once the user chooses a new entry (for example Netherlands or Brazil).
+
+
+<select id="countries">
+    <option value="">Select a country</option>
+    <option value="NL">Netherlands</option>
+    <option value="BR">Brazil</option>
+</select>
+
+const countries = document.querySelector("#countries");
+
+countries.addEventListener("change", event => {
+    console.log(countries.value);  // or event.currentTarget.value
+});
+
+
+* keydown, keyup
+The keydown and keyup events are used to know when the user has pressed a button on the keyboard.
+These can be used to implement keyboard shortcuts.
+keydown triggers while the user starts pressing the button and before the character is being typed
+keyup fires after the character has been typed.
+For most scenarios, you end up needing keyup.
+These events can be either added to the document (to know when a user has pressed a key anywhere on the page) or inside a textbox.
+
+
+document.addEventListener("keydown", event => {
+    console.log(event.key);
+});
+
+document.addEventListener("keyup", event => {
+    console.log(event.key);
+});
+// event.key is the button that was pressed
+// press esc, shift, ctr, f5, letter buttons and see the console output

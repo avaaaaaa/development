@@ -1,7 +1,7 @@
 * accessing properties from the properties that yield either null or undefined will cause TypeError
 to avoid getting this error, we can use optional chaining with ?. operator
 with that, it will return undefined rather than error
-with this feature, we don't need an if-condition to avoid errors
+	so, we don't need an if-condition to avoid errors
 
 
 * ideally, TypeScript can be used to handle these issues and enforce types in your code base.
@@ -27,14 +27,14 @@ let name = undefined;
 if (user.details && user.details.name && user.details.name.firstName) {
     name = user.details.name.firstName;
 }
-// with optional chaining, we can refactor this code above into the following
+// with optional chaining, we can refactor the code above into one line as following:
 // const name = user.details?.name?.firstName;
 // but user can be null or undefined too, so it is better to add ?. after user
 // const name = user?.details?.name?.firstName;
 // this can be interpreted as
-//		is there "user" object, because we need to access "details" from "user"
-//		is there "details" property, because we need to access "name" from "details"
-//		is there "name" property, because we need to access "firstName" from "name"
+//		is there "user" object, because we want to access "details" from "user"
+//		is there "details" property, because we want to access "name" from "details"
+//		is there "name" property, because we want to access "firstName" from "name"
 
 
 * array
@@ -70,8 +70,8 @@ const settings = {
 
 settings?.theme && (settings.theme = "dark");
 console.log(settings); // {theme: "dark"}
-// if "theme" is a nullish value in the definition, this won't work
+// if "theme" has a nullish value in the definition, this won't work
 
-// we can do the following if "theme" is set as nullish value
+// we can do the following if "theme" has a nullish value
 "theme" in settings && (settings.theme = "dark");
 console.log(settings); // {theme: "dark"}

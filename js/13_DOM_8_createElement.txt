@@ -12,7 +12,7 @@ const paragraph = document.createElement("p");
 paragraph.classList.add("text-center");
 paragraph.textContent = "Hello World";
 document.body.append(paragraph);
-	the followings can also be used:
+	We can also do the following:
 	document.body.appendChild(paragraph);
 	document.body.insertAdjacentElement("beforeend", paragraph);
 

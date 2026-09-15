@@ -1,0 +1,97 @@
+* event bubbling
+events fire on the current element, then on its parent, and its parent...
+this is called event bubbling
+
+
+<body>
+    <main>
+        <h1>Hello World</h1>
+        <button id="button">Click me</button>
+    </main>
+</body>
+<script src="test.js"></script>
+
+// notice that there is no event listener on #button
+// but due to event bubbling, the parents of #button will also receive the event
+// so, the event will fire on the parents that have the event listener
+window.addEventListener("click", event => {
+    console.log("button clicked, window"); // will trigger when the #button is clicked
+});
+document.body.addEventListener("click", event => {
+    console.log("button clicked, body"); // will trigger when the #button is clicked
+});
+document.querySelector("main").addEventListener("click", event => {
+    console.log("button clicked, main"); // will trigger when the #button is clicked
+});
+
+
+the click event on the button will bubble up the DOM tree even though there is no click event listener on button
+The h1 won't receive the click event because it's not a parent of the #button.
+button -> main -> body -> window
+
+the console output after clicking on the button:
+button clicked, main
+button clicked, body
+button clicked, window
+
+This feature comes in handy in some scenarios. However, it may become unwanted in some cases.
+to prevent event bubbling, call event.stopPropagation() on the child element
+
+
+**
+<a class="card">
+    <button>close</button>
+</a>
+<script src="test.js"></script>
+
+document.querySelector(".card").addEventListener("click", event => {
+    console.log("Card clicked");
+});
+document.querySelector(".card button").addEventListener("click", event => {
+	event.stopPropagation();
+    console.log("Close clicked");
+});
+
+// when the button is clicked, only "Close clicked" would be print on the console
+
+
+* event delegation
+event bubbling enables a useful pattern called event delegation
+Instead of attaching event listeners to many individual elements, you attach a single listener to a common parent and use "event.target" to figure out which child was actually clicked.
+
+when you have hundreds of items, attaching a listener to each one wastes memory. One listener on the parent is much more efficient.
+
+when items are added to the page after the listener was attached, they automatically work with the delegated listener since it lives on the parent. With individual listeners, you'd have to attach a new one every time you add an item.
+
+This is one of the rare cases where you'll want to use "event.target" instead of "event.currentTarget", because you specifically care about which child element was clicked, not the parent the listener is attached to.
+"event.target" will return the clicked element
+"event.currentTarget" will return the clicked element the event listener is attached to
+
+You won't need event delegation often, but typically when working with lists, tables, or any content generated dynamically, you might need it
+
+
+**
+Consider a list of items where you want to react to clicks on each item
+The naive approach would be to attach a click listener to every <li>
+With event delegation, you attach just one listener to the parent <ul>
+
+
+<ul id="list">
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+</ul>
+
+document.querySelector("#list").addEventListener("click", event => {
+    if (event.target.matches("li")) {
+        console.log("Clicked:", event.target.textContent);
+    }
+});
+
+
+When the user clicks an <li>, the event bubbles up to the <ul>, where our listener catches it.
+We then use event.target (the element that was actually clicked) along with the .matches() method to check if it's an <li> before doing anything.
+
+The .matches(selector) method is available on any element and returns true if the element matches the given CSS selector, false otherwise. It accepts the same selectors you'd use with querySelector().
+
+

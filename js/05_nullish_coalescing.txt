@@ -1,11 +1,11 @@
 * The nullish coalescing "??" operator allows you to default to a certain value when the left-hand side is a nullish value.
 
 
-* A nullish value is a value that is either null or undefined.
+* A nullish value is either null or undefined.
 
 
 * ?? has low operator precedence
-to avoid unexpected results, wrap its operands with () if there are more operands than its operands
+to avoid unexpected results, wrap its operands with () if there are other operands than its operands
 
 
 *
@@ -21,7 +21,7 @@ console.log(getName(null)); // "N/A"
 *
 const getPlaceholder = () => {
     console.log("getPlaceholder called");
-    return "N/A";
+    return "user";
 }
 
 const sayHello = name => {
@@ -29,7 +29,7 @@ const sayHello = name => {
 }
 
 console.log(sayHello("Sam")); // "Hello Sam"
-console.log(sayHello());  // "getPlaceHolder called" "Hello N/A"
+console.log(sayHello());  // "getPlaceHolder called" "Hello user"
 
 
 *

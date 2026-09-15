@@ -1,6 +1,4 @@
-* a class is a template for building the objects whose type is this class
-the class' properties will become the object's properties
-the class' methods will become the object's methods
+* a class is a template for building the objects
 
 
 * first, we grouped related variables(properties) and functions(methods) into an object
@@ -57,7 +55,7 @@ let user2 = new User();
 * constructor with parameters, instance variables, instance methods
 instance variables are the variables the object have and can modify them for itself
 instance methods are the functions the object can call for itself
-	notice that "function" keyword is not used to define these functions
+	"function" keyword is not used to define these methods
 reminder: do not use arrow functions as methods
 
 class User{
@@ -71,7 +69,7 @@ class User{
   getFullName(){
     return `${this.firstName} ${this.lastName}`
   }
-  // getFullName = () => `${this.firstName} ${this.lastName}`
+  // avoid this: getFullName = () => `${this.firstName} ${this.lastName}`
   
   printMessage(msg){
     return `this is the message from '${this.getFullName()}': ${msg}`
@@ -120,7 +118,7 @@ export default class Stats {
 
 * ToDo app example
 
-export default class Todos {
+class Todos {
     // Do NOT modify the constructor
     constructor() {
         // we don't capture any parameters here
@@ -141,7 +139,7 @@ export default class Todos {
     getCount(){
         return this.todos.length;
     }
-    add(){
+    add(title, category){
         const newToDo = {title, category};
         this.todos.push(newToDo);
     }
@@ -160,3 +158,8 @@ export default class Todos {
     
 }
 
+const todo = new Todos();
+console.log(todo.add("exercise", "personal"));
+console.log(todo.getAll());
+console.log(todo.getPersonal());
+console.log(todo.getWork());
