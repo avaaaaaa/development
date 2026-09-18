@@ -1,0 +1,47 @@
+* this is going to be the most common type of code you're going to encounter while building real web apps
+
+
+* Weather API Project
+import FetchWrapper from "./fetch-wrapper.js";
+
+const dropdown = document.querySelector("#cities-dropdown");
+const result = document.querySelector("#weather-result");
+const API = new FetchWrapper(`https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/`);
+
+dropdown.addEventListener("change", event => {
+    API.get(`${dropdown.value}.json`)
+    .then(data => {
+            console.log(data.current);
+            result.textContent = `It's ${data.current.temperature} degrees celsius.`;
+        });
+});
+
+
+* save grade
+import FetchWrapper from "./fetch-wrapper.js";
+
+const form = document.querySelector("#grades-form");
+const input = document.querySelector("#user-grade");
+const API = new FetchWrapper("https://api.learnjavascript.online/demo/");
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    API.post("grades.json", {grade: input.value}).then(data => console.log(data));
+});
+
+
+* update user profile
+import FetchWrapper from "./fetch-wrapper.js";
+
+const form = document.querySelector("#user-form");
+const firstName = document.querySelector("#first-name");
+const lastName = document.querySelector("#last-name");
+
+const API = new FetchWrapper("https://api.learnjavascript.online/demo/");
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    API.put("user.json", {firstName: firstName.value, lastName: lastName.value})
+        .then(data => console.log(data));
+});
+

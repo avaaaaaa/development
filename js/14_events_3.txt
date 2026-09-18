@@ -50,7 +50,7 @@ window.addEventListener("scroll", () => {
 * change
 The change event is often used on the <select> element.
 It lets you know when the user has selected a new choice.
-The change event will only trigger when the user chooses a new value. So, since by default we see Select a country, the event will only trigger once the user chooses a new entry (for example Netherlands or Brazil).
+The change event will only trigger when the user chooses a new value. 
 
 
 <select id="countries">
@@ -64,6 +64,9 @@ const countries = document.querySelector("#countries");
 countries.addEventListener("change", event => {
     console.log(countries.value);  // or event.currentTarget.value
 });
+
+// since by default we see Select a country, the event will only trigger once the user chooses a new entry
+// (for example Netherlands or Brazil).
 
 
 * keydown, keyup

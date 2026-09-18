@@ -12,7 +12,7 @@ this is called event bubbling
 <script src="test.js"></script>
 
 // notice that there is no event listener on #button
-// but due to event bubbling, the parents of #button will also receive the event
+// due to event bubbling, the parents of #button will also receive the event
 // so, the event will fire on the parents that have the event listener
 window.addEventListener("click", event => {
     console.log("button clicked, window"); // will trigger when the #button is clicked
@@ -67,7 +67,7 @@ This is one of the rare cases where you'll want to use "event.target" instead of
 "event.target" will return the clicked element
 "event.currentTarget" will return the clicked element the event listener is attached to
 
-You won't need event delegation often, but typically when working with lists, tables, or any content generated dynamically, you might need it
+You won't need event delegation often, but typically when working with lists, tables, or any content generated dynamically, there could be the cases you need it
 
 
 **
