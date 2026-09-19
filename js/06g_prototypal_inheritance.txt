@@ -10,8 +10,9 @@ A has a1(), a2() methods
 B has b1(), b2() methods
 
 let's say we only want to have b2() from B, and a1() from A in C
-in classical inheritance, we end up inheriting all the methods even though we will use only two of them
+in classical inheritance, we end up inheriting all the methods even though we need only two of them
 in prototypal inheritance, we can cherry-pick the methods we want to inherit
+
 
 function A(){}
 A.prototype.a1 = function(){

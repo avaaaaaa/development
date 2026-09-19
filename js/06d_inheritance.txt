@@ -53,15 +53,16 @@ class Parent{
 class Child extends Parent{
   constructor(a, b, c){
     super(a, b);
-    this.c = c
+    this.c = c;
   }
   printMessage(msg){
     return `message from child: ${msg}`;
   }
 }
 
-child = new Child(1, 2, 3);
-console.log(child.printMessage("hello world"))
+const child = new Child(1, 2, 3);
+console.log(child);
+console.log(child.printMessage("hello world"));
 
 // Child { a: 1, b: 2, c: 3 }
 // 'message from child: hello world'
@@ -93,7 +94,7 @@ new Child();
 // reference error
 // must call super constructor in derived class before accessing 'this' or returning from derived constructor
 // thus, we have to uncomment super(); line
-// we deleted the parent constructor entirely, but we still need to call super()
+// we also deleted the parent constructor entirely, but we still need to call super()
 // otherwise, the same error will occur again
 
 

@@ -10,7 +10,7 @@ console.log(typeof(Parent));
 * class keyword is introduced in 2015 to make the code more readable, understandable
 
 
-* implementing constructor method and instance methods without class
+* implementing the constructor method and instance methods without class
 
 function User(firstName, lastName, age) {
     this.firstName = firstName;

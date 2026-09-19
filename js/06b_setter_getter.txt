@@ -1,7 +1,4 @@
-* getter methods will let us to read values through virtual properties without accessing actual properties
-
-
-* setter methods will let us to write values through virtual properties without accessing actual properties
+* getter & setter methods will let us to read & write values through virtual properties without accessing actual properties
 
 
 * these virtual properties are the names of getter and setter methods
@@ -17,7 +14,7 @@
 class User {
     constructor(age) {
         this.age = age;
-        // this will call setter method
+        // this assignment will call setter method
         // there is no "age" property actually
         // it is an access point exposed by getters and setters to reach the actual property (storedAge)
     }
@@ -31,7 +28,7 @@ class User {
     set age(value) {
         console.log("age setter");
         this.storedAge = Number.parseInt(value, 10);
-        // this setter will be called every time "age" virtual property is written (this.age = value)
+        // this setter will be called every time "age" virtual property is assigned (this.age = value)
     }
 }
 

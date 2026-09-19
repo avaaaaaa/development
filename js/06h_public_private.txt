@@ -10,7 +10,7 @@ const user1 = new User(1);
 const user2 = new User(2);
 user2.publicVariable ++;
 console.log(user1, user2);
-// Object { publicVariable: 20, a: 1 } Object { publicVariable: 21, a: 2 }
+// User { publicVariable: 20, a: 1 } User { publicVariable: 21, a: 2 }
 // this shows that public variables are still instance variables, not class variables
 
 
@@ -37,6 +37,7 @@ their names are prefixed with #(hash)
 before # is introduced, developers used _(underscore) as a prefix to signal it is private
 but using _ as a prefix is just a convention, javascript does not prevent these names to be accessed outside of the class
 private instance methods are often denoted as "helper" methods
+
 
 class User{
     #name = "gg";
@@ -71,6 +72,4 @@ class User{
 const user = new User("gg");
 console.log(user.getName());  // "gg"
 // if we comment #name; line, we will get an error
-
-
 
