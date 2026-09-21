@@ -1,0 +1,30 @@
+* Every HTML element in your page implements a certain interface.
+An interface is very similar to the concept of class, except that you can only inherit it (you're not allowed to create a new instance of it directly. so, there is no instantiation from an interface, but
+implementation of an interface).
+
+We'd like to stress that you can be a front-end developer for years without having to know about these interfaces. We're only mentioning them because they will make you better at reading documentation and because TypeScript has become more popular these days and when working with TypeScript, you will start seeing these interfaces in TypeScript's autocomplete.
+
+you do not have to memorize these interface names
+
+every element implements its own interface
+and every element interface also inherits from "HTMLElement" interface
+
+
+* check the interface the element implements
+.toString() method shows the interface the element implements
+
+
+<div>Hello World</div>
+<p>Title</p>
+
+const div = document.querySelector("div");
+const p = document.querySelector("p");
+
+div.toString(); // [object HTMLDivElement]
+p.toString(); // [object HTMLParagraphElement]
+
+
+"div" gets access to all the properties and methods on "HTMLDivElement"
+"p" gets access to all the properties and methods on "HTMLParagraphElement"
+both elements also get access to all the properties and methods on "HTMLElement"
+	because "HTMLDivElement" and "HTMLParagraphElement" inherits from "HTMLElement"

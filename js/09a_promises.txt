@@ -17,6 +17,7 @@ const wait = milliseconds => {
         }, milliseconds);
     });
 }
+// setTimeout(resolve, milliseconds) also works
 
 wait(1_000).then(() => {
     console.log("waited 1 second");

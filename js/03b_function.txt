@@ -7,30 +7,34 @@ function myFunc2(a, b){
 }
 
 
-* calling functions
+** calling functions
 myFunc()
 myFunc2(2, 3)
 
 
-* parameter vs argument
+** parameter vs argument
 myFunc2(2, 3)
 // a, b in the function definition are called parameters
 // 2, 3 are the arguments that are passed to the parameters when calling functions
-// so, parameters when defining, arguments when calling
+// so, parameters are the variable names to process arguments when defining functions
+// arguments are the actual values passed to the function when calling functions
 
 
-* defining the same function again
+* function as a parameter
+functions can be passed as a parameter
 
-function f1(){
-  return "a"
+function f1(parFunc){
+	if(true){
+		parFunc();
+	}
 }
 
-function f1(){
-  return "b"
+function f2(){
+    console.log("hello world");
 }
 
-console.log(f1())
-// SyntaxError: Identifier 'f1' has already been declared.
+f1(f2);
+// hello world
 
 
 * variable scope

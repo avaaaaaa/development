@@ -58,3 +58,14 @@ console.log(getFullName({info: null})); // "N/A"
 console.log(getFullName({})); // "N/A"
 console.log(getFullName()); // TypeError, because user is undefined, to avoid -> user?.info?.name
 
+
+* it is required for "name" to have at least 7 characters
+const isValidName = name => (name?.trim?.().length ?? 0) > 7;
+
+name?. for nullish arguments (or when no argument is provided)
+	null and undefined will default to 0, (0 > 7) returns false 
+trim?. for non-string arguments
+	12345678 will default to 0, (0 > 7) returns false
+	but "123456678" will not default to 0 and its length > 7, thus it returns true
+
+

@@ -52,6 +52,9 @@ if (data.temperatures) {
 
 
 * method call
+anObject.methodName?.() is when the object might not have the method called "methodName"
+anObject.methodName()?. is when the return value of the method might be nullish
+
 
 const upperCasedName = person.name?.toUpperCase();
 // either null.toUpperCase() or undefined.toUpperCase() will cause TypeError
@@ -60,6 +63,14 @@ const upperCasedName = person.name?.toUpperCase();
 const upperCasedName = person.name?.toUpperCase?.();
 // if person.name is a number, calling toUpperCase() will cause TypeError
 // to avoid that, we can use optional chaining to call the method toUpperCase
+
+const button = document.querySelector("#remove-title");
+button.addEventListener("click", () => {
+    document.querySelector("h1")?.remove();
+});
+// this button removes the first h1 element when it is clicked on
+// if there is no h1 element, document.querySelector("h1").remove() will throw an error
+// because .remove() would be called on null in that case
 
 
 * update values of existed keys only

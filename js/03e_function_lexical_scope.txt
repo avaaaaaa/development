@@ -1,0 +1,78 @@
+* there is a difference between functions and arrow functions that is mostly apparent when using classes
+let's take a look at the following example
+
+
+class App {
+    constructor() {
+        this.navbar = document.querySelector("#navbar");
+        console.log(this, "'this' within constructor");
+        this.initEvents();
+    }
+
+    initEvents() {
+    	this.navbar.addEventListener("click", function() {
+        	console.log(this, "'this' within function");
+        	this.navbar.remove();
+        });
+    }
+}
+
+const app = new App();
+
+
+Object { navbar: div#navbar } 'this' within constructor
+<div id="navbar"> 'this' within function
+
+Every time you create a function() {}, js will define a new value of "this" inside of that function.
+so, basically "this" within the listener function is not the same as "this" outside the function
+and "this" within the listener function does not have the "navbar" property
+	thus this.navbar.remove() will throw an error when clicking on #navbar
+
+
+possible solutions to the problem above:
+
+** capture "this" outside the function (not recommended)
+initEvents() {
+    const capture = this;
+    this.navbar.addEventListener("click", function() {
+        capture.navbar.remove();
+    });
+}
+
+
+** binding the value of "this"
+initEvents() {
+    this.navbar.addEventListener("click", function() {
+        this.navbar.remove();
+    }.bind(this));
+}
+// with "bind(this)", we pass the outer value of "this" into the inner function
+
+
+** arrow functions (recommended)
+initEvents() {
+	this.navbar.addEventListener("click", () => {
+        this.navbar.remove();
+    });
+}
+
+arrow functions do not create a new value of "this".
+Instead, they give you the same value as the one outside.
+
+Arrow functions are said to have a Lexical scope
+it means that "this" within them is the same as the outer function.
+
+
+*
+class SayHello{
+	constructor(){
+	this.userName = "sam";
+	setTimeout(function(){
+		console.log(this.userName);
+	}, 100);
+	}
+}
+new SayHello();
+// undefined
+
+
