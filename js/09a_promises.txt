@@ -13,11 +13,12 @@ const wait = milliseconds => {
     // this function returns a new promise
     return new Promise(resolve => {
         setTimeout(() => {
-            resolve();  // will trigger .then(callback)
+            resolve();
         }, milliseconds);
     });
 }
 // setTimeout(resolve, milliseconds) also works
+// resolve() will trigger .then(callback)
 
 wait(1_000).then(() => {
     console.log("waited 1 second");
@@ -27,8 +28,8 @@ wait(1_000).then(() => {
 * promises can have 3 states
 pending, fulfilled, rejected
 when a promise is created, it will start in the pending state
-when it has been completed successfully, it will become fulfilled
-when an error has occured, it will become rejected
+if it has been completed successfully, it will become fulfilled
+if an error has occured, it will become rejected
 
 
 *
@@ -45,7 +46,7 @@ console.log(result); // C
 
 
 * some promises will resolve with data
-that means the promise is givin us an answer after it has been completed
+that means the promise returns an answer after it has been completed
 some promises will resolve with nothing, so they will return "undefined" ({<fulfilled: undefined})
 
 
@@ -138,9 +139,9 @@ getWeatherIn("Amsterdam")
         console.log("Done fetching weather");
     });
 
-finally() will be called after the promise is either fulfilled or rejected
-instead of repeating "Done fetching weather" at the end of .then and .catch
-	we can put it within .finally
+.finally() will be called after the promise is either fulfilled or rejected
+instead of repeating "Done fetching weather" at the end of .then() and .catch()
+	we can put it within .finally()
 
 
 * manually rejecting a promise

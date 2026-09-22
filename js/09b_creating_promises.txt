@@ -61,10 +61,10 @@ const wait = milliseconds => {
     });
 }
 
-wait(2_000).then(seconds => {
-    console.log(seconds); // 2 (seconds)
+wait(2_000).then(resolvedData => {
+    console.log(resolvedData);
 });
-// we have given "seconds" name to the resolved data coming from the promise
+// we have given "resolvedData" name to the resolved data coming from the promise (seconds)
 
 
 * rejecting promises
@@ -134,7 +134,7 @@ because the promise will be resolved after 1 second
 but js will keep executing the code from top to bottom
 so js will see reject() before resolve()
 and once it sees reject, the promise will be rejected even endpoint === "flight-status" evaluates "true"
-so, console output would be the following in this case
+so, in this case, console output would be:
 // 'endpoint not supported'
 // 'endpoint not supported'
 
