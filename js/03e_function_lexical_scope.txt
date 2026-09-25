@@ -1,4 +1,6 @@
 * there is a difference between functions and arrow functions that is mostly apparent when using classes
+when using "this" keyword within functions and arrow functions,
+	make sure to log "this" first and see its value to prevent unexpected results
 let's take a look at the following example
 
 
@@ -20,10 +22,14 @@ class App {
 const app = new App();
 
 
-Object { navbar: div#navbar } 'this' within constructor
+Object { navbar: div#navbar } 'this' within the constructor
+	"this" becomes the Object{}
 <div id="navbar"> 'this' within function
+	"this" becomes the #navbar
+	
 
 Every time you create a function() {}, js will define a new value of "this" inside of that function.
+	and the value of "this" is actually the object, the element etc. that is calling "this"
 so, basically "this" within the listener function is not the same as "this" outside the function
 and "this" within the listener function does not have the "navbar" property
 	thus this.navbar.remove() will throw an error when clicking on #navbar
@@ -63,16 +69,37 @@ Arrow functions are said to have a Lexical scope
 it means that "this" within them is the same as the outer function.
 
 
-*
+* check out the output
+
 class SayHello{
 	constructor(){
-	this.userName = "sam";
-	setTimeout(function(){
-		console.log(this.userName);
-	}, 100);
+		console.log(this);
+		this.userName = "sam";
+		setTimeout(function(){
+			console.log(this);
+			console.log(this.userName);
+		}, 100);
 	}
 }
 new SayHello();
-// undefined
+
+
+* check out the output
+and then turn printName() into an arrow function
+and then check out the output again
+
+const person = {
+	name: "my name",
+	printName: function() {
+		console.log(this);
+		console.log(this.name);
+	}
+}
+
+person.printName();
+console.log("\n\n\n");
+
+const myFunc = person.printName;
+myFunc();
 
 

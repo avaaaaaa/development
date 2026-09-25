@@ -60,7 +60,7 @@ user.isAdmin("admin").then(value => {
 
 
 * await
-The await keyword can only be used inside async functions
+'await' expressions are only allowed within async functions and at the top levels of modules
 it pauses the execution of the current function, until the promise resolves (or rejects).
 And, then, it will automatically resolve it (call .then() on it), and return the result
 You can only await a promise (or an object that has the .then())
@@ -79,9 +79,54 @@ const init = async () => {
 init();
 
 
-* logging items of an array between the same intervals
+* logging items of an array between the same time intervals
+notice the difference of initial "count" value and where "count" is increased between two approaches
 
 ** without async-await
+
+const wait = milliseconds => {
+	return new Promise(resolve =>{
+		setTimeout(resolve, milliseconds);
+	});
+}
+
+const interval = 1000;
+const items = [1, 2, 3, 4, 5];
+let count = 0;
+
+items.forEach(item => {
+	wait(interval * count).then(()=>{
+		console.log(item);
+	});
+	count++;
+});
+console.log("iteration ends, printing starts");
+
+
+** with async-await
+
+const wait = (timeout) => {
+	return new Promise(resolve => {
+		setTimeout(resolve, timeout);
+	});
+}
+
+const items = [1, 2, 3, 4, 5];
+const interval = 1000;
+let count = -1;
+
+items.forEach(async item => {
+	count++;
+	await wait(interval * count);
+	console.log(item);
+});
+
+console.log("iteration ends, printing starts");
+
+
+* check out the outputs
+remember that "await" pauses the execution until the promise resolves or rejects
+
 
 const wait = milliseconds => {
 	return new Promise(resolve => {
@@ -89,17 +134,40 @@ const wait = milliseconds => {
 	});
 }
 
-const interval = 1000;
-const items = ["a", "b", "c", "d", "e"];
-let count = 0;
-
-items.forEach(item => {
-	wait(interval * count).then(() => {
-		console.log(item);
+const init = () => {
+	wait(1000).then(()=>{
+		console.log("1 second passed");
 	});
-	count ++;
-});
-console.log("iteration is ended");
+	console.log("step 2");
+}
+
+init();
+// output:
+// step 2
+// 1 second passed
 
 
-** with async-await
+const init = async () => {
+	await wait(1000);
+	console.log("1 second passed");
+	console.log("step 2");
+}
+
+init();
+// output:
+// 1 second passed
+// step 2
+
+
+const init = async () => {
+	console.log("lets begin");
+	await wait(1000);
+	console.log("1 second passed");
+}
+
+init();
+console.log("step 2");
+// output:
+// lets begin
+// step 2
+// 1 second passed

@@ -1,0 +1,84 @@
+* code transition
+
+const getNotifications = () => {
+	const url = "https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json";
+	return new Promise(resolve => {
+		fetch(url)
+			.then(response => response.json())
+			.then(data => {
+				resolve(data);
+			});
+	});
+}
+
+getNotifications().then(data => {
+	console.log(data);
+});
+
+// becomes:
+
+const getNotifications = async () => {
+	const url = "https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/notifications/new.json";
+	const response = await fetch(url);
+	const data = await response.json();
+	return data;
+}
+
+// printing data
+
+getNotifications().then(data => {
+	console.log(data);
+});
+
+// printing data
+
+const init = async () => {
+	const data = await getNotifications();
+	console.log(data);
+}
+init();
+
+
+* weather API project
+
+export const getWeather = async city => {
+    const url = `https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/weatherstack/${city}.json`;
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(data.current);
+
+    showTemperature(data.current.temperature);
+}
+
+const showTemperature = temperature => {
+    result.textContent = `It's ${temperature} degrees celsius.`;
+}
+
+
+* save grade
+
+const saveGrade = async grade => {
+    const url = "https://api.learnjavascript.online/demo/";
+    const endPoint = "grades.json";
+    const postBodyRequest = {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            grade
+        })
+    };
+
+	// await fetch(url + endPoint, postBodyRequest); is enough if we don't need the server response
+    const response = await fetch(url + endPoint, postBodyRequest);
+    const data = await response.json();
+    console.log(data);
+
+};
+
+// await fetch(url + endPoint, postBodyRequest); is enough to do fetch post request 
+// unlike get, other fetch methods does not read data, they read server response
+// if we don't need to read the server response, we can omit it
+// but get in the other hand, reads data from the server
+// so, we need to know the response from the server to access the data 
