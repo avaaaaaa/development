@@ -1,0 +1,37 @@
+* package.json file contains information about the package
+"dependencies"
+	this entry shows the required packages when using this package
+	end-users of this package would need them
+"devDependencies"
+	this entry shows the required packages during the development of this package
+	developers of this package would need them
+when installing this package, npm will go through the package.json and download all the packages
+listed under "dependencies" and "devDependencies"
+
+So, for example, if you're creating a new website that uses react & webpack, react will be used to make your website work in the browser (dependencies), whereas webpack will only be used to build the project during development (devDependencies).
+
+{
+  "name": "myproject",
+  "dependencies": {
+    "react": "..."
+  },
+  "devDependencies": {
+    "webpack": "..."
+  }
+}
+	
+
+* version formatting
+if a package has a package.json file like following:
+{
+     "dependencies": {
+        "webpack": "~2.6.1"
+    }
+}
+that means this package needs & requires the "webpack" package whose version is 2.6.1, 2.6.2, 2.6.3 etc.
+
+package versions are formatted as major.minor.patch
+~a.b.c means it accepts patch releases
+	a.b.(c c+1 c+2 ...)
+^a.b.c means it accepts patch and minor releases
+	a.(b b+1 b+2 ...)(c c+1 c+2 ...)

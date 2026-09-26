@@ -1,0 +1,48 @@
+* A package manager is a tool that helps us find, install & update packages.
+A package is a JavaScript project created by another person, group of people, company, or organization.
+
+
+* node
+it is a js runtime environment
+it lets you run js code on your computer & outside the browser
+	since it is running outside the browser, DOM functionalities(such as "document" variable) cannot be
+	used within node
+check node in your system
+	node -v
+
+
+* node package manager (npm)
+it is the default package manager for node
+it manages the packages node using
+check npm in your system
+	npm -v
+search for packages
+	https://www.npmjs.com/
+package recommendations by category
+	https://github.com/sorrycc/awesome-javascript#readme
+locally install a package named "chart.js"
+	npm install chart.js
+	npm i chart.js
+globally install a package name "webpack-dev-server"
+	npm install webpack-dev-server --global
+	npm i webpack-dev-server -g
+execute the package "webpack-dev-server"
+	npx webpack-dev-server
+start a new project from scratch
+	npm init
+	// npm will ask some questions about the project
+	// and generate a package.json based on the answers 
+
+
+** local vs global installation
+When you perform a local installation, all the files from that package will be downloaded into a node_modules folder inside the folder where you ran the npm install command.
+	node_modules will be created if package.json exists
+		package.json was empty at first, and npm threw an error when installing a package
+		then {} added to the package.json, and npm completed installing the package successfully
+		and "dependencies" entry in package.json is updated automatically
+		(the package was learnjavascript-online-npm)
+	won't be created otherwise
+
+Installing packages locally is recommended because it allows you to install the same package for different projects. The benefit of this is that if you have two projects, A & B, and they both depend on webpack-dev-server, you can upgrade project A to a newer version of webpack-dev-server without breaking project B. Since every project has a separate, local installation of webpack-dev-server with potentially different versions.
+
+when you perform a global installation, the package is installed once and it is available for all the projects that you are working on

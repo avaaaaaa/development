@@ -24,40 +24,98 @@ with a fetch wrapper class,
 	the code is a lot shorter.
 	it automatically calls response => response.json() and JSON.stringify().
 	it automatically sets the default Content-Type header.
-we can re-write the code above such that it looks like the following:
 
+
+* we will put repetitive code parts in fetch calls into the fetch wrapper class
+
+export default class FetchWrapper {
+    constructor(baseURL) {
+        this.baseURL = baseURL;
+    }
+
+    get(endpoint) {
+        return this.#send(endpoint, "get");
+    }
+
+    put(endpoint, body) {
+        return this.#send(endpoint, "put", body);
+    }
+
+    post(endpoint, body) {
+        return this.#send(endpoint, "post", body);
+    }
+
+    delete(endpoint, body) {
+        return this.#send(endpoint, "delete", body);
+    }
+
+    #send(endpoint, method, body) {
+        if(body){
+            this.requestBody = {
+                method,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            };
+        }
+
+        let fetched = "";
+        if(method === "get"){
+            fetched = fetch(this.baseURL + endpoint);
+        } else {
+            fetched = fetch(this.baseURL + endpoint, this.requestBody);
+        }
+
+        console.log(fetched);  // Promise { <pending> }
+
+        return fetched
+            .then(response => {
+            	//console.log(response);
+                if(!response.ok){
+                    throw new Error("API issues");
+                }
+                return response.json();
+            })
+            .catch(error => {
+                console.error(error);  // Network issues
+            })
+    }
+}
+
+
+* get
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
-
 API.get("/notifications/new.json").then(data => {
-    console.log(data);
-});
-
+        console.log(data);
+    });
 API.get("/chapters/all.json").then(data => {
     console.log(data);
 });
 
 
-The benefits are even clearer once you work with PUT, POST, or DELETE.
+**
+
+const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
+
+const getTweetDetails = () => {
+    // TODO
+    API.get("tweet/1080777336298049537.json").then(data => {
+        console.log(data.author.details);
+        const details = data.author.details;
+        showAuthorName(details.firstName + " " + details.lastName);
+    });
+}
+
+function showAuthorName(fullName) {
+    console.log(fullName);
+}
+
+getTweetDetails();
 
 
-fetch("https://api.learnjavascript.online/demo/grades.json", {
-    method: "PUT",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        grade: 18
-    })
-})
-.then(response => response.json())
-.then(data => {
-    console.log(data); // read server response
-});
-
-
-the code above can be re-written as:
-
+* put
 
 const API = new FetchWrapper("https://api.learnjavascript.online");
 
@@ -66,3 +124,23 @@ API.put("/demo/grades.json", {
 }).then(data => {
     console.log(data);
 });
+
+
+* post
+
+const API = new FetchWrapper("https://api.learnjavascript.online/demo/");
+
+const saveGrade = grade => {
+    // TODO
+    API.post("grades.json", {grade})
+    	.then(data => {
+    	console.log(data)  // server response
+    	});
+};
+
+saveGrade(30);
+// error: API issues
+// because grade must be between 0 and 20, inclusive
+
+saveGrade(20);
+// { success: true, ...}

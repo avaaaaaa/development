@@ -18,6 +18,7 @@ if the function above was called without try-catch,
 with try-catch, we can still keep code running and do necessary actions about possible errors
 	so we will see "Step 1", some information about caught error and then "Step 2"
 catch{...} block will be skipped if there are no errors encountered
+	"Step 1", and then "Step 2"
 
 
 * throwing exceptions
@@ -26,15 +27,15 @@ const isValidName = name => (name?.trim?.().length ?? 0) > 7;
 
 const sayHello = name => {
     if(!isValidName(name)){
-        throw new Error("invalid name");
+        throw new Error("name must be at least 8 characters without spaces at the beginning & end");
     }
-    console.log(`Welcome ${name}`);
+    console.log(`Welcome ${name.trim()}`);
 }
 
 try{
-    sayHello("11111111111");
+    sayHello("   12  34567    ");
 } catch(error){
-    console.error(error.message);  // prints "invalid name" if there is any error
+    console.error(error.message);  // prints the error message if there is any error
     // console.error(error) gives more details
 }
 console.log("the program continues...");
@@ -70,14 +71,34 @@ try{
 }
 console.log("program continues...");
 
-the output is:
+output:
 try1
 error1
 finally1
 program continues...
 
-if "throw new Error('error')" is deleted, the output would be:
+if  throw new Error('error')  is deleted, the output would be:
 try1
 try2
 finally1
 program continues...
+
+
+// notice that "program continues..." won't be print to the output in the following example
+// the output would be the same if "return" was at the end of "finally" instead of "catch" 
+try{
+    console.log("try1");
+    throw new Error("error");
+    console.log("try2");
+} catch(error){
+    console.error("error1");
+    return
+} finally{
+    console.log("finally1");
+}
+console.log("program continues...");
+
+output:
+try1
+error1
+finally1

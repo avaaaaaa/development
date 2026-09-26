@@ -13,7 +13,7 @@ As a web developer, you will rarely ever encounter this group.
 2xx is for successful responses.
 This is one of the most common range.
 	200 with a response text of "OK" is the most common code here
-	This means that the request succeeded so the response is "OK" ☑️.
+	This means that the request succeeded so the response is "OK"
 
 3xx is for redirects.
 When you browse to http://learnjavascript.online, you will automatically get transferred to the secure version (https) and land on https://learnjavascript.online. This is what we call a redirect.
@@ -60,7 +60,6 @@ fetch(URL)
     })
     .catch(error => {
         console.error(error);  // network issues
-        // we can use implicit return feature here: error => console.error(error)
     });
 
 The throw new Error("API issues.") will reject the promise, so, the code stops running the current .then(callback) and then jumps to the .catch(callback).

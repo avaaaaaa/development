@@ -35,7 +35,7 @@ init();
 
 
 // below does not work
-// notice that "an error thrown" is not seen on the console
+// notice that the error could not be silenced
 
 const init = async () => {
 	const data = await getNotifications();
@@ -45,7 +45,7 @@ const init = async () => {
 try{
 	init();
 } catch(error){
-	console.error("an error thrown");
+
 }
 
 

@@ -45,14 +45,14 @@ let apiData = "gg";
 fetch(baseURL)
 .then(response => response.json())
 .then(data => {
-    console.log(data.title);  // 'delectus aut autem'
+	// value of data.title is "delectus aut autem"
     apiData = data.title;
 });
 console.log(apiData); // "gg"
 
 this does not work as expected
 because by the time apiData is logged, the promise would still be in the pending state
-The only way to write similar code is with async/await
+thus, "gg" will be print as the value of apiData even though its new value is "delectus aut autem"
 
 
 * example
@@ -71,7 +71,6 @@ const getTweetDetails = () => {
 
 }
 
-// do NOT modify this function
 function showAuthorName(fullName) {
     console.log(fullName);
 }
