@@ -1,0 +1,48 @@
+* API
+stands for application programming interface
+computer programs can communicate with each other using APIs
+Most popular APIs communicate in a common language, which is JSON (see 10_json)
+
+
+* framework
+The concepts of classes and class inheritance are mostly used in frameworks, whether back-end or front-end.
+
+The benefit of it is that the framework that you are using, will define a lot of functionality in their own classes.
+Then, you, as a user of that framework, inherit one of their classes which gives you access to all the functionality that they provided you.
+
+In the front-end world, this is visible with libraries/frameworks such as React, Vue, Angular, and others.
+
+
+* licences
+https://choosealicense.com/
+
+
+* minification
+it is the process of reducing the file size
+	to do that, all the comments and white spaces will be removed
+	and semi colon(;) will be added to the end of every single statement
+	so statements will be distinguished from each other with these semi colons
+this process is automated with tools such as webpack, parcel, vite
+	don't do it manually
+you can use tools such as prettier
+	it will automatically insert semi-colons where needed
+	but it will not remove comments and white spaces
+
+
+* prettier.io
+automatically formats your code
+its purpose is different from minification
+	does not remove white-spaces or comments
+	it is used to make the code more clear, readable, easy to read & understand
+	not trying to reduce the file size necessarily
+
+in vscode, check for "format on save" option on settings
+this will format the code automatically after the file is saved
+
+
+* nodejs
+https://nodejs.org/en/
+
+
+* vite
+https://vite.dev/

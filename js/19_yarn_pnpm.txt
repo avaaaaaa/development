@@ -1,0 +1,36 @@
+* yarn
+a package manager for node
+
+The main reason why yarn was launched is that, at that time, npm was extremely slow and missing some key functionalities. but nowadays, both are relatively fast. you could argue that yarn is faster but
+pragmatically the difference is not that big. they both have lock files and have offline support for the
+packages installed previously
+
+the main difference between npm and yarn is that yarn has a flat mode
+this mode guarantees that there will be an only single version of a package installed in all cases
+sometimes you need to have the same package but in different versions
+	npm would install all versions needed
+	yarn will make sure that only one of them is installed
+
+avoid using npm and yarn together in the same project due to the difference in lock files
+the equivalent of "package-lock.json" in yarn is "yarn.lock"
+
+
+** some yarn commands
+init package.json
+	yarn init
+install a package locally
+	yarn add {package-name}
+install a package globally
+	yarn global add {package-name}
+
+
+* pnpm
+a package manager for node
+
+The main thing that sets pnpm apart is how it stores packages on your computer. Instead of copying packages into each project's node_modules folder, pnpm saves them once in a global store and links to them from your projects. So if you've got 10 projects that all use the same version of React, it's only stored once on your disk instead of 10 times. This can save a significant amount of disk space if you work on many projects.
+
+pnpm is also stricter about which packages your code can access. pnpm only lets your code use packages you explicitly installed. Unlike npm or yarn, it won’t let you accidentally rely on dependencies that were installed indirectly, which helps catch mistakes early.
+
+
+* for now, stick with npm
+it is bundled with node and works great for most use cases

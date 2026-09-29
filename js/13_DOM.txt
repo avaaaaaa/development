@@ -11,7 +11,7 @@ document.querySelector("your-CSS-selector-here");
 
 this returns the item that matches specified selector
 	null if there is no match
-If there is more than one items that matches your selector, then the first item is selected.
+If there is more than one items that matches your selector, then returns the first item
 
 selectors types
 
@@ -199,8 +199,8 @@ document.querySelectorAll(".cards .card")
       <a href="about.html" target="_blank">About us</a>
       <a href="contact.html" target="_blank">Contact us</a>
     </footer>
-  </body>
   <script src="test.js"></script>
+  </body>
 </html>
 
 

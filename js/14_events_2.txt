@@ -80,6 +80,7 @@ With event delegation, you attach just one listener to the parent <ul>
     <li>Item 1</li>
     <li>Item 2</li>
     <li>Item 3</li>
+    <p>Hello</p>
 </ul>
 
 document.querySelector("#list").addEventListener("click", event => {
@@ -90,7 +91,7 @@ document.querySelector("#list").addEventListener("click", event => {
 
 
 When the user clicks an <li>, the event bubbles up to the <ul>, where our listener catches it.
-We then use event.target (the element that was actually clicked) along with the .matches() method to check if it's an <li> before doing anything.
+We then use event.target (the element that was actually clicked) along with the .matches() method to check if it's an <li> before doing anything. thus, clicking on <p> element won't log "Clicked: Hello"
 
 The .matches(selector) method is available on any element and returns true if the element matches the given CSS selector, false otherwise. It accepts the same selectors you'd use with querySelector().
 

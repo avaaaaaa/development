@@ -60,7 +60,7 @@ github flow: illustration at second page of github-cheat-sheet
 
 .gitignore file
     the files&directories in ".gitignore" are not tracked by git
-    create this file in the root directory of the git repository
+    create this file at the root directory of the git repository
     If you want to ignore a file that is already checked in,
       untrack the file first.
         git rm --cached <file_name>

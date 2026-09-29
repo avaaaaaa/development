@@ -1,12 +1,12 @@
 * innerHTML vs textContent
-when reading from textContent,
+when reading textContent property,
 	html tags will be stripped out
-when reading from innerHTML,
+when reading innerHTML property,
 	html tags will be kept
 
-when writing to textContent,
+when writing to textContent property,
 	html tags won't be rendered & interpreted, only used as text
-when writing to innerHTML,
+when writing to innerHTML property,
 	html tags will be rendered & interpreted
 
 

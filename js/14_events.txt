@@ -5,7 +5,7 @@ callback is the respond to the event
 
 * button click
 
-<button id="app-button" style="height: 100px; width: 100px;">Click Me</button>
+<button id="app-button" style="height: 100px; width: 100px;">Click here</button>
 <script>
     let counter = 0;
     const button = document.querySelector("#app-button");
@@ -109,7 +109,7 @@ cards.forEach(card => {
     card.addEventListener("click", event => {
         const activeCard = document.querySelector(".card.active");
         activeCard?.classList.remove("active");
-        event.target.classList.add("active");
+        event.currentTarget.classList.add("active");
     });
 });
 
@@ -169,7 +169,7 @@ button.removeEventListener("click", handleClick);
 
 
 * once event listener
-If you need to add an event listener that only runs once, there's an easier way instead of adding an event listener and then removing it. You can add an event listener and specify once: true in its options.
+If you need to add an event listener that only runs once, there's an easier way instead of adding an event listener and then removing it. You can add an event listener and specify {once: true} as third parameter
 
 
 const button = document.querySelector("button");

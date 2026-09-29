@@ -1,5 +1,5 @@
 * Every JavaScript file is called a Module or ES Module
-ES  is short for EcmaScript
+ES is short for EcmaScript
 
 
 * we can use "export" to make modules available for other modules
@@ -16,8 +16,17 @@ This limitation does not apply to "export" statements.
 
 * for "import" and "export" statements to work,
 you need to use a module bundler (such as webpack, parcel, vite)
-or you need to link your html page to your script (assuming the script is named "index.js"): 
-	<script type="module" src="index.js"></script>
+or you need to link your html page to your script and set "type" attribute of the script as "module"
+(assuming the script is "index.js"):
+...
+<body>
+...
+<script type="module" src="index.js"></script>
+</body>
+...
+
+Make sure however that you're serving from a web server, which means you should be on the http:// or https:// protocol, but not the file:// protocol. otherwise, an error will be thrown:
+Cross-Origin Request Blocked (see 00_debugging_tip.txt)
 
 
 * example
@@ -66,30 +75,40 @@ export const votingAge = 18;
 import StringHelper, {votingAge as ageLimit} from "./helpers.js";
 const helper = new StringHelper();
 console.log(ageLimit);
-// StringHelper is the default export, votingAge is a named export
+// StringHelper is the default export, ageLimit is a named export
 
 
-* importing from a library
-the package name will be put instead of the path(./) to the script
+* bare imports (importing from a library)
+Bare imports are when you import a package rather than a file name.
+the package name will be put instead of the path(./) to the script file:
 
 import React, {useState, useContext} from "react";
 
-Notice how the React object is the default import
+Notice the React object is the default import
 useState and useContext are named imports.
+
+At the time of writing, bare imports do not work in the browser, there is an ongoing proposal to bring them to the Web, in the meantime, you will have to use a module bundler to be able to use bare imports
 
 
 * dynamic import
 Dynamic imports allow you to import another file/module only when necessary.
 The syntax is similar, except that import is used as a function. For example:
 
-import("./helpers.js").then(module => {
+import("./test2.js").then(module => {
     console.log(module);
+    //console.log(module.default);
+    //console.log(module.requestLimit);
 });
+
+output:
+[Module: null prototype] {
+  default: [class Person],
+  requestLimit: 1000
+}
 
 
 * importing JSON files directly
 import data from './data.json' with { type: "json" };
-// instead of having to fetch and JSON.parse them yourself at runtime
-! this didn't work. need more specific examples of this usage
+! this didn't work. need more clear examples of this syntax
 
 

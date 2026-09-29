@@ -50,6 +50,8 @@ export default class FetchWrapper {
     }
 
     #send(endpoint, method, body) {
+        let fetched = "";
+
         if(body){
             this.requestBody = {
                 method,
@@ -58,13 +60,9 @@ export default class FetchWrapper {
                 },
                 body: JSON.stringify(body)
             };
-        }
-
-        let fetched = "";
-        if(method === "get"){
-            fetched = fetch(this.baseURL + endpoint);
-        } else {
             fetched = fetch(this.baseURL + endpoint, this.requestBody);
+        } else {
+            fetched = fetch(this.baseURL + endpoint);
         }
 
         console.log(fetched);  // Promise { <pending> }

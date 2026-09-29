@@ -23,7 +23,7 @@ package recommendations by category
 locally install a package named "chart.js"
 	npm install chart.js
 	npm i chart.js
-globally install a package name "webpack-dev-server"
+globally install a package named "webpack-dev-server"
 	npm install webpack-dev-server --global
 	npm i webpack-dev-server -g
 execute the package "webpack-dev-server"
@@ -31,7 +31,8 @@ execute the package "webpack-dev-server"
 start a new project from scratch
 	npm init
 	// npm will ask some questions about the project
-	// and generate a package.json based on the answers 
+	// and generate a package.json based on the answers
+	// "npm init -y" will give default answers to these questions
 
 
 ** local vs global installation
@@ -46,3 +47,6 @@ When you perform a local installation, all the files from that package will be d
 Installing packages locally is recommended because it allows you to install the same package for different projects. The benefit of this is that if you have two projects, A & B, and they both depend on webpack-dev-server, you can upgrade project A to a newer version of webpack-dev-server without breaking project B. Since every project has a separate, local installation of webpack-dev-server with potentially different versions.
 
 when you perform a global installation, the package is installed once and it is available for all the projects that you are working on
+
+"node_modules" directory should not be modified manually and it should be ignored by git
+to do that, add  node_modules/  entry to the .gitignore file

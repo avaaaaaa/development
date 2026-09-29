@@ -64,12 +64,12 @@ tabs.forEach(tab => {
         // TODO: highlight the button
         const lastActive = document.querySelector(".tabs .nav-tabs .tab.active");
         lastActive?.classList.remove("active");
-        event.target.classList.add("active");
+        event.currentTarget.classList.add("active");
 
         // TODO: show the information
         const lastParagraph = document.querySelector(".tab-content.show");
         lastParagraph?.classList.remove("show");
-        const paragraphId = event.target.dataset.content;
+        const paragraphId = event.currentTarget.dataset.content;
         const paragraph = document.querySelector(paragraphId);
         paragraph.classList.add("show");
     });

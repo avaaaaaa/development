@@ -1,0 +1,81 @@
+* Bare imports (see 12.txt) are an important part of web development, as developers often have to rely on libraries published by other developers.
+Some of these libraries are helper libraries (such as lodash) others help you build web applications (such as react, vue, angular, etc.)
+To make these imports work, developers use a module bundler such as webpack, parcel, or vite.
+module bundlers sometimes called build tools
+
+
+* use cases:
+
+** Dependency Resolution
+
+These tools understand all of your imports and thus they can resolve your dependencies which means when you import "lodash" (an example library), webpack will resolve that import and find the actual file that needs to be imported (for example, ./node_modules/lodash/dist/lodash.min.js).
+
+
+** Dependency Graph
+
+these tools build a dependency graph of all your imports, and are able to optimize the final result as they can tell which files are duplicate and which files will not be used.
+
+
+** Merge files
+
+Your source code will have tens or even hundreds of files. A module bundler will merge these files into a single file, often called main.js or app.js which you can deploy.
+
+You can also merge files based on the URL, which is often called: route-based code splitting.
+For example, the homepage will have a homepage.js file, the settings will have a settings.js file, etc.
+
+
+** Running automated scripts before/after build
+
+Most projects are configured to start by deleting the dist/ folder so that new files can be generated there. That's an example of an automated command running before the build.
+Tools that generate service workers need to run after a build has been completed, which can also be run using the module bundler.
+
+
+** Cache busting
+
+Cache busting is a technique that allows you to generate files with a hash in their name to maximize the caching capability of the browser.
+
+
+* configuration
+
+If you choose a front-end library/framework (such as Angular, Vue, React, LitElement, etc.) they will all have a module bundler already configured for you, which means you won't have to worry about configuring it yourself.
+These libraries/frameworks often rely on webpack.
+
+the most common module bundlers:
+vite
+	the newest and the best
+	If you're starting your own personal project, we recommend vite due to 
+		its ease of use, speed, and awesome documentation.
+parcel
+	is known for its ease of use as you can use it without having to configure it
+webpack
+	is known for its complicated configuration
+	however, it's widely used in the JavaScript community
+
+
+* vite
+it means "quick" in french
+We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get started with
+documentation: https://vite.dev/guide
+
+** create a new project
+navigate to the folder where you want to create the project
+create a new vite project
+	npm create vite@latest (yarn create vite)
+	This command asks whether you want to download the vite package
+	then interactively asks you to select your preferences.
+	You should select' Vanilla' if you're working on a project that only uses HTML, CSS, and JavaScript. 	
+	Alternatively, there are React, Vue, Lit, and many other templates.
+	Each template is also available as a TypeScript variant.
+
+	Once the command is complete, cd(change directory) into the new project
+	run "npm install". 
+	Finally, "npm run dev" will start the local dev server.
+
+
+** production build
+when you are ready to publish your website, you can run "npm run build" to create an optimized version
+of your project
+
+** deploying a static site
+vite also has instructions on deploying your website to many hosting providers(github, netlify, and more)
+guide: https://vite.dev/guide/static-deploy.html
