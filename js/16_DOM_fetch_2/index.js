@@ -1,4 +1,6 @@
-// TODO
+// documentation:
+// https://docs.github.com/en/rest/repos/repos?apiVersion=2022-11-28#list-repositories-for-a-user
+
 import FetchWrapper from "./fetch-wrapper.js";
 import {startLoader, stopLoader} from "./helpers.js";
 
@@ -24,8 +26,10 @@ form.addEventListener("submit", event => {
             </a>
             </li>`;
         });
-        list.innerHTML = entryHtml.join("");
-        
+        list.innerHTML = entryHtml.join("");        
+    }).catch(error => {
+        list.innerHTML = "User not found";
+        console.error(error);
     }).finally(()=>{
         stopLoader(button, "Get repos");
     })

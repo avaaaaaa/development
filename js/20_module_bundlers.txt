@@ -43,8 +43,8 @@ These libraries/frameworks often rely on webpack.
 the most common module bundlers:
 vite
 	the newest and the best
-	If you're starting your own personal project, we recommend vite due to 
-		its ease of use, speed, and awesome documentation.
+	If you're starting your own personal project, we recommend vite due to-
+	its ease of use, speed, and awesome documentation.
 parcel
 	is known for its ease of use as you can use it without having to configure it
 webpack
@@ -54,28 +54,111 @@ webpack
 
 * vite
 it means "quick" in french
-We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get started with
+We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get- started with
 documentation: https://vite.dev/guide
 
 ** create a new project
 navigate to the folder where you want to create the project
-create a new vite project
-	npm create vite@latest (yarn create vite)
+run "npm create vite@latest" (or "yarn create vite") to create a new vite project
 	This command asks whether you want to download the vite package
 	then interactively asks you to select your preferences.
 	You should select' Vanilla' if you're working on a project that only uses HTML, CSS, and JavaScript. 	
 	Alternatively, there are React, Vue, Lit, and many other templates.
 	Each template is also available as a TypeScript variant.
-
-	Once the command is complete, cd(change directory) into the new project
+Once the command is complete, cd(change directory) into the new project
 	run "npm install". 
 	Finally, "npm run dev" will start the local dev server.
 
-
 ** production build
-when you are ready to publish your website, you can run "npm run build" to create an optimized version
+when you are ready to publish your website, you can run "npm run build" to create an optimized version-
 of your project
 
 ** deploying a static site
 vite also has instructions on deploying your website to many hosting providers(github, netlify, and more)
 guide: https://vite.dev/guide/static-deploy.html
+
+
+* parcel
+https://parceljs.org/
+Parcel is a fast, zero-configuration web application bundler.
+
+** host your project on the localhost (http://) rather than "file://" with parcel
+create the project folder, and cd into it
+	mkdir my-project
+	cd my-project
+create package.json file
+	npm init (npm init -y)
+delete the entry whose key is "main" in package.json
+create index.html, index.js files
+	touch index.html index.js
+
+add the following html codes to the index.html:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My App</title>
+</head>
+<body>
+  <script type="module" src="./index.js"></script>
+</body>
+</html>
+
+install parcel locally
+	npm intall parcel --save-dev
+	(with --save-dev option, parcel will appear in devDependencies of package.json)
+run the server
+	npx parcel index.html
+now, index.html will be host on http://localhost:1234
+	changes in html & js files will be automatically updated in the browser
+
+
+* webpack
+Webpack can run without a configuration.
+However, you will need to configure it as soon as you start using its advanced functionality.
+
+** host your project on the localhost with webpack
+create project folder, and cd into it
+create package.json
+create index.html, index.js, webpack.config.js
+	The webpack.config.js is used to store the configuration for webpack.
+
+add the following html code into index.html:
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My App</title>
+</head>
+<body>
+  <script src="bundle.js"></script>
+</body>
+</html>
+
+
+add the following js code into webpack.config.js:
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+
+const config = {
+  mode: "development",
+  entry: './index.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+  },
+  plugins: [new HtmlWebpackPlugin({
+    template: "./index.html",
+    filename: "index.html",
+    inject: false,
+  })],
+};
+
+module.exports = config;
+
+
+install webpack, webpack-cli, webpack-dev-server, html-webpack-plugin
+	npm install webpack webpack-cli webpack-dev-server html-webpack-plugin --save-dev
+run the server
+	npx webpack serve
+now, index.html will be host on http://localhost:8080
+	changes in html & js files will be automatically updated in the browser
+

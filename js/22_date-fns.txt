@@ -1,0 +1,19 @@
+* When working with dates in the browser, it may be useful sometimes to use a library that makes that process easier. Traditionally, developers were using a very popular library called moment.js. However, this library is currently not maintained due to how old (and thus big in size) it is.
+
+The new and recommended alternative is date-fns.
+it is a collection of functions that make it easier to work with dates in js
+
+installing date-fns
+	npm install date-fns
+
+importing from date-fns
+	import {addYears} from "date-fns";
+
+
+* addYears example
+const rightNow = new Date();
+console.log(rightNow);
+
+const years = 5;
+const yearsLater = addYears(rightNow, years);
+console.log(yearsLater);

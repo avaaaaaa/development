@@ -90,6 +90,14 @@ useState and useContext are named imports.
 At the time of writing, bare imports do not work in the browser, there is an ongoing proposal to bring them to the Web, in the meantime, you will have to use a module bundler to be able to use bare imports
 
 
+** namespace import
+it lets you import the entire library & package under a new object name:
+
+import * as customName from "react";
+
+In general, we recommend against using this syntax in front-end projects as you will lose the benefits of tree-shaking and your JavaScript bundle size will increase. Tree-shaking is a method that eliminates unused or "dead" code during the build process, thereby reducing the size of the final bundled file. However, since you're importing the entire library, those tools cannot eliminate the functions you're not using anymore.
+
+
 * dynamic import
 Dynamic imports allow you to import another file/module only when necessary.
 The syntax is similar, except that import is used as a function. For example:

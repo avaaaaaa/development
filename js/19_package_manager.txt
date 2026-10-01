@@ -2,6 +2,9 @@
 A package is a JavaScript project created by another person, group of people, company, or organization.
 
 
+* to install node and npm, see nvm.txt
+
+
 * node
 it is a js runtime environment
 it lets you run js code on your computer & outside the browser

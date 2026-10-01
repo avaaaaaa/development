@@ -1,7 +1,7 @@
 * <form> elements are used to group related inputs together
 Forms are often combined with the fetch API
 if there are multiple <form> elements
-	when one of them gets submitted, only its inputs will be sent
+	when one of them gets submitted, only the inputs of the submitted form will be sent
 
 
 * the submit event
@@ -11,13 +11,13 @@ these will trigger the submit event:
 
 requirements for the submit event
 	have a <form> element
-	have at least <input> or <textarea> inside of <form>
-	have a button with type "submit":
+	have at least one <input> or <textarea> inside of <form>
+	have a button with type="submit"
 		<input type="submit" value="click to submit">
 		<button type="submit">click to submit</button>
 
 the submit event fires only on the <form>
-	so we need to attach the submit event listener on the <form>, not on the <button> 
+	so we need to attach the submit event listener on the <form>, not on the <button> or <input>
 
 
 an example:
@@ -34,9 +34,9 @@ form.addEventListener("submit", event => {
 
 * event.preventDefault()
 when a form is submitted, the browser will collect and send all the inputs to the backend of your website
-	by default, the backend is the same URL as where the user submitted the form (the current webpage)
-		and this will cause the current page to be reloaded
-		you can override the default with "action" attribute of the <form>
+by default, the backend is the same URL as where the user submitted the form (the current webpage)
+	and this will cause the current page to be reloaded
+	you can override the default with "action" attribute of the <form>
 
 
 for example:
@@ -96,12 +96,12 @@ const form = document.querySelector("form");
 form.addEventListener("submit", event => {
     event.preventDefault();
 
-    form.reset(); // clears all the inputs
+    form.reset(); // resets all the inputs to their defaults
 });
 
 
 * FormData class
-when the <form> has a lot of input fields, it won't be convenient to get their values with document.querySelector(). this will lead to code repetition. instead, we can make use of FormData class
+when a <form> has a lot of input fields, it won't be convenient to get their values with document.querySelector(). this will lead to code repetition. instead, we can make use of FormData class
 for such cases
 
 FormData matches input values with "name" attribute of the <input>
@@ -169,7 +169,7 @@ data.get("email");
 
 
 ** FormData.getAll(inputName)
-returns the array of the all <input>s that have the same value of "name" attribute as "inputName"
+returns the array of the all <input>s that have the same "name"
 
 
 ** getting all the ticked checkboxes

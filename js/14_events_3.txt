@@ -85,5 +85,5 @@ document.addEventListener("keydown", event => {
 document.addEventListener("keyup", event => {
     console.log(event.key);
 });
-// event.key is the button that was pressed
+// event.key is the button that was pressed on
 // press esc, shift, ctr, f5, letter buttons and see the console output
