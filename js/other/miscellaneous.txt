@@ -55,3 +55,8 @@ javaScript bloat is more real today than it ever was. Sites continuously get big
 Bundlephobia lets you understand the performance cost of installing a new npm package before it becomes a part of your bundle. Analyze size, compositions, exports and dependencies
 
 
+* vanilla javascript
+it means js without a framework
+People often use this term when asking questions on the Internet as a way to communicate that they are looking for an answer purely in JavaScript without jQuery, React, etc.
+
+

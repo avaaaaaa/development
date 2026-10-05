@@ -24,7 +24,7 @@ div.toString(); // [object HTMLDivElement]
 p.toString(); // [object HTMLParagraphElement]
 
 
-"div" gets access to all the properties and methods on "HTMLDivElement"
-"p" gets access to all the properties and methods on "HTMLParagraphElement"
-both elements also get access to all the properties and methods on "HTMLElement"
+"div" gets access to all the properties and methods on "HTMLDivElement" interface
+"p" gets access to all the properties and methods on "HTMLParagraphElement" interface
+both elements also get access to all the properties and methods on "HTMLElement" interface
 	because "HTMLDivElement" and "HTMLParagraphElement" inherits from "HTMLElement"

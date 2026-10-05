@@ -1,5 +1,7 @@
 * nvm (node version manager) allows you to quickly install and use different versions of node via the command line.
 
+source: https://github.com/nvm-sh/nvm
+
 installing nvm
 	/usr/bin/curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.8/install.sh | bash
 		restart the terminal after running this command

@@ -1,0 +1,226 @@
+* Every JavaScript file is called a Module or ES Module
+ES is short for EcmaScript
+
+
+* we can use "export" to make modules available for other modules
+and then we can use "import" to use variables, classes, functions etc. from exported classes
+
+a named export is an exported variable, function, class
+you can have several named exports in the same file 
+
+"import" for static imports
+"import()" for dynamic imports
+
+static import declarations can only be present in modules, and only at the top-level
+	(i.e., not inside blocks: functions, try-catch, class, if-else etc.)
+	This limitation does not apply to "export" statements.
+	they are synchronous, they will be loaded at the moment
+whereas, dynamic imports do not have to be in modules, and at the top-level
+	they are asynchronous, they will be resolved at the future
+
+
+* for import statements to work on browsers, you can do either of these:
+	use a module bundler (such as webpack, parcel, vite)
+	link your html page to your script and set "type" attribute of the script as "module"
+(assuming the script is "index.js"):
+...
+<body>
+...
+<script type="module" src="index.js"></script>
+</body>
+...
+
+
+* for import statements to work on nodejs,
+create "package.json" file at the same directory as the script that have import statements
+and then add the following to the "package.json":
+{
+	"type": "module"
+}
+
+
+* for some cases like fetch calls, you need to be serving from a web server, which means you should be on the http:// or https:// protocol, but not the file:// protocol. otherwise, an error will be thrown:
+Cross-Origin Request Blocked (see 00_debugging_tip.txt)
+
+
+* example
+// config.js
+export const votingAge = 18;
+
+export const settings = {
+    theme: "light",
+    admin: false
+};
+
+// index.js
+import {votingAge} from "./config.js";
+// OR
+import {settings} from "./config.js";
+// OR
+import {settings, votingAge} from "./config.js";
+// depending on which variables you need
+// make sure the path to "config.js" is correct
+
+
+* default export
+Scenarios where default export makes sense:
+    either export only one variable/function/class.
+    or, it will export several variables/functions/classes. However, one of these is considered the main one (or the most important one).
+
+The most common use case for default exports is when you define a class in a file that you expect to use outside of that file.
+
+When writing your own modules, you can decide to ignore default exports and always use named exports.
+
+you can rename default exports, and drop curly braces when importing them
+it is also possible to rename named exports, but curly braces are still needed
+
+// helpers.js
+export default class Helper {}
+export const votingAge = 18;
+
+// index.js
+import StringHelper, {votingAge as ageLimit} from "./helpers.js";
+const helper = new StringHelper();
+console.log(ageLimit);
+// StringHelper is the default export, ageLimit is a named export
+
+
+* bare imports (importing from a library)
+Bare imports are when you import a package rather than a file name.
+the package name will be put instead of the path(./) to the script file:
+
+import React, {useState, useContext} from "react";
+
+Notice the React object is the default import
+useState and useContext are named imports.
+
+At the time of writing, bare imports do not work in the browser, there is an ongoing proposal to bring them to the Web, in the meantime, you will have to use a module bundler to be able to use bare imports
+
+
+* namespace import
+it lets you import the entire library & package under a new object name:
+
+import * as customName from "react";
+
+In general, we recommend against using this syntax in front-end projects as you will lose the benefits of tree-shaking and your JavaScript bundle size will increase. Tree-shaking is a method that eliminates unused or "dead" code during the build process, thereby reducing the size of the final bundled file. However, since you're importing the entire library, those tools cannot eliminate the functions you're not using anymore.
+
+
+* dynamic import
+Dynamic imports allow you to import another module only when necessary.
+The syntax is similar, except that import is used as a function. For example:
+
+import("./test2.js").then(module => {
+    console.log(module);
+    //console.log(module.default);
+    //console.log(module.requestLimit);
+});
+
+// or
+
+const module = await import("./test2.js");
+console.log(module)
+
+output:
+[Module: null prototype] {
+  default: [class Person],
+  requestLimit: 1000
+}
+
+
+For example, we want to load the chat library when the user clicks on the Contact support button.
+
+const button = document.querySelector("#contact-button");
+button.addEventListener("click", () => {
+    import("chat-library").then(module => {
+        module.init(); // assuming the chat-library exports a named function called init.
+    });
+});
+
+This import on user interaction would not have been possible when import is used statically:
+
+button.addEventListener("click", () => {
+    import {init} from "chat-library";  // ❌ this does NOT work ❌
+});
+
+
+** dynamic imports with object destructring
+we can make use of object destructring feature for dynamic imports
+
+import("chat-library").then(module => {
+	const {init} = module;
+	init();  // module.init();
+});
+
+// or
+
+const module = await import("chat-library");
+const {init} = module;
+init();  // module.init();
+
+
+** handle errors
+The dynamic import could fail due to network conditions or other issues. So, don't forget to wrap your async/await with a try...catch call or add a .catch() to your promise call.
+
+button.addEventListener("click", () => {
+    import("chat-library")
+    .then(module => {
+        module.init();
+    }).catch(error => {
+    	console.error(error);
+    });
+});
+
+// or
+
+button.addEventListener("click", async () => {
+    try{
+    		const module = await import("chat-library");
+    		module.init();
+    }catch(error){
+    		console.error(error);
+    }
+});
+
+
+* importing JSON files directly
+Non-JavaScript modules can also be imported using the import statement, but their types need to be explicitly declared using import attributes. For example, to import a JSON module, you need to specify the type: "json" attribute.
+
+import data from "./data.json" with { type: "json" };
+console.log(data);
+
+output:
+{
+  type: 'module',
+  dependencies: {
+    'date-fns': '^4.4.0',
+    'learnjavascript-online-npm': '^1.2.0',
+    'lodash-es': '^4.18.1'
+  }
+}
+
+
+* A note on legacy module systems
+Before ES modules became the standard, Node.js used its own module system called CommonJS.
+You'll still encounter it in older tutorials
+Both systems still work in Node.js today, but ES modules are the modern standard
+
+
+// notice that the extension of the following scripts is not "js", it is "cjs"
+
+// test2.cjs
+const greet = name => {
+    console.log(`hello ${name}`);
+}
+
+module.exports = {
+    greet
+}
+
+
+// test1.cjs
+const a = require("./test2.cjs");
+a.greet("gg");
+
+
+// run "node test1.cjs", output would be:
+// hello gg

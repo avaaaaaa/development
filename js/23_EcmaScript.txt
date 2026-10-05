@@ -1,0 +1,4 @@
+* it is a specification for a scripting language managed by an organization called Ecma (Ecma International)
+JavaScript is an implementation of EcmaScript. It's actually the most popular implementation of EcmaScript.
+So, Ecma International defines all the rules and specifications for a scripting language called EcmaScript, but these are just the specifications. You need an actual programming language to implement that, which is JavaScript.
+The company Oracle still holds the trademark for the term JavaScript, as it's derived from their proprietary Java trademark. This is another reason why technical sources prefer to use the term EcmaScript rather than JavaScript.

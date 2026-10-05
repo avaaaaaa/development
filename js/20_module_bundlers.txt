@@ -69,6 +69,14 @@ Once the command is complete, cd(change directory) into the new project
 	run "npm install". 
 	Finally, "npm run dev" will start the local dev server.
 
+** update
+after running "npm create vite@latest", we didn't need to run "npm install" and "npm run dev"
+	it automatically installed the required packages and started the local server
+	but to start the local server again, we can run "npm run dev"
+don't forget to restart the server after installing & removing packages
+	to do it, type "r", then hit the enter key on the console where the local server is running
+	type "h", then hit the enter key to see the available commands
+
 ** production build
 when you are ready to publish your website, you can run "npm run build" to create an optimized version-
 of your project

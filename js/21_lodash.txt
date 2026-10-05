@@ -59,3 +59,45 @@ window.addEventListener("scroll", debounce(() => {
 
 The first argument is the callback function that you'd like to debounce.
 The second argument is how many milliseconds it should wait before calling it the next time.
+
+
+** dynamic import
+
+const module = await import("lodash");
+console.log(module);
+window.addEventListener("scroll", module.debounce(()=>{
+  console.log("page scrolled")}, 500));
+
+// or
+
+import("lodash").then(module => {
+  console.log(module);
+  window.addEventListener("scroll", module.debounce(()=>{
+    console.log("page scrolled");
+  }, 500));
+});
+
+
+// however, these two examples above loads entire "lodash" library
+// if we only need ".debounce()", we can do the following:
+
+const module = await import("lodash/debounce.js");
+console.log(module);
+window.addEventListener("scroll", module.default(()=>{
+  console.log("page scrolled");
+}, 500));
+
+// or
+
+import("lodash/debounce.js").then(module => {
+  console.log(module);
+  window.addEventListener("scroll", module.default(()=>{
+    console.log("page scrolled");
+  }, 500));
+});
+
+// notice that when we load the entire library, we used "module.debounce()" to access the function
+// when we only load the debounce script, we used "module.default()" to access the function
+// 		but we cannot use "module.debounce()" for this approach
+// check console.log(module) to see why
+

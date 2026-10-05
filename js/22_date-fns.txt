@@ -17,3 +17,44 @@ console.log(rightNow);
 const years = 5;
 const yearsLater = addYears(rightNow, years);
 console.log(yearsLater);
+
+
+** dynamic import
+
+import("date-fns").then(module => {
+  console.log(module);
+  const years = 10;
+  const yearsLater = module.addYears(new Date(), years);
+  console.log(yearsLater);
+});
+
+// or
+
+const module = await import("date-fns");
+console.log(module);
+const years = 10;
+const yearsLater = module.addYears(new Date(), years);
+console.log(yearsLater);
+
+
+// however, these two examples above loads entire "date-fns" library
+// if we only need ".addYears()", we can do the following:
+
+import("date-fns/addYears").then(module => {
+  console.log(module);
+  const years = 10;
+  const yearsLater = module.default(new Date(), years);
+  console.log(yearsLater);
+});
+
+// or
+
+const module = await import("date-fns/addYears");
+console.log(module);
+const years = 10;
+const yearsLater = module.addYears(new Date(), years);
+console.log(yearsLater);
+
+// check the console.log(module) for the second approach
+// notice that we could use "module.default()" aswell
+

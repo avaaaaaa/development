@@ -20,7 +20,7 @@ Math.ceil(2.6); // 3
 Math.ceil(2.5); // 3
 
 Math.random()
-// returns a pseudorandom number between 0 and 1
+// returns a pseudorandom number between 0(inclusive) and 1(exclusive)
 
 
 * numeric separator
@@ -35,3 +35,65 @@ x == z; // true
 * string to number, or vice versa
 see string.txt
 
+
+* random number
+
+const randomBetween = (_min, _max) => {
+    if(_min > _max || typeof _min !== "number" || typeof _max !== "number") {
+        throw new Error("invalid input");
+    } else if(_min === _max){
+        return _min;
+    }
+    const distance = _max + 1 - _min;  // see "distance distribution" at the bottom
+    const randomPercentage = Math.random();
+    // Math.random() returns a random number
+    // between 0(inclusive) and 1(exclusive)
+    const randomNumber = _min + distance * randomPercentage;
+    return randomNumber;
+}
+
+const randomIntegerBetween = (_min, _max) => {
+    return Math.floor(randomBetween(_min, _max));  // see "distance distribution" at the bottom
+}
+
+
+const _min = 0;
+const _max = 2;
+
+let counter = 10000;
+const _counter = counter;
+const freq = {}
+
+while(counter){
+    const random = randomIntegerBetween(_min, _max);
+    if(!freq[random]){
+        freq[random] = 1;
+    } else {
+        freq[random]++;
+    }
+    counter--;
+}
+
+Object.keys(freq).forEach(key => {
+    console.log(`${key}: ${freq[key]} (%${freq[key] / _counter * 100})`);
+});
+
+/*
+distance distribution for [0, 2]
+
+with Math.round()
+_min = 0, _max = 2
+
+[0, 0.5) --> 0
+[0.5, 1] --> 1
+[1, 1.5) --> 1
+[1.5, 2] --> 2
+
+with Math.floor()
+_min = 0, _max = 3
+
+[0, 1) --> 0
+[1, 2) --> 1
+[2, 3) --> 2
+
+*/
