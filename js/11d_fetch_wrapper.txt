@@ -71,12 +71,15 @@ export default class FetchWrapper {
             .then(response => {
             	//console.log(response);
                 if(!response.ok){
-                    throw new Error("API issues");
+                    throw "API";
                 }
                 return response.json();
             })
             .catch(error => {
-                console.error(error);  // Network issues
+                if(error === "API"){
+                    throw "API issues";
+                }
+                throw "Network issues";  // Network issues
             })
     }
 }
@@ -85,24 +88,37 @@ export default class FetchWrapper {
 * get
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
-API.get("/notifications/new.json").then(data => {
-        console.log(data);
-    });
+API.get("/notifications/new.json")
+.then(data => {
+    console.log(data);
+}).catch(error =>{
+    console.error(error);
+});
+
 API.get("/chapters/all.json").then(data => {
     console.log(data);
+}).catch(error =>{
+    console.error(error);
 });
 
 
 **
+// update: i made the endpoint invalid by changing it to "weet/..."
+// response status was 200, and .ok field was ok
+// hence, .then() is executed
+// data was null, and accessing data.author caused an error
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
 
 const getTweetDetails = () => {
     // TODO
-    API.get("tweet/1080777336298049537.json").then(data => {
+    API.get("tweet/1080777336298049537.json")
+    .then(data => {
         console.log(data.author.details);
         const details = data.author.details;
         showAuthorName(details.firstName + " " + details.lastName);
+    }).catch(error => {
+        console.error(error);
     });
 }
 
@@ -117,10 +133,11 @@ getTweetDetails();
 
 const API = new FetchWrapper("https://api.learnjavascript.online");
 
-API.put("/demo/grades.json", {
-    grade: 18
-}).then(data => {
+API.put("/demo/grades.json", {grade: 18})
+.then(data => {
     console.log(data);
+}).catch(error => {
+    console.error(error);
 });
 
 
@@ -132,13 +149,39 @@ const saveGrade = grade => {
     // TODO
     API.post("grades.json", {grade})
     	.then(data => {
-    	console.log(data)  // server response
-    	});
-};
+    	    console.log(data)  // server response
+    	}).catch(error => {
+            console.error(error);
+    });
+}
+
 
 saveGrade(30);
-// error: API issues
+// API issues
 // because grade must be between 0 and 20, inclusive
 
 saveGrade(20);
 // { success: true, ...}
+
+
+** some experiments
+
+made baseURL invalid -> error caught by network issues .catch()
+
+made endpoint invalid -> no error, .then() executed,
+data within .then() is null for get
+data within .then() is the server response for other methods
+the server response was : { error: 'Permission denied' }
+
+making endpoint invalid caused response.ok to be false for put-post-delete
+	response.status was 401
+	responose.statusText was "Unauthorized"
+so, we can throw another error before returning responose.json()
+	with that, we can catch it within .catch()
+	but, the server response was already stating the error, should we still do that?
+	
+making endpoint invalid caused response.ok to be true for get
+	response.status was 200
+	response.statusText was "OK"
+if we try to access properties through data within .then(), an error will occur
+	because data is null in this case

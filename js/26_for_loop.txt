@@ -1,0 +1,53 @@
+* we can use "break" and "continue" statements within for-loops unlike forEach()
+	The "continue" statement terminates execution of the statements in the current iteration of the current loop, and continues execution of the loop with the next iteration.
+	The "break" statement terminates the current loop or "switch" statement and transfers program control to the statement following the terminated statement
+
+
+** counting up
+
+for (let counter = 1; counter <= 10; counter++) {
+    console.log(counter);
+}
+
+
+** counting down
+
+for (let number = 5; number >= 0; number--) {
+    console.log(number);
+}
+
+
+** skipping numbers
+printing even numbers from 0 to 20
+
+for (let number = 0; number <= 20; number += 2) {
+	console.log(number);
+}
+
+
+* "for...of" can be used to iterate over iterables (string, array, nodelist, map, set)
+
+const items = [1, 2, 3];
+
+for(const item of items){
+    console.log(item);
+}
+
+
+const items = document.querySelectorAll(".items");
+for (const item of items) {
+    console.log(item.textContent);
+}
+
+
+* "for...in" can be used to iterate over objects
+We'd like to note that "for...in" works for arrays, but it is NOT recommended.
+
+const person = {
+	id: 1,
+	name: "gg",
+}
+
+for(const key in person){
+	console.log(key, ":", person[key]);  // logging entries
+}

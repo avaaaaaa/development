@@ -1,0 +1,46 @@
+* https://web.dev/how-to-use-baseline
+
+Web Platform Baseline brings clarity to information about browser support for web platform features.
+Baseline is not strictly related EcmaScript, as it covers HTML, CSS, and JavaScript features.
+
+Baseline chooses the following core browsers:
+    Chrome (desktop and Android)
+    Edge
+    Firefox (desktop and Android)
+    Safari (macOS and iOS)
+
+If you're wondering why Chrome and Firefox on iOS are not mentioned, that's because Apple doesn't allow external browsers to ship their own browser. The "Chrome" and "Firefox" you use are simple wrappers on top of Safari. There are currently ongoing legal battles aiming to unlock this limitation.
+
+The idea behind Baseline is very simple: each web feature gets one of the following three labels:
+    Limited availability.
+    Newly available.
+    Widely available.
+
+
+* labels
+
+**Baseline: Limited availability
+The feature is not available in all the core browsers.
+When a feature has the label Baseline: Limited availability, it means that the web feature is supported in at least one browser but not yet widely supported across all other core browsers.
+
+**Baseline: Newly available
+The feature recently became supported by all of the core browsers and is, therefore, interoperable.
+The word interoperable means the feature works consistently across all major browsers, allowing developers to use it without needing browser-specific workarounds or fallbacks.
+
+**Baseline: Widely available
+30 months have passed since the newly interoperable date. The feature can be used by most sites without worrying about support.
+So, two and a half years after a feature becomes interoperable, it's declared as Widely available. That's because it takes some time for users to update their browsers, but 30 months is generally on the safe side.
+
+
+* Which Baseline should I use?
+
+Baseline groups features based on these three labels. It's up to you to decide which one is more suitable, as this highly depends on your project and your target audience.
+
+Let's say you're building a local admin used by a few employees in your company. Since you are able to influence their browser choice and browser versions, you might be okay using Baseline: Limited availability or Baseline: Widely available.
+
+If your target audience is developers, you can generally use features that fall under Baseline: Newly available.
+
+Lastly, for regular users, it's most likely better to stick to Baseline: Widely available.
+
+
+* check out "https://webstatus.dev/" for a list of features categorized per year.

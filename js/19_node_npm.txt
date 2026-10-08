@@ -16,7 +16,7 @@ check node in your system
 
 * node package manager (npm)
 it is the default package manager for node
-it manages the packages node using
+it manages the packages used by node
 check npm in your system
 	npm -v
 search for packages

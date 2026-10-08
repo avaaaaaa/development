@@ -1,0 +1,29 @@
+* The "window" object in JavaScript represents the current page
+it includes the DOM (document) as well as all the global variables and functions.
+
+
+** global variables and functions
+"document" is a global variable. When you access "document", you're technically accessing "window.document".
+Because it's a global variable, you can access it with "document", and the browser will resolve that to "window.document".
+if there is a custom variable named "document" (const document = "...";)
+	we can only access the global document variable with "window.document"
+	it is best to avoid giving custom variables the same name as global variables
+	similar to "document", "name" is also defined by the browser (window.name)
+	thus, avoid using "name" as custom variables
+
+"Number.parseInt()" is a global function
+When you call Number.parseInt(), it's the same as calling window.Number.parseInt().
+
+
+* "globalThis" and "self"
+They refer to the same global object as "window", just under different names:
+	"self" works in browsers and Web Workers (a way to run JavaScript in the background, outside the main page).
+	"globalThis" is the universal name. It works everywhere: in browsers, Web Workers, and other JavaScript environments like Node.js (which lets you run JavaScript outside the browser, for example on a server).
+
+One handy use of "globalThis" is to check if a browser API exists before using it:
+
+if ("fetch" in globalThis) {
+    // The fetch API is available, safe to use
+}
+
+You don't need to use "globalThis" or "self" in your code if it's only running in the browser. 

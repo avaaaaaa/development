@@ -1,0 +1,85 @@
+* A closure refers to the situation in which an inner function retains access to the variables of its wrapping block(s)
+When JavaScript encounters a variable, it starts looking to see if it's defined inside the current block.
+If that's not the case, it goes one level up to the next wrapping block everytime to find the variable.
+Is it defined in one of those wrapping blocks? if yes, then you will have access to it.
+
+
+**
+// the script file (global scope) is the wrapping block of test1()
+// test1() is the wrapping block of test2()
+
+function test1 () {
+    const a = 1;
+
+    function test2 () {
+        //const a = 2;
+        console.log(a);
+    }
+    
+    test2();
+}
+
+test1();  // 1
+// if we uncomment "const a = 2;", the output would be 2
+
+
+**
+// the script file (global scope) is the wrapping block of test()
+
+const a = "a";
+
+function test () {
+    console.log(a);
+}
+
+test();  // a
+
+// or
+
+function test () {
+    console.log(a);
+}
+
+const a = "a";
+
+test();  // a
+
+
+**
+// the script file (global scope) is the wrapping block of test1() and test2()
+// test1() is NOT the wrapping block of test2()
+// test2() is NOT the wrapping block of test1()
+
+const a = 0;
+
+function test1(){
+    const a1 = 1;
+    // "a" CAN be accessible here
+    // "a2" CANNOT be accessbile here
+}
+
+function test2(){
+    const a2 = 2;
+    // "a" CAN be accessible here
+    // "a1" CANNOT be accessbile here
+}
+
+
+* A common example that relates to closures is when you need to maintain some state (a variable that will most likely change value) outside a function. This means you have a variable that you define outside a function, and you want to be able to change that state (variable) from inside the function.
+
+For example, let's say that you want to show a confetti animation when you click on the run button. However, you only want to show that confetti once. Here's how you can do it:
+
+
+// Start with a variable (state) saying that the confetti is NOT shown yet
+// This variable is defined in the global scope
+let isConfettiShown = false;
+
+const runBtn = document.querySelector("#run-btn");
+runBtn.addEventListener("click", () => {
+    if (isConfettiShown) {
+        return false;
+    }
+    showConfetti(); //call a fictional function that shows the confetti
+    isConfettiShown = true; // set the state variable as true
+});
+

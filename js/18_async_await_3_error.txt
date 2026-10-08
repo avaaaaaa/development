@@ -26,7 +26,7 @@ const init = async () => {
 	try{
 		const data = await getNotifications();
 		console.log(data);
-	} catch(error){return inside an async function will resolve the promise successfully (even if the return was inside a catch { ... } block).
+	} catch(error){
 		console.error(error.message);
 	}
 }
@@ -35,7 +35,10 @@ init();
 
 
 // below does not work
-// notice that the error could not be silenced
+// we should directly put the function that might throw an error within try-catch
+// in this case, init() does not throw an error, but another function within init() throws an error
+// but that function (getNotifications()) is not wrapped with try-catch
+// thus the error could not be silenced
 
 const init = async () => {
 	const data = await getNotifications();
@@ -63,10 +66,20 @@ const getUnreadCount = async () => {
     }
 }
 
+getUnreadCount().then(data => {
+    console.log(data, "+");
+}).catch(error => {
+    console.error(error, "-");
+});
 
-what happens if we put  throw "An error has occured"  instead of  return "An error occured"
-i don't actually understand the use-case of "throw" here, because we already caught the error
-why would we throw again? just log the error  console.error(error);  and it will be seen on the console
+
+output is normally "3 +"
+now, remove a character from the url
+output is now "An error has occured +", so the return statement resolved the promise
+what we would expect is "An error has occured -", because the promise should have been rejected 
+
+what happens if we put  throw "An error has occured"  instead of  return "An error has occured"
+output is now "An error has occured -", as expected
 
 
 * example

@@ -1,0 +1,112 @@
+* When developers were writing ES5, there was only "var"
+But as of ES2015, "let" and "const" were introduced to fix the issues with "var".
+
+
+* You should avoid "var" and instead, use "let" or "const".
+
+
+* Converting old code
+
+When you search for JavaScript questions, you might stumble upon some old and legacy code that still uses "var".
+In most cases, you can swap "var" with "let" and things will keep on working as expected.
+If you prefer, you can also check which variables are not being re-assigned and change them to "const".
+
+
+* Variables defined with "let/const" are block-scoped
+meaning that they are only accessible in the nearest set of opening and closing curly braces.
+
+
+function sayHello() { // opening and closing curly braces
+    if (true) { // opening and closing curly braces (nearest block)
+        const message = "Sam";
+    }
+    console.log(message);  // ReferenceError: message is not defined
+}
+// message is only accessbile within the nearest wrapping braces (if-block)
+
+
+* Variables defined with "var" are function scoped
+meaning that they are accessible anywhere in the nearest function.
+don't think of that as a feature; it's often regarded as a bad language design (think of it as a "mistake" in JavaScript).
+
+
+function sayHello() { // nearest function
+    // message is accessible here
+    console.log(message);  // undefined
+    if (true) {
+        var message = "Sam";
+    }
+    // message is also accessible here
+    console.log(message);  // Sam
+}
+
+
+* hoisting
+Hoisting in JavaScript is when the variables you define inside a function are moved to the top of the function
+
+
+function sayHello() {
+    console.log(message); // undefined
+    var message = "Hello World";
+    console.log(message); // "Hello World"
+    return message;
+}
+sayHello();
+
+
+The code you write above, will be transformed in the JavaScript compiler to the following:
+
+
+function sayHello() {
+    var message; //this is hoisting
+    console.log(message); // undefined
+    message = "Hello World";
+    console.log(message); // "Hello World"
+    return message;
+}
+sayHello();
+
+
+Notice how the JavaScript compiler will automatically move the variable declaration to the top of the function. Which explains why "message" is accessible before it was defined.
+
+You should not rely on this behavior.
+
+
+* Temporal Dead Zone (TDZ)
+
+While variables defined with "let" and "const" are also hoisted, you cannot access them before they're defined
+because they don't get a default value.
+
+It describes the time between the start of a block (for example a function or a module) and the declaration of a variable with "let" or "const" within that block. During this period called temporal dead zone, if you try to access the variable, a runtime error will occur.
+
+
+console.log(name); // this is the Temporal Dead Zone
+let name = "Sam";
+
+
+The code above will throw an error saying that the variable name cannot be accessed before it is declared. So any line of code that uses the variable name before it was defined will fail because "name" is in the Temporal Dead Zone.
+
+It's what you would expect from variables, this is normal behavior.
+
+
+* function hoisting
+
+Functions defined with the function keyword are also hoisted. This allows you to call functions before they were defined
+However, with functions defined with let and const, you cannot access them before their definition
+	unlike variables, functions defined with let/const are NOT hoisted.
+It is okay to define functions with the function keyword
+	however, avoid relying on the behavior of hoisting, so always call functions after they were defined.
+
+
+sayHello(); // call the function before it was defined
+
+function sayHello() {
+    console.log("Hello World!");
+}
+
+
+sayHello(); // Cannot access 'sayHello' before initialization
+
+const sayHello = function() {
+    console.log("Hello World!");
+}

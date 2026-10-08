@@ -1,9 +1,66 @@
-class FetchWrapper{
-    constructor(baseURL){
+export default class FetchWrapper {
+    constructor(baseURL) {
         this.baseURL = baseURL;
     }
-    async get(endpoint){
-        const response = await fetch(this.baseURL + endpoint);
-        return response.json();
+
+    get(endpoint) {
+        return this.#send(endpoint, "get");
+    }
+
+    put(endpoint, body) {
+        return this.#send(endpoint, "put", body);
+    }
+
+    post(endpoint, body) {
+        return this.#send(endpoint, "post", body);
+    }
+
+    delete(endpoint, body) {
+        return this.#send(endpoint, "delete", body);
+    }
+
+    async #send(endpoint, method, body) {
+        let fetched = "";
+
+        if(body){
+            this.requestBody = {
+                method,
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(body)
+            };
+            fetched = fetch(this.baseURL + endpoint, this.requestBody);
+        } else {
+            fetched = fetch(this.baseURL + endpoint);
+        }
+
+        console.log(fetched);  // Promise { <pending> }
+
+        try{
+            const response =  await fetched;
+            return response.json();
+        }catch(error){
+            throw "an error has occured";
+            // if we don't throw an error here,
+            // implicit return will resolve the promise successfully
+            // and the program will enter .then()
+            // we can test this by putting "return null" here instead of "throw ..."
+            // and output will be "null *" which means the promise have been resolved
+            // but it should have been rejected, this is why we need to throw an error
+        }
+        
     }
 }
+
+
+* get
+
+const API = new FetchWrapper("htps://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
+API.get("/notifications/new.json")
+    .then(data => {
+        console.log(data, "*");
+    }).catch(error => {
+        console.error(error);
+    });
+

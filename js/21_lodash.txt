@@ -8,27 +8,26 @@ Lodash’s modular methods are great for:
 
 Lodash exports all of its functionality to the _ (underscore) character.
 So you can call _.debounce() to call the debounce method.
-So lodash is this underscore (which is a low dash).
+thus its name is coming from this underscore (which is a low dash).
 
 underscore.js is a library that does the same thing as lodash
 however, it's not as frequently updated as lodash
 hence we're going to use lodash.
 
 
-There are 2 aspects when it comes to performance:
-    The time it takes to load from the network & parse the lodash library in the browser.
+* There are 2 aspects when it comes to performance:
+    first, the time it takes to load from the network & parse the lodash library in the browser.
     You can see how long that takes on bundlephobia for lodash-es.
     lodash is relatively big so it's often important to only load the functions that you need rather than loading the entire library.
-
-    The speed of the lodash methods when called.
+    second, the speed of the lodash methods when called.
     Luckily, this is highly optimized as lodash is written & maintained by some very experienced JavaScript developers out there.
 
 
-You can install lodash with npm:
+* You can install lodash with npm:
 	npm install lodash
 
 
-importing from lodash
+* importing from lodash
 we will need debounce function from lodash for the following example
 
 import _ from "lodash";
@@ -41,13 +40,13 @@ import {debounce} from "lodash";
 
 
 * debounce a function
-To debounce a function is to make it wait a certain amount of time before running again.
+it is used to make the function wait a certain amount of time before running again.
 The goal of debouncing a function is to reduce overhead by preventing it from being called several times in succession.
 
-For example, let's say you'd like to add an event listener on scroll
-you will get around 50 console logs for a very small mouse scroll.
+For example, let's say we'd like to add an event listener on scroll
+we will get around 50 console logs for a very small mouse scroll.
 we don't want to run our function unnecessarily.
-You can then debounce this function as follows:
+we can then debounce this function as follows:
 
 
 import {debounce} from "lodash";
@@ -57,8 +56,8 @@ window.addEventListener("scroll", debounce(() => {
 }, 100));
 
 
-The first argument is the callback function that you'd like to debounce.
-The second argument is how many milliseconds it should wait before calling it the next time.
+The first argument of debounce() is the callback function that you'd like to debounce.
+The second argument of debounce() is how many milliseconds it should wait before calling it the next time.
 
 
 ** dynamic import

@@ -13,10 +13,6 @@ Then, you, as a user of that framework, inherit one of their classes which gives
 In the front-end world, this is visible with libraries/frameworks such as React, Vue, Angular, and others.
 
 
-* licences
-https://choosealicense.com/
-
-
 * minification
 it is the process of reducing the file size
 	to do that, all the comments and white spaces will be removed
@@ -27,6 +23,15 @@ this process is automated with tools such as webpack, parcel, vite
 you can use tools such as prettier
 	it will automatically insert semi-colons where needed
 	but it will not remove comments and white spaces
+
+
+* vanilla javascript
+it means js without a framework
+People often use this term when asking questions on the Internet as a way to communicate that they are looking for an answer purely in JavaScript without jQuery, React, etc.
+
+
+* licences
+https://choosealicense.com/
 
 
 * prettier.io
@@ -55,8 +60,11 @@ javaScript bloat is more real today than it ever was. Sites continuously get big
 Bundlephobia lets you understand the performance cost of installing a new npm package before it becomes a part of your bundle. Analyze size, compositions, exports and dependencies
 
 
-* vanilla javascript
-it means js without a framework
-People often use this term when asking questions on the Internet as a way to communicate that they are looking for an answer purely in JavaScript without jQuery, React, etc.
+* https://caniuse.com/
+check for browser support for a specific feature
+
+
+* https://babeljs.io/
+If you want to use the latest features, then you can set up babel which will "transpile" modern syntax into older syntax in a way that will work on old browsers. Most libraries/frameworks (such as React, Angular, etc.) already include babel. So, you will only have to include the plugin responsible for making that syntax work.
 
 

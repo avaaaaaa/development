@@ -1,0 +1,70 @@
+* it is a specification for a scripting language managed by an organization called Ecma (Ecma International)
+JavaScript is an implementation of EcmaScript. It's actually the most popular implementation of EcmaScript.
+So, Ecma International defines all the rules and specifications for a scripting language called EcmaScript, but these are just the specifications. You need an actual programming language to implement that, which is JavaScript.
+The company Oracle still holds the trademark for the term JavaScript, as it's derived from their proprietary Java trademark. This is another reason why technical sources prefer to use the term EcmaScript rather than JavaScript.
+
+
+* versions
+Before the year 2015, developers were writing EcmaScript 5 (ES5). It's a specific version of JavaScript which was released in 2009 and became supported on most browsers.
+
+Then in 2015, nearly 6 years later, a new version of JavaScript was released which was EcmaScript 6 (or ES6).
+It was also decided that every year there would be a new version of JavaScript, which is why ES6 was renamed to ES2015 where the year would be visible in the version name.
+
+So ES2015 is published in 2015, ES2016 is published in 2016, and so on and so forth.
+
+ES5 (EcmaScript version 5) is unofficially referred to as the "old version of JavaScript". For example when you search for some code on StackOverflow and you find the "var" keyword. That is from ES5.
+
+The "new version of JavaScript" is from ES2015 and beyond.
+
+ES2015 was a big update to the language. It brought most of the features you learned in this course
+As of ES2016, since the releases became yearly, there will only be a dozen features per release making it easier to stay up to date with the changes in the language.
+
+Keep in mind that JavaScript is mostly receiving new features with every EcmaScript update. Even though it's a new "version", you won't have to learn it again from scratch. It only means that the language received new superpowers.
+
+That's due to the nature of the web. Most websites are supposed to continue working even if they were written in 1990.
+
+In some rare scenarios, some features are removed/modified from the language due to security flaws or similar concerns. But, the general rule is that new features get added, and if you keep on using the old ones they will still work.
+
+
+* stages
+
+Let's say you have an idea for a new feature in JavaScript, you'd have to go through 5 stages: Stage 0 all the way to Stage 4. Here's a brief look at how it works:
+
+Stage 0: Strawperson
+Your idea for the new feature would start here. Anyone can submit an idea and reach Stage 0.
+
+Stage 1: Proposal
+At this point, you'd be expected to have some demos and potentially a polyfill if possible as well as a champion that will support your feature suggestion. The champion is a member of the TC39 committee which is the committee inside Ecma International that's responsible for developing the EcmaScript specification.
+
+Stage 2: Draft
+At this point, the committee expects your feature to be developed and eventually included in the standard. Now is the time to define the syntax, semantics, and API.
+
+Stage 2.7: Validation
+Syntax, semantics, and API are mostly done. This is the stage where you and the committee start collecting feedback from developers and see if any changes need to be made.
+Introduced in 2024, Stage 2.7 slots between Stages 2 and 3 to preserve historical stage references, ensuring they remain comprehensible in the future.
+
+Stage 3: Candidate
+This stage requires a test suite for the new feature to be submitted to test262, which is the official test suite for EcmaScript. Browsers should be able to run the tests for this feature at this stage.
+
+Stage 4: Finished
+This is the final stage! Once your proposal reaches stage 4, it means it will be included in this year's EcmaScript release. Let's say for example that it's now 2022 and you worked on a new feature. It took a while, however, in 2023, it reached Stage 4. Then, it will be included as part of ES2023.
+At this point, at least 2 browsers need to have implemented your proposal.
+
+
+* Dealing with browser support
+
+When a new JavaScript proposal reaches stage 4, it does not mean you can start using it in production because it takes a while for other browsers to include it and it takes time for users to upgrade their browsers.
+It's generally safe to use new language features from the previous year.
+
+So you cannot assume that a language feature will work if it just works in your browser, that's for 2 main reasons:
+    Not everyone is necessarily using your browser.
+    Regular users are slower than developers in updating their browsers.
+
+You can check for browser support for a specific feature on caniuse.com.
+
+
+* tc39/proposals
+
+If you're curious and would like to see which proposals are currently going on and track their stages, then head over to the tc39/proposals repository.
+
+tc39 stands for the Technical Committee 39 inside Ecma International that is responsible for developing the EcmaScript language specification.

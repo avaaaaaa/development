@@ -22,21 +22,27 @@ const getNotifications = async () => {
 	const response = await fetch(url);
 	const data = await response.json();
 	return data;
+	//return await response.json();
 }
 
-// printing data
+// printing data with .then()
 
 getNotifications().then(data => {
 	console.log(data);
 });
 
-// printing data
+// printing data with async function
 
 const init = async () => {
 	const data = await getNotifications();
 	console.log(data);
 }
 init();
+
+// printing data with top-level await
+
+const data = await getNotifications();
+console.log(data);
 
 
 * weather API project
@@ -77,8 +83,10 @@ const saveGrade = async grade => {
 
 };
 
+saveGrade(14);
+
 // await fetch(url + endPoint, postBodyRequest); is enough to do fetch post request 
 // unlike get, other fetch methods does not read data, they read server response
 // if we don't need to read the server response, we can omit it
 // but get in the other hand, reads data from the server
-// so, we need to know the response from the server to access the data 
+// so, we need to know the response from the server to access the data

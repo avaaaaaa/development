@@ -1,0 +1,50 @@
+* "immediately invoked function expressions" is abbreviated as IIFE
+The IIFE pattern was a way to avoid variables declared with "var" from becoming global variables.
+you might still see it on the web, and, there might be some specific scenarios for it in front-end libraries/frameworks
+
+syntax of IIFE:
+
+(function() {
+    var name = "Alex";
+})(); // note the () the end
+
+There's 3 things we can notice in the IIFE:
+    The function definition: function() { ... }.
+    The parentheses that wrap that function definition (). So we get: (function() { ... }).
+    The last 2 parentheses () are calling this function definition.
+
+So an IIFE is an anonymous function (a function without a name) that is immediately called.
+
+
+** use-case
+creating variables with "var" outside a function meant that those variables would be global variables
+
+
+var myName = "Sam";
+console.log(window.myName); // "Sam"
+
+function test() {
+    // variables defined here won't be "global"
+    // because it's inside a function
+    var age = 18
+    console.log(window.age) // undefined
+}
+
+
+this is not good because when you have more than one developer working on the same team,
+there's a very high chance that you'd end up creating several variables with the same name,
+which would likely introduce unexpected bugs.
+
+By placing variable declarations inside a function that gets immediately called (IIFE),
+you are able to avoid these variables becoming global.
+This is why this was such a useful pattern.
+
+
+** it is not needed anymore
+This "weird" behavior does not happen when you use "let" or "const". Which is an extra reason why you should avoid using "var"
+When you load a <script type="module" src="file.js"></script> (note the type="module"),
+	then all the variable declarations in that file will remain in that file
+	they won't be accessible from outside unless they are exported.
+
+If you're using a module bundler such as Webpack/Parcel/Vite, you will also get the same behavior
+so you don't have to worry about it.

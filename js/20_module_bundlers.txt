@@ -1,7 +1,7 @@
 * Bare imports (see 12.txt) are an important part of web development, as developers often have to rely on libraries published by other developers.
 Some of these libraries are helper libraries (such as lodash) others help you build web applications (such as react, vue, angular, etc.)
 To make these imports work, developers use a module bundler such as webpack, parcel, or vite.
-module bundlers sometimes called build tools
+module bundlers are sometimes called build tools
 
 
 * use cases:
@@ -43,7 +43,7 @@ These libraries/frameworks often rely on webpack.
 the most common module bundlers:
 vite
 	the newest and the best
-	If you're starting your own personal project, we recommend vite due to-
+	If you're starting your own personal project, we recommend vite due to
 	its ease of use, speed, and awesome documentation.
 parcel
 	is known for its ease of use as you can use it without having to configure it
@@ -54,7 +54,7 @@ webpack
 
 * vite
 it means "quick" in french
-We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get- started with
+We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get started with
 documentation: https://vite.dev/guide
 
 ** create a new project
@@ -75,10 +75,10 @@ after running "npm create vite@latest", we didn't need to run "npm install" and 
 	but to start the local server again, we can run "npm run dev"
 don't forget to restart the server after installing & removing packages
 	to do it, type "r", then hit the enter key on the console where the local server is running
-	type "h", then hit the enter key to see the available commands
+	type "h", then hit the enter key to see the available commands for the server
 
 ** production build
-when you are ready to publish your website, you can run "npm run build" to create an optimized version-
+when you are ready to publish your website, you can run "npm run build" to create an optimized version
 of your project
 
 ** deploying a static site
@@ -100,7 +100,7 @@ delete the entry whose key is "main" in package.json
 create index.html, index.js files
 	touch index.html index.js
 
-add the following html codes to the index.html:
+add the following html code to the index.html:
 <!DOCTYPE html>
 <html>
 <head>
