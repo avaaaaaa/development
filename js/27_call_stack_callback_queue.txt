@@ -1,0 +1,95 @@
+* call stack
+javascript starts interpreting the code from top to bottom
+when it encounters a function & method call, it pushes the call to the top of the call stack
+until the call stack is empty, the calls in the stack will be executed in LIFO order
+once the call is completed, it will be popped off from the stack
+
+
+* callback queue
+the functions & methods that will be resolved in the future are going to be executed immediately like just other calls
+but since they resolve in the future, their callback function cannot pushed into the call stack immediately
+instead, their callback function will be pushed into the callback queue
+when the call stack is emptied, the calls from the callback queue will be pushed into the call stack in FIFO order
+
+for example, "setTimeout(callback, 0);" setTimeout function will be added to the call stack immediately
+but setTimeout resolves the callback in the future, even though the second parameter is 0 milliseconds
+so, callback function won't be added to the call stack immediately, but it will be added to the callback queue
+when there is no more calls in the stack, it will be added to the stack from the queue and executed
+
+
+* JavaScript is single-threaded, which means that it can process instructions one instruction at a time.
+Quick note: it is possible to spawn a Web Worker which allows you to run computations in parallel, but that has specific use cases and you cannot access the DOM from the Web Worker.
+
+Since JavaScript is single-threaded, it needs to be able to:
+    Run the JavaScript code you give it
+    Render the screen (calculate CSS, draw the pixels)
+    Respond to user interaction (when the user clicks on a button or scrolls through the page) And all of this is happening on the same thread.
+
+So if the call stack gets super busy processing a lot of tasks, your website becomes unresponsive.
+The way Web API calls are scheduled, allows the browser to defer these tasks until the call stack is empty.
+
+
+* example
+
+console.log("A");
+setTimeout(function logB() {
+    console.log("B");
+}, 0);
+console.log("C");
+
+
+the output would be:
+A
+C
+B
+
+examining the call stack and the callback queue line by line:
+stack: console.log("A")
+queue: -
+
+stack: setTimeout()
+queue: logB()
+
+stack: console.log("C")
+queue: logB()
+
+stack: -
+queue: logB()
+
+stack: logB()
+queue: -
+
+stack: -
+queue: -
+
+
+* the event loop
+it is a task that keeps checking if there are any items in the callback queue and forwards them to the call stack but only when the call stack is empty.
+
+
+** a note on microtasks & the microtask queue
+There's actually a second queue called the microtask queue, which has higher priority than the callback queue.
+Promise callbacks (.then, .catch, .finally) go into this queue
+setTimeout, setInterval, and DOM events go into the regular callback queue you've been learning about.
+After each task finishes and the call stack is empty, the event loop empties the entire microtask queue before picking up the next task from the callback queue.
+
+
+console.log("A");
+setTimeout(() => console.log("B"), 0);
+Promise.resolve().then(() => console.log("C"));
+console.log("D");
+
+
+the output would be:
+A
+D
+C
+B
+
+The Promise callback runs before the setTimeout callback, even though the setTimeout was scheduled first.
+because the microtask queue has higher priority than the callback queue
+
+
+** recommended videos
+https://www.youtube.com/watch?v=8aGhZQkoFbQ
+https://www.youtube.com/watch?v=cCOL7MC4Pl0

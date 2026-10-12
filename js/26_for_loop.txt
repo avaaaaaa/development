@@ -41,7 +41,7 @@ for (const item of items) {
 
 
 * "for...in" can be used to iterate over objects
-We'd like to note that "for...in" works for arrays, but it is NOT recommended.
+We'd like to note that "for...in" works for arrays too, but it is NOT recommended.
 
 const person = {
 	id: 1,

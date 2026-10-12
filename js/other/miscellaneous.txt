@@ -30,6 +30,11 @@ it means js without a framework
 People often use this term when asking questions on the Internet as a way to communicate that they are looking for an answer purely in JavaScript without jQuery, React, etc.
 
 
+* Firebase API
+it is used as a backend for the final project of the js course
+Firebase offers a generic API that you can use to store any kind of data and works the same for most use cases.
+
+
 * licences
 https://choosealicense.com/
 
@@ -66,5 +71,10 @@ check for browser support for a specific feature
 
 * https://babeljs.io/
 If you want to use the latest features, then you can set up babel which will "transpile" modern syntax into older syntax in a way that will work on old browsers. Most libraries/frameworks (such as React, Angular, etc.) already include babel. So, you will only have to include the plugin responsible for making that syntax work.
+
+
+* https://m3.material.io/
+Material Design is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. Backed by open-source code, Material Design streamlines collaboration between designers and developers, and helps teams quickly build beautiful products.
+
 
 

@@ -1,0 +1,186 @@
+* Food API
+The food API used in the final project is hosted on Firebase.
+Since anyone can read/add food entries to this API, we've made it possible for you to have your own space where you add/read food entries. For that, you have to replace the {namespace} with any random string.
+Now, assuming nobody else used this {namespace}, you should see {} if you open the base URL in a new tab. If you see some data, you need to choose another {namespace}
+
+The Base URL is: https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/{namespace}
+
+If the API above's limit is exhausted, you can then use the following backup API: https://firestore.googleapis.com/v1/projects/jsdemo2-3f387/databases/(default)/documents/{namespace}
+
+
+** this is the baseURL we chose for the Food API
+https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/gfefinalproject
+
+
+** TODOS
+add food
+render added food
+show snackbar
+list foods
+
+/*
+Method: GET
+Endpoint: "/"
+
+Method: POST
+Endpoint: "/"
+Example body:
+
+{
+  fields: {
+    name: { stringValue: "pizza" },
+    carbs: { integerValue: "10" },
+    protein: { integerValue: "10" },
+    fat: { integerValue: "10" }
+  }
+}
+*/
+
+/* tests:
+Posts data when form is submitted
+Does not hardcode answer
+Clears the form when post is successful
+Does not clear the form when Post fails
+
+Adds entry to existing list
+Renders entry when POST is successful
+
+Shows snackbar with success message after successful POST
+Shows snackbar with error message when POST fails
+
+Lists saved entries
+Handles responses with no entries
+*/
+
+import FetchWrapper from "./fetch-wrapper.js";
+import {capitalize, calculateCalories} from "./helpers.js";
+import snackbar from "snackbar";
+
+const API = new FetchWrapper("https://firestore.googleapis.com/v1/projects/jsdemo-3f387/databases/(default)/documents/gfefinalprojectt");
+const form = document.querySelector("#create-form");
+const dropdown = document.querySelector("#create-name");
+const carbs = document.querySelector("#create-carbs");
+const protein = document.querySelector("#create-protein");
+const fat = document.querySelector("#create-fat");
+const foodList = document.querySelector("#food-list");
+
+
+const addFood = () => {
+    const requestBody = {
+        fields: {
+            name: {stringValue: dropdown.value},
+            carbs: {integerValue: carbs.value},
+            protein: {integerValue: protein.value},
+            fat: {integerValue: fat.value}
+        }
+    }
+
+    API.post("/", requestBody)
+    .then(data => {
+        console.log(data); 
+        if(data.error){
+            throw data.error;
+        }
+        renderFood();
+        snackbar.show("Food added successfully.");
+        form.reset();
+    }).catch(error => {
+        console.error(error);
+        snackbar.show("Some data is missing.")
+    });
+}
+
+const renderFood = () => {
+  const HTMLEntry = _createHTMLForItem(
+    dropdown.value,
+    carbs.value,
+    protein.value,
+    fat.value);
+  foodList.insertAdjacentHTML("beforeend", HTMLEntry);
+}
+
+const init = async () => {
+    const data = await API.get("/");
+    //console.log(data);
+    //console.log(data.documents[0].fields);  // name, carbs, protein, fat
+    //console.log(data.documents[0].fields.name);  // stringValue: pasta
+    //console.log(data.documents[0].fields.carbs);  // integerValue: 1
+    
+    if(!data.documents){  // check if data is {}
+      return
+    }
+    const HTMLEntriesForItems = data.documents.map(
+      item => _createHTMLForItem(
+        item.fields.name.stringValue,
+        item.fields.carbs.integerValue,
+        item.fields.protein.integerValue,
+        item.fields.fat.integerValue,
+      ));
+  
+    //console.log(HTMLEntriesForItems);
+    foodList.innerHTML = HTMLEntriesForItems.join("");
+}
+
+const _createHTMLForItem = (itemName, carbs, protein, fat) => {
+  const HTMLForItem = `
+  <li class="card">
+    <div>
+      <h3 class="name">${capitalize(itemName)}</h3>
+      <div class="calories">${calculateCalories(carbs, protein, fat)} calories</div>
+      <ul class="macros">
+        <li class="carbs"><div>Carbs</div><div class="value">${carbs}g</div></li>
+        <li class="protein"><div>Protein</div><div class="value">${protein}g</div></li>
+        <li class="fat"><div>Fat</div><div class="value">${fat}g</div></li>
+      </ul>
+    </div>
+  </li>`;
+  return HTMLForItem;
+}
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    addFood();
+});
+
+init();
+
+
+// helpers.js
+export const capitalize = _string => _string[0].toUpperCase() + _string.slice(1).toLowerCase()
+export const calculateCalories = (carbs, protein, fat) => (carbs + protein) * 4 + fat * 9
+
+
+** adding a snackbar that tells the user that their food was successfully added
+A snackbar is a UI pattern popularized by Material Design
+There are several snackbar libraries. We'll be using the one called "snackbar"
+https://www.npmjs.com/package/snackbar
+
+For the library to work, you have to include the "snackbar.scss" file into your project.
+then install it with npm
+	npm i snackbar
+
+// snackbar.scss
+.snackbar {
+  display: inline-block;
+  position: fixed;
+  background: #323232;
+  color: #f1f1f1;
+  min-height: 50px;
+  min-width: 290px;
+  padding: 16px 24px 12px;
+  box-sizing: border-box;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border-radius: 2px;
+  bottom: 1rem;
+  left: 1rem;
+  font-size: 90%;
+  transition: visibility 0.3s, transform 0.3s;
+  transform: translateY(100px);
+  visibility: hidden;
+  will-change: transform;
+}
+
+.snackbar--visible {
+  visibility: visible;
+  transform: none;
+}
