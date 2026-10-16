@@ -77,4 +77,7 @@ If you want to use the latest features, then you can set up babel which will "tr
 Material Design is an adaptable system of guidelines, components, and tools that support the best practices of user interface design. Backed by open-source code, Material Design streamlines collaboration between designers and developers, and helps teams quickly build beautiful products.
 
 
+* https://www.chartjs.org/
+open source chart visualization for the web
+
 

@@ -1,0 +1,96 @@
+* https://www.chartjs.org/docs/latest/getting-started/
+it is used for chart visualizations
+to install
+	npm i chart.js
+to import
+	import Chart from "chart.js/auto";
+	It loads all available Chart.js components (which is very convenient) but disallows tree-shaking
+	if you want to register only necessary components and get a minimal bundle,
+		see: https://www.chartjs.org/docs/latest/getting-started/usage.html#tree-shaking
+When you import chart.js, you will get a Chart class on the window object.
+ 	So, you will be able to create a new instance of Chart as follows: new Chart().
+
+
+* render the chart
+First, we need to have a canvas in our page.
+It's recommended to give the chart its own container for responsiveness.
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+Now that we have a canvas, we can create a chart
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
+What's important, however, is to have the same number of items in the "labels" array as the "data" array
+	labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+	data: [12, 19, 3, 5, 2, 3]
+	because every label should have a data value.
+
+notice that with the options object, Y axis starts at 0
+without it, Y axis would start at the lowest value provided
+
+
+* re-render the chart
+When the chart has to be updated dynamically, we will need to re-render the chart.
+You can use the chartInstance.update() on subsequent renders
+don't forget to update the data array within the chart first
+then call .update()
+
+
+* destroy the chart
+you can call chartInstance.destroy() to destroy the chart
+
+
+* bundle optimization
+import Chart from "chart.js/auto";
+this import loads all available Chart.js components (which is very convenient) but disallows tree-shaking
+if you want to register only necessary components and get a minimal bundle,
+	see: https://www.chartjs.org/docs/latest/getting-started/usage.html#tree-shaking
+
+let's say only Bar Chart functionalities are needed, then:
+
+import {
+Chart,
+BarController,
+BarElement,
+CategoryScale,
+LinearScale,
+//Tooltip
+} from "chart.js";
+
+Chart.register(
+BarController,
+BarElement,
+CategoryScale,
+LinearScale,
+//Tooltip
+);
+
+
+for the requirements of Bar Charts and other type of Charts,
+	see: https://www.chartjs.org/docs/latest/getting-started/integration.html#bundle-optimization
+add Tooltip if you want to show the data when hovering over the bars
