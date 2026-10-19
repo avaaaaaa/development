@@ -149,7 +149,7 @@ if you want to inspect the shadow DOM
 ** constructor(), connectedCallback(), disconnectedCallback()
 When the element is created, the constructor() is called.
 	This is often used to attach the shadow root.
-	You should not make any DOM manipulations at this stage
+	You should not make any DOM manipulations there
 		It's better to make these in the connectedCallback()
 
 When the element is inserted into the DOM, the connectedCallback() is called.
@@ -224,7 +224,7 @@ window.customElements.define("dashboard-stats", DashboardStats);
 
 cloneNode():
 	The reason why we need to clone it is that the template can only be used once.
-	Cloning it will allow you to use it another time in the future.
+	Cloning it will allow you to use it more than once.
 	it accepts one parameter "deep".
 		Calling cloneNode(true) sets the deep parameter to true which will clone children elements too.
 
@@ -279,3 +279,90 @@ class DashboardStats extends HTMLElement {
 
 window.customElements.define("dashboard-stats", DashboardStats);
 
+
+* custom attributes & properties
+Just like normal HTML elements, your own Web Components can have custom attributes
+Attributes can only be strings, which is a limitation of the HTML language
+Note that changes to this attribute will not reflect automatically.
+	There is a process to subscribe to changes of attributes
+	however, this is outside of the scope of this introductory chapter.
+
+// creating custom attribute "theme"
+// index.html
+<app-dashboard theme="dark"></app-dashboard>
+
+// reading custom attribute "theme"
+// index.js
+class AppDashboard extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({mode: "open"});
+    }
+
+    connectedCallback() {
+        console.log(this.getAttribute("theme")); //"dark"
+    }
+}
+
+window.customElements.define("app-dashboard", AppDashboard);
+
+
+While attributes are very easy to define, they have a limitation in that they only accept strings.
+For other data types, consider passing properties. Properties can hold any data type.
+
+const dashboard = document.querySelector("app-dashboard");
+// existing properties
+dashboard.nodeName; // APP-DASHBOARD (automatically created by the browser)
+
+// Define your own custom property named "graphs"
+dashboard.graphs = [{
+    //...
+}];
+
+
+** example
+The dashboard-stats component has a size attribute that can either be large or small.
+<!-- Sample usage -->
+    <dashboard-stats size="large"></dashboard-stats>
+    <dashboard-stats size="small"></dashboard-stats>
+Complete the DashboardStats class such that the custom element renders the #dashboard-large-template template when the size="large" attribute is used, and #dashboard-small-template when the size="small" attribute is used.
+
+<body>
+
+    <template id="dashboard-large-template">
+        <h1>Large dashboard</h1>
+    </template>
+
+    <template id="dashboard-small-template">
+        <style>
+            h1 {
+                font-size: 24px;
+            }
+        </style>
+        <h1>Small dashboard</h1>
+    </template>
+
+</body>
+
+
+class DashboardStats extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({mode: "open"});
+    }
+    connectedCallback(){
+        const size = this.getAttribute("size");
+        const template = document.querySelector(`#dashboard-${size}-template`);
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+    }
+}
+
+window.customElements.define("dashboard-stats", DashboardStats);
+
+
+** outro
+As you can see, Web Components are plain HTML, CSS, and JavaScript! This makes learning them easier than some front-end frameworks.
+
+However, there is a big chunk of code that gets repeated in every component, and sometimes it gets in the way of your own logic. That's especially true once you work with templates that have dynamic data in them, as well as dynamic attributes and properties.
+
+This is why if you'd like to work with Web Components, it's recommended to use a small library on top of Web Components. Lit is a good example as it weighs less than 6KB and allows you to define your Web Component in an intuitive syntax.
