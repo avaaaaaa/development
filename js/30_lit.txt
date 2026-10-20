@@ -1,0 +1,178 @@
+* https://lit.dev/
+Lit is a library that allows you to write Web Components with minimal boilerplate.
+You won't need to manually attach a shadow DOM and clone a template.
+It comes with a templating system that updates whenever one of the properties of the component is updated.
+It weighs around 16KB (minified) or less than 6KB (minified + compressed).
+A Web Component written with Lit works with other libraries/frameworks, too, allowing better interoperability within a team. 	
+Interoperability in this context means the ability to use these web components in many places in conjunction with other libraries.
+
+To work with Lit, you need to start by installing it:
+	npm i lit
+
+
+** LitElement
+The lit package exports a named export called "LitElement".
+This is the base class that every Lit component should extend.
+	The LitElement class itself extends from HTMLElement.
+	So, we don't need to extend from HTMLElement anymore
+
+
+import {LitElement} from "lit";
+
+// notice that we extend from LitElement
+class AppNavbar extends LitElement {
+    
+}
+
+// Do not forget to define the element
+window.customElements.define("app-navbar", AppNavbar);
+
+
+** render()
+every lit component has a method called render()
+render() will automatically be called by Lit whenever the component needs to be rendered
+	whether for the first time or future updates.
+
+
+import {LitElement} from "lit";
+
+class AppNavbar extends LitElement {
+    render() {
+        console.log("I am automatically called when the component is used in the HTML")
+    }
+}
+
+window.customElements.define("app-navbar", AppNavbar);
+
+
+** html function
+To render HTML elements within lit components, we need the html function from the lit package
+	import {html} from "lit";
+Instead of calling it with (), you place it before a template string
+	html`hello world`
+		the way this argument is passed to the function is called "tagged template literal"
+		so html function uses template literals (strings) as tagged template literals
+		Tagged template literals is a JavaScript feature
+		Lit uses tagged template literals to be able to know when your template has changed and needs to be updated.
+		Lit will automatically re-render itself in an efficient way.
+		It will only update the parts of the HTML that have been updated.
+You can render any HTML you can think of, as long as it's a template literal/string tagged with the html function.
+
+example:
+import {LitElement, html} from "lit";
+
+class AppNavbar extends LitElement {
+    render() {
+        return html`<h1>My navbar</h1>
+        <div class="navbar">
+            <p>Welcome to my website</p>
+            <ul>
+                <li>First item</li>
+                <li>Second item</li>
+            </ul>
+        </div>`;
+    }
+}
+
+window.customElements.define("app-navbar", AppNavbar);
+
+
+** accessing attributes
+let's say we got an <app-navbar> lit component as following:
+	<app-navbar theme="dark" _number="2" _boolean></app-navbar>
+
+to be able to access its attributes within the lit component:
+
+
+import {LitElement, html} from "lit";
+
+class AppNavbar extends LitElement {
+    static properties = {
+        theme: {type: String},
+        _number: {type: Number},
+        _boolean: {type: Boolean}
+    }
+
+    render() {
+        console.log(typeof this.theme, this.theme);	// string dark
+        console.log(typeof this._number, this._number);	// number 2
+        console.log(typeof this._boolean, this._boolean); // boolean true
+        return html`<h1>user id:${this.theme + this._boolean + this._number}</h1>`;
+    }
+}
+
+window.customElements.define("app-navbar", AppNavbar);
+
+
+The Boolean attribute is especially useful for detecting the presence or absence of an attribute.
+For example: <user-subscription></user-subscription> vs <user-subscription paid></user-subscription>.
+
+
+** accessing properties
+we cannot represent objects with attributes
+properties do not have this limitation
+
+
+import {LitElement, html} from "lit";
+
+class AppNavbar extends LitElement {
+    static properties = {
+        user: {type: Object}
+    }
+
+    render() {
+        return html`id: ${this.user.id} &NewLine; <br> name: ${this.user.name}`;
+    }
+}
+
+window.customElements.define("app-navbar", AppNavbar);
+
+const navbar = document.querySelector("app-navbar");
+navbar.user = {
+    id: 1,
+    name: "gg"
+}
+
+
+Note that this.user can be accessed even without the static properties definition.
+However, this is mandatory and useful when you need to pass data from a Lit component into a child Lit component.
+There's a special syntax for that. However, nested components are outside of the scope of this introductory chapter.
+
+
+** event handling
+example of handling a click event with a lit component
+
+
+import {LitElement, html} from "lit";
+
+class AppCounter extends LitElement {
+    constructor(){
+        super();
+        this.counter = 0;
+    }
+    addOne(){
+        this.counter++;
+        this.requestUpdate();
+    }
+    subOne(){
+        this.counter--;
+        this.requestUpdate();
+    }
+    reset(){
+        this.counter = 0;
+        this.requestUpdate();
+    }
+
+    render() {
+        return html`<h1>Counter ${this.counter}</h1>
+        <button @click="${this.addOne}">Add 1</button>
+        <button @click="${this.subOne}">Sub 1</button>
+        <button @click="${this.reset}">Reset</button>`;
+    }
+}
+
+window.customElements.define("app-counter", AppCounter);
+
+
+If you forget to call this.requestUpdate(), the counter value will be updated
+but this will not be reflected on the UI. The component will not re-render.
