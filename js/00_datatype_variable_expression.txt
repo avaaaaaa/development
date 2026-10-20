@@ -72,7 +72,7 @@ examples of expression: 1 + 2, a + b, c + 3, a > b, c < 10
 
 * naming convension for variables
 names are case-sensitive in js -> "aB" is not equal to "ab"
-lowerCamelCase -> myNameYourAge, yourAgeMyName
+variables are named in lowerCamelCase conventionally -> myNameYourAge, yourAgeMyName
 question tags for boolean variables -> isAdmin, hasLoggedIn, canVote
 starts with a letter or an underscore(_)
 	cannot start with a number

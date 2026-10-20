@@ -17,7 +17,7 @@ debugger;
 func2();
 
 // execution pauses after "debugger;" statement
-// so we can inspect the changes after func1() call
+// so we can inspect the changes after func1() call and before func2() call
 
 
 * the more logs to the console, the harder to map the console output with the corresponding log

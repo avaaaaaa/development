@@ -1,6 +1,6 @@
 * unicode characters
 let icon = "\u{23f3}";  // ⏳
-// we could also do this: let icon = "⏳";
+// also: let icon = "⏳";
 
 
 * template string
@@ -17,10 +17,10 @@ let msg = `welcome, ${name.toUpperCase()}. it's nice to meet you!`
 // be aware of that interpolation only takes the string, not quotes
 const mode = "dark-mode";
 const htmlString = `<div class=${mode}>Hello World</div>`;
-	...class=dark-mode... which is NOT CORRECT HTML code
+	...class=dark-mode... which is NOT the CORRECT HTML code
 	we need to wrap ${mode} with ""
 		const htmlString = `<div class="${mode}">Hello World</div>`;
-			...class="dark-mode"... which is CORRECT HTML code
+			...class="dark-mode"... which is the CORRECT HTML code
 
 
 * string concatenation
@@ -50,8 +50,14 @@ console.log(x[5]);  // undefined
 we can define multi-line strings with ``(backtick)
 this is not possible with "", ''
 
-let message = `Welcome to
-our Website!`
+const message = `1
+ 2
+3`;
+
+console.log(message);
+1
+ 2
+3
 
 
 * escaping characters
