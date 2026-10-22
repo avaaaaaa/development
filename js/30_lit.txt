@@ -9,6 +9,8 @@ Interoperability in this context means the ability to use these web components i
 To work with Lit, you need to start by installing it:
 	npm i lit
 
+vite also provides a lit template
+
 
 ** LitElement
 The lit package exports a named export called "LitElement".
@@ -43,6 +45,9 @@ class AppNavbar extends LitElement {
 }
 
 window.customElements.define("app-navbar", AppNavbar);
+// nothing prints on the console unless <app-navbar> is used in the html file
+// now, insert <app-navbar></app-navbar> in the html file
+// then, check the console
 
 
 ** html function
@@ -110,7 +115,7 @@ For example: <user-subscription></user-subscription> vs <user-subscription paid>
 
 ** accessing properties
 we cannot represent objects with attributes
-properties do not have this limitation
+properties can be used for that purpose
 
 
 import {LitElement, html} from "lit";
@@ -121,7 +126,7 @@ class AppNavbar extends LitElement {
     }
 
     render() {
-        return html`id: ${this.user.id} &NewLine; <br> name: ${this.user.name}`;
+        return html`id: ${this.user.id} <br> name: ${this.user.name}`;
     }
 }
 

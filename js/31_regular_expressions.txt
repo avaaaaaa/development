@@ -1,0 +1,229 @@
+* A regular expression (regex or regexp for short) is a way to define a search pattern.
+This search pattern can be used to find, extract, or replace content out of a string.
+
+The concept of regular expressions exists in most programming languages.
+However, its syntax usually differs slightly from one language to another.
+
+
+* use cases
+Regex can be useful for use cases such as form validation:
+    checking a phone number for a certain format
+    checking a citizen/social security number for a certain format.
+
+It can also be useful for data cleaning; for example, you can replace a double space character with a single one
+(for when a user accidentally uses the space character twice).
+
+It can also be used to search for specific patterns with the aim to replace them;
+for example, you can convert date formats from DD-MM-YYYY to MM/DD/YY
+
+
+* limitations
+Regex is not suitable for every task.
+You cannot parse HTML tags or programming language code using regex.
+regex cannot parse nested structures or handle very large data.
+
+
+* https://regex101.com/
+it is recommended to use online tools that help you test regexes such as regex101.com.
+These tools help you test regexes and show you the most common patterns so you don't have to memorize them
+
+
+* building a pattern
+to build a pattern
+	we can use /pattern/ syntax
+		this will create an instance of the class RegExp
+	we can use RegExp("pattern") class
+		this approach is useful when we need to create a regex pattern dynamically
+		for example if we need a regex based on a user input, we cannot use /pattern/ syntax
+
+RegExp class has its use cases; however, for most cases, it's often easier to read and write using the /pattern/ syntax.
+That's because special characters such as ., $, ^, (, ), [, ], etc. need to be escaped with two backslashes \\ when they're written in a string. Therefore, it's easier to read and write the /pattern/ syntax.
+
+
+* patterns
+frequently used tokens at the quick reference section from https://regex101.com/
+
+[abc]
+	a single char of a, b, or c
+[^abc]
+	a single char except a, b or c
+[a-z]
+	a single char in between "a" and "z" (a lowercase letter)
+[^a-z]
+	a single char that is not between "a" and "z"
+[a-zA-Z]
+	a single char in between "a" and "z" or "A" and "Z" (a case-insensitive letter)
+.
+	any single char
+a|b
+	alternate match, either a or b
+\s
+	any whitespace char (space, tab, newline)
+\S
+	any non-whitespace char
+	equal to [^\s]
+\d
+	any digit char
+	equal to [0-9]
+\D
+	any non-digit char
+	equal to [^0-9]
+\w
+	any word char
+	equal to [a-zA-Z0-9_]
+\W
+	any non-word char
+	equal to [^\w] and [^a-zA-Z0-9_]
+^
+	start of string
+$
+	end of string
+a{2}
+	matches "aa"
+a{2, 4}
+	matches "aa", "aaa", and "aaaa"
+a{2,}
+	matches "aa", and more
+*
+	matches zero or more occurrences
+	equal to {0,}
++
+	matches one or more occurrences
+	equal to {1,}
+?
+	matches zero or one occurrence
+	equal to {0,1}
+()
+	capturing group
+	/(abc){2}/ matches abcabc
+	/([a-z][0-9]){2}/i matches A7c3, b2D1, a1a1, etc.
+
+/hello world/
+	hello world
+	hello world...
+	...hello world
+	...hello world...
+
+/^hello world/
+	hello world
+	hello world...
+
+/hello world$/
+	hello world
+	...hello world
+
+/^hello world$/
+	hello world
+
+/[a?b+c]/
+	matches a, ?, b, +, c
+
+/a?b+c/
+	matches ...abc.., ...bc..., ...bbc... etc.
+
+
+* escaping characters
+to escape special characters, i.e. to exactly match special characters
+	for /pattern/ syntax, we need to put \ right before them
+	for RegExp syntax, we need RegExp.escape()
+		see RegExp.escape() below
+
+**
+> /helloworld/.test("helloworld");
+true
+> /helloworld/.test("helloXworld");
+false
+> /hello.world/.test("helloXworld");
+true
+> /hello\$world/.test("hello$world");
+true
+> /hello$world/.test("hello$world");
+false
+
+// "$" is a special character in regex syntax
+// thus, to exactly match it, we need to escape it
+
+
+** in regex syntax /a?b+c/ matches ...abc.., ...bc..., ...bbc... etc.
+if we want to exactly match "a?b+c", then we should do /a\?b\+c/
+
+
+* RegExp.escape(string)
+It escapes any potential regex syntax characters in a string
+returns a new string that can be safely used as a literal pattern (the string will be matched exactly as written)
+for example, dot character (.) represents any single character in regex syntax
+but if we want to match the exact dot character, we need to escape it
+
+const base = "helloXworld";
+const search = "hello.world"
+const result = new RegExp(search).test(base);
+console.log(result);
+// true, "." represents any single character here
+
+const base = "helloXworld";
+const search = "hello.world"
+const result = new RegExp(RegExp.escape(search)).test(base);
+console.log(result);
+// false, "."  exactly represents "." here
+
+
+* regex flags
+"g": global. Finds all matches instead of stopping after the first
+"m": multiline. Causes ^ and $ to match the start and end of each line, not only the start and end of the string
+"i": insensitive. Matches without distinguishing uppercase and lowercase letters
+flags are put right after /pattern/
+the order of flags does not matter
+	/pattern/g
+	/pattern/im
+	/pattern/gmi
+
+
+* /pattern/.test(string)
+.test(string) returns true when the regex pattern is found in the string and false otherwise.
+
+** returns true when the text string it receives contains the word javascript in any variation
+(for example, JavaScript, JAVASCRIPT, javascript, etc.)
+function isJavaScriptRelated(text) {
+    return /javascript/i.test(text);
+}
+
+** returns true when the phoneNumber string it receives starts with 00 and false otherwise.
+function validatePhoneNumber(phoneNumber) {
+    return /^00/.test(phoneNumber);
+}
+
+** build a regular expression to check if strings start with http or https
+console.log(/^https?/.test("http...")); // true
+console.log(/^https?/.test("https...")); // true
+
+** build a regex to validate URLs
+function validateURL(URL){
+	return /^https?:\/\/[a-z]+\.com$/.test(URL);
+}
+
+console.log(validateURL("http://.com")); // false
+console.log(validateURL("https://abc.com.com")); // false
+	// this would be true if there is no $ at the end of the pattern
+console.log(validateURL("https:/abc.com")); // false
+console.log(validateURL("http://abc.com")); // true
+console.log(validateURL("https://abc.com")); // true
+// notice that we need to escape the special characters(like . and /) to excatly match them
+// for example . means any single character unless it is escaped
+// \. means . is escaped, thus it matches exactly . character
+
+
+** build a regex to validate promo codes that need to start with two numbers and then have at least one letter
+function validatePromo(promo){
+	return /^\d\d[a-zA-Z]+/.test(promo);
+	// also /^\d{2}[a-z]+/i.test(promo);
+}
+
+console.log(validatePromo("14ABC")); // true
+console.log(validatePromo("9AB")); // false
+console.log(validatePromo("00A")); // true
+console.log(validatePromo("01")); // false
+
+
+
+
+
