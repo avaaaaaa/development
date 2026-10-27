@@ -1,0 +1,129 @@
+* strict mode
+ECMAScript 5 introduced a new feature in JavaScript called strict mode. As you know by now, JavaScript was designed a long time ago and had some mistakes along the way. Strict mode aims to help the developer in catching potential problems.
+
+If you create an HTML file and link to a script with <script src="..."></script>, then you will need to enable strict mode manually by starting your JavaScript file with the following string:
+
+"use strict";
+
+// the rest of your code goes here
+console.log("This script is running in strict mode");
+
+
+It is indeed just a string.
+However, why are we learning about this so late? Well, modern JavaScript almost always uses strict mode automatically. If you load a script with <script type="module"> or using import syntax or using a module bundler, then your script will be automatically running in strict mode.
+
+The reason why we're mentioning strict mode now is that browser DevTools' console doesn't run in strict mode by default and strict mode affects how the "this" keyword works
+
+You almost never have to worry about that. The Chrome team has decided against including a strict mode type for the console as you will not need to worry about the difference between strict and non-strict modes. We're just telling you this because running the following code samples must be done in strict mode if you want to get the exact same result.
+
+So, what kind of problems does strict mode catch?
+
+value = 2;
+
+The code above used to declare a global variable called value. That's terrible as we accidentally created a global variable because we forgot the let or const keyword (or var at that time).
+
+However, in strict mode, this would fail with a ReferenceError.
+
+
+** this
+The this keyword can be tricky in some situations in JavaScript.
+The reason for that is that the value of this depends on how the function is being called.
+In the example below, "this" works as expected – it refers to the instance of the current class.
+
+class Square {
+    constructor(side) {
+        this.side = side;
+    }
+
+    getPerimeter() {
+        console.log(this); // visualize this
+        return 4 * this.side;
+    }
+}
+
+const box = new Square(10);
+const value = box.getPerimeter(); // Square {side: 10}
+console.log(value); // 40
+
+
+However, using the same class code, we're going to prove to you that the value of this depends on how the function is called. For that, we're going to create a variable called calculatePerimeter and assign it to the box.getPerimeter method. This is referring to the getPerimeter method but is not calling it.
+
+...
+const box = new Square(10);
+const calculatePerimeter = box.getPerimeter;
+const value = calculatePerimeter(); // ❌ TypeError: Cannot read properties of undefined (reading 'side')
+// "this" is undefined
+
+The value of "this" depends on how the function is being called. When we reassigned box.getPerimeter to a new variable and called that new variable, the caller is not box anymore. So, we lost the context of "this". In this scenario (and when in strict mode), the value of "this" becomes undefined. This is a very weird behavior. You will not encounter it very often but it is something that you encounter once in a while.
+
+we can only access methods and properties through objects. "this" within method refers to the object that is calling the method. but when we assign methods to a variable without binding, "this" becomes undefined. so, one of the most common ways to fix the issue of this's context being lost is using the .bind() method.
+The .bind() method allows you to provide a value for "this":
+
+...
+const box = new Square(10);
+const calculatePerimeter = box.getPerimeter.bind(box); // provide the context of 'this'
+const value = calculatePerimeter(); // Square {side: 10}
+console.log(value); // 40
+
+if you encounter a scenario where the value of "this" is not as expected, take a moment to inspect how the function that contains that code is being called. You will most likely need to bind the function with the correct value of "this" for it to work.
+
+
+** globalThis
+globalThis is a built-in object that provides a consistent way to access the global scope.
+In the global scope and outside functions, classes, and objects, the "this" keyword refers to globalThis. globalThis refers to the global scope. On the web, that's often the window object.
+
+The globalThis object was introduced to provide a standardized way of accessing the global object, regardless of the execution context. Prior to the introduction of globalThis, accessing the global object varied depending on the environment (Web vs. Node vs. Iframe vs. Web Worker).
+
+
+* interview questions
+What is a closure? Give an example
+
+A closure is the combination of a function bundled together with its surrounding variables. A closure has three scope chains. Review the closures chapter.
+
+
+What is strict mode in JavaScript?
+
+Strict mode was introduced in ES5 (EcmaScript 5) as a way to help catch common coding mistakes, like inadvertently creating a global variable when forgetting the variable declaration keyword (var at that time).
+
+Strict mode is nowadays automatically enabled when using <script type="module">, a module bundler, or import/export syntax.
+
+Otherwise, you can enable it with "use strict"; at the top of the script.
+
+
+Which values are considered falsy in JavaScript?
+
+Falsy values are the values considered as false when converted to a boolean. All other values are considered truthy in JavaScript.
+
+Here's a list of the most common falsy values:
+
+    false
+    null
+    undefined
+    0
+    NaN
+    ""
+    0n (BigInt)
+
+Review the implicit version & falsy values lesson.
+
+
+What is the difference between let and const? Are variables defined with const immutable?
+
+Variables defined with let can be reassigned whereas variables defined with const cannot be reassigned.
+
+When a variable declared with const is assigned to a primitive, it becomes immutable. However, that's not the case when it's assigned to a non-primitive value such as an array or an object.
+
+
+What is the difference between null and undefined?
+
+Both null and undefined signify the absence of a meaningful value. However, there's a slight difference in meaning between them.
+
+undefined means a variable has not received a value yet. Whereas null means that the variable has been specifically set to nothing. Let's take a few examples.
+
+If you define a variable without giving it a value, it'll default to undefined:
+
+let age;
+console.log(age); // undefined
+
+At the moment, the age variable has not received any value yet so it's undefined.
+If you look at the document.querySelector() signature, this method returns an Element from the DOM or null. If it returns null, it means it could not find the element in the DOM. null creates a subtle distinction that the result is specifically nothing (null), rather than yet to be assigned or not assigned.

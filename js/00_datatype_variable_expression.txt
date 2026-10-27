@@ -42,10 +42,23 @@ let y = "abc" * 4;
 ** check NaN
 Number.isNaN(NaN);  // true
 Number.isNaN("hello");  // false
+	well, string is actually not a number
+	so, we might expect it to be true
+	but in this case, we want to exactly check if the value is NaN or not
+	consider NaN as a data type, and we want to exactly match it
 
 ** how not to check NaN
 NaN === NaN  // false
 isNaN("hello")  // true
+	as explained in Number.isNan() example, string is not a number
+	so, it makes sense that it returns true
+	it comes down to what you need to check
+	if you need to exactly match NaN data type, it has to return false because string is not NaN
+	if you only need to make sure that the value is not numeric, then it has to return true because string is not numeric
+> isNaN("12.22");
+false // means this is numeric
+> isNaN("a12.22");
+true // means this is not numeric
 
 
 * null vs undefined
@@ -63,6 +76,10 @@ console.log(user.age); // null
 console.log(user.birthday); // undefined
 // If we had given the value undefined to age (which is possible),
 // then this distinction won't hold true anymore.
+
+
+** check null
+value === null;
 
 
 * expression

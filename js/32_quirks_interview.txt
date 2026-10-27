@@ -1,0 +1,250 @@
+* JavaScript has many quirks (unusual or peculiar behaviors). Depending on your personal goals, you may want to dive deeper into those quirks, particularly if you're applying for a job interview.
+Some courses start teaching the quirks of JavaScript; however, this does not make sense in modern JavaScript as you will rarely encounter many of its quirks, especially if you use a code linting tool such as eslint.
+
+Knowing about the quirks won't necessarily make you a better developer in practice; however, it is often important for interview questions. Though, this depends on the type of company that you're applying for. Some companies go all in on tricky questions while others want to properly assess your general level and don't necessarily care about your knowledge with a specific obscure concept.
+
+So, it's always a good idea to properly understand fundamental concepts such as arrays, functions, objects, classes, promises, fetch, async/await, etc. You will need to use these concepts when building a website. If you're applying to an interview, keep in mind that you also want to study a bit more to be able to answer theoretical questions.
+
+So, studying for an interview is a little bit different than studying to code a website.
+
+
+* Tips for practical interview questions
+First and foremost, do not worry about writing the perfect code from the beginning. Also, the perfect code does not exist. Start by making it work and then make it better. Also, communicate that with your interviewer.
+
+This is very important as it reduces some of the interview pressure. Also, that's how experienced developers code, they first make it work and then they improve it. Now, for this approach to work, you may want to add some // TODO comments so that you remember coming back to this piece of code and improving it like:
+
+// TODO: revisit this code towards the end
+// TODO: check if there's a better way to perform this calculation
+// TODO: I may use this piece of code in another file. Extract it into a helper function if that's the case
+
+While coding the project, try to show and explain your thinking. For example, you may say that you will start with a fetch request with hardcoded values, then you will replace the hardcoded values with the values from the form. This will show that you can break up a problem into smaller problems – this is an essential skill for programmers.
+
+Also, don't forget the best practices you learned in this course. For example, remember that you can use fetch without needing an external library like axios. This assumes that the project requirements are open. If you're asked to use a certain library, you will then have to read its documentation.
+
+Also, don't forget to handle errors for fetch, promises, and pieces of code that may not always complete successfully.
+
+Add comments for code snippets that are not very obvious.
+Do not add comments that are too obvious.
+
+Make sure to test your code after the changes you make as things can break.
+
+Also, if you're applying for a frontend developer position, it's a good idea to focus on related topics such as:
+    web performance
+    accessibility
+    semantics
+
+
+** primitive types and objects
+JavaScript has seven primitive types. These are the most basic data types:
+    undefined
+    null
+    boolean
+    string
+    number
+    bigint
+    symbol
+
+When you assign a primitive value to a variable, the variable holds the value itself
+	the variables with the same primitive values are independent from each other 
+when you assign an object to a variable, the variable holds the reference to the memory location of that object
+	the variables with the same object reference effects the same memory location
+	thus, they are dependent on each other
+
+let a = 1;
+let b = 2;
+
+console.log(a, b); // 1 2
+
+a = 3;
+
+console.log(a, b); // 3 2
+
+
+a = [1, 2];
+b = a;
+
+a[0] = 3;
+
+console.log(a, b); // [3, 2] [3, 2]
+
+
+** autoboxing
+Primitive values technically don't have methods and properties. However, they still behave as if they do.
+So, when you execute "ABC".toLowerCase(), JavaScript will create a new String("ABC") and call the method toLowerCase() on it (specifically, the String.prototype.toLowerCase method). This will return a new string, which is "abc". The original "ABC" string remains unchanged. similarly: (2).toString(), true.toString()
+The process of temporarily wrapping a primitive value with its respective object representation is called autoboxing
+	The original primitive values remain unchanged.
+
+
+"abc" === "abc"; // true (comparing two primitive values)  
+"abc" === new String("abc"); // false ("abc" is a primitive value, whereas new String("abc") is an instance of String)  
+new String("abc") === new String("abc"); // false (two different instances – even though they received the same constructor value)
+
+
+** objects
+Primitive types are not objects (as we saw above). However, everything else is an object in JavaScript. Functions, arrays, dates, regular expressions, and of course objects (const data = { ... }) are all objects. Maps and Sets are also objects (covered in the following chapter).
+
+Let's create a function sum with two parameters:
+
+const sum = (a, b) => {
+    return a + b;
+}
+
+This sum function is actually an object:
+
+sum.length; // 2 (the two parameters)
+sum.name; // "sum" (the function name)
+
+You also have methods that you can call on functions, such as .bind() and .call().
+Moreover, you can assign sum to another variable; for example, const sumRef = sum;
+
+
+** typeof
+The typeof operator is used to determine the data type of a value or expression. It returns a string indicating the type of the operand.
+
+Here are some examples:
+typeof 2; // "number"
+typeof "abc"; // "string"
+typeof true; // "boolean"
+typeof false; // "boolean"
+typeof undefined; // "undefined"
+typeof {a: 123}; // "object"
+typeof [1, 2, "a"]; // "object" (arrays are objects)
+
+It's important to note that typeof always returns a string of the type.
+So, typeof 2 is "number" (the type number wrapped in a string)
+
+Here's a working code that checks if the parameter is a number before multiplying by 2:
+const double = (input) => {
+    if (typeof input === "number") {
+        return input * 2;
+    }
+    return 0;
+}
+
+Also, it's important to note the following exceptions:
+Unfortunately, typeof null is "object". This is a very old bug in JavaScript that could not be fixed
+	(fixing it would break many websites).
+Also, while functions are objects, typeof someFunction returns "function". This is actually useful as you will often see the following code when implementing callbacks:
+
+function onSuccess(callback) {
+    if (typeof callback === "function") {
+        callback();
+    }
+}
+This allows us to make sure that callback is callable before we use it as a function.
+
+Also, for completion's sake, typeof class { ... } is also function.
+If you instantiate the class, then the typeof would indeed be object
+
+> class Person{}
+undefined
+> typeof Person
+'function'
+> typeof new Person()
+'object'
+
+
+**
+Complete the stringOrNumber function such that it returns "I received a string" when it receives a string
+and "This is a number" when it receives a number.
+
+function stringOrNumber(value) {
+    const messages = {
+        "number": "This is a number",
+        "string": "I received a string"
+    }
+    return messages[typeof value];
+}
+
+
+** NaN
+it stands for Not a Number
+Something that might be perceived as confusing is that typeof NaN is "number", so the following statement is truthy:
+typeof NaN === "number"; // true
+
+If you want to explicitly check that a value is (or is not) NaN, you can then use the Number.isNaN() method:
+const a = 10;
+const b = 5 * "abc"; // evaluates to NaN
+
+console.log(typeof a); // "number"
+console.log(typeof b); // "number"
+
+console.log(Number.isNaN(a)); // false
+console.log(Number.isNaN(b)); // true
+
+
+** decimal fractions' imprecisions
+This quirk occurs in many programming languages:
+
+> 0.1 + 0.2
+0.30000000000000004
+> 0.1 + 0.2 === 0.3
+false
+
+it's because decimal fractions cannot be precisely represented in computers.
+see: https://stackoverflow.com/questions/1089018/why-cant-decimal-numbers-be-represented-exactly-in-binary
+The most elegant and common solution is to avoid working with decimals. For example, payment providers require you to work with cents instead of dollars. Instead of charging USD 1, you charge the customer 100 cents. That way, you avoid decimal errors because you won't have decimal fractions, even if you had to perform some arithmetic operations on the number.
+
+
+** BigInt
+BigInt allows you to represent and work with extremely large numbers. You are unlikely to need to use BigInt unless, for some reason, you need to perform arithmetic operations on extremely large numbers without losing precision.
+
+To create a BigInt, append n to the end of the number as such:
+typeof 1n;
+'bigint'
+
+const value = 9915417195128753n;
+console.log(value + 189741232381487214n); // 199656649576615967n
+
+You can perform operations such as additions, multiplications, division, and more.
+However, you cannot mix BigInt with normal numbers – a TypeError will be thrown.
+
+
+** Symbol
+
+You are also unlikely to use a Symbol. A symbol is a primitive which cannot be recreated.
+So, every Symbol is unique. This can be useful if you need to create a unique value that can be used as an object key
+the key-value pair created with a symbol will not appear when iterating over the object. So, that could be a useful way for libraries and frameworks to append some slightly hidden information into an object. This data is not entirely private as it can still be accessed with Object.getOwnPropertySymbols().
+
+Also, you can pass a description to the Symbol when creating one Symbol("some description"). This description is solely used for debugging purposes. This means that two symbols with the same description would still be unique.
+
+
+const uniqueKey = Symbol();
+
+const data = {};
+data[uniqueKey] = "Some value";
+
+console.log(data[uniqueKey]);
+// "Some value"
+
+for(const key in data){
+    console.log(`key:${key}  value:${data[key]}`);
+}
+// this loop prints nothing on the console
+
+const symbols = Object.getOwnPropertySymbols(data);
+console.log(symbols);
+// [ Symbol() ]
+
+for(const key of symbols){
+    console.log(`key: ${key.toString()}  value: ${data[key]}`);
+}
+// key: Symbol()  value: Some value
+
+
+** arrays with properties
+We learned throughout this course that arrays are a special kind of object. An array is a special kind of object that supports indexed access (array[0], array[1], etc.), the .length property, and array methods (.forEach(), .map(), .filter(), etc.).
+
+Since arrays are also objects, you can still attach properties to them. Here's an example:
+
+
+const values = [1, 2, 3];
+
+values.description = "Array of numbers";
+
+console.log(values); // [1, 2, 3, description: "Array of numbers"]
+
+
+Notice how this array also has a description property as if it was an object. That's because arrays are a special kind of object.
+
+In general, it's probably not a good idea to use this syntax as it can be confusing to many people. However, we did come across this syntax when we used the String.prototype.match(regex) method, which returned an array of matches followed by properties such as the index and the input.
