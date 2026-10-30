@@ -80,6 +80,21 @@ The process of temporarily wrapping a primitive value with its respective object
 new String("abc") === new String("abc"); // false (two different instances – even though they received the same constructor value)
 
 
+** Type coercion
+
+Type coercion is the automatic conversion of values between different data types. This happens when two values of different data types are compared or used together arithmetically.
+
+You should not rely on any result of type coercion. Instead, always use the same types with arithmetic operators (+, *, etc.) and always use === instead of == to avoid type coercion.
+
+Here are some weird outputs:
+5 + "10"; // "510" (the number gets converted to a string)  
+"5" + 10; // "510" (the same behavior)
+"5" - "3"; // 2 (number). Works as expected (kind of). Don't rely on this and convert explicitly to numbers first.
+true + true; // 2
+
+You could have many unexpected results with the == (double equality) instead of the === triple/strict equality operator. For that reason, we recommend you always use triple equality as it checks the data type and does not coerce types.
+
+
 ** objects
 Primitive types are not objects (as we saw above). However, everything else is an object in JavaScript. Functions, arrays, dates, regular expressions, and of course objects (const data = { ... }) are all objects. Maps and Sets are also objects (covered in the following chapter).
 

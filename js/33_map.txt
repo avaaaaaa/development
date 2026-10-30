@@ -1,0 +1,137 @@
+* map is introduced in ES2015
+it is a key-value data structure in JavaScript that provides an efficient way to add, edit, and delete data.
+Its biggest advantage over traditional objects is that its keys can be anything you want.
+	whereas the keys of traditional objects are strings (they will be converted to strings even if they are not strings)
+
+> let x = {2: true};
+undefined
+> x
+{ '2': true }
+
+
+* operations
+
+** create & insert data
+const orders = new Map();
+orders.set("table_14", "processed");
+orders.set("terrace_5", "delivered");
+orders.set("terrace_10", "paid");
+
+console.log(orders);
+Map(3) {
+  'table_14' => 'processed',
+  'terrace_5' => 'delivered',
+  'terrace_10' => 'paid'
+}
+
+
+** read value
+console.log(orders.get("terrace_5")); // "delivered"
+console.log(orders.get("something_else")); // undefined (it doesn't exist)
+
+
+** update value
+orders.set("terrace_10", "cancelled");
+
+
+** size of map (count of key/value pairs)
+console.log(orders.size); // 3
+
+
+** key/value pairs
+> orders.entries()
+[Map Entries] {
+  [ 'table_14', 'processed' ],
+  [ 'terrace_5', 'delivered' ],
+  [ 'terrace_10', 'cancelled' ]
+}
+
+
+** delete data
+orders.delete("terrace_10"); // returns true
+orders.delete("non-existing-key"); // returns false
+console.log(orders);
+Map(2) { 'table_14' => 'processed', 'terrace_5' => 'delivered' }
+
+
+** iteration
+orders.forEach(value => {
+    console.log(value);
+});
+processed
+delivered
+
+
+** iteration
+orders.forEach((value, key) => {
+    console.log(key, value);
+});
+table_14 processed
+terrace_5 delivered
+
+
+** iteration
+for (const order of orders) {
+    console.log(order);
+}
+[ 'table_14', 'processed' ]
+[ 'terrace_5', 'delivered' ]
+
+
+** iteration
+for (const [key, value] of orders.entries()) {
+    console.log(key, value);
+}
+table_14 processed
+terrace_5 delivered
+
+
+* use case
+The biggest benefit of using a Map is when you want the keys to be another value than a string.
+Object keys are restricted to strings, and that can be a limitation sometimes
+
+For example, Maps let you use numbered ids as keys
+If you were to use an object, the numbers would be converted to a string.
+That's not a problem for small numbers but it can create issues in the future
+	and you need to remember to convert them to a number.
+
+const userRoles = new Map();
+userRoles.set(5, "admin");
+userRoles.set(1542, "viewer");
+
+The key in a Map can also be an object. This opens up a new way of working with relationships
+using Maps, we can store the entire user object as a key
+
+
+const users = [{
+    id: 5,
+    name: "Sam"
+}, {
+    id: 1542,
+    name: "Charlie",
+}];
+
+const userRoles = new Map();
+userRoles.set(users[0], "admin");
+userRoles.set(users[1], "viewer");
+
+userRoles.forEach((value, user) => {
+    console.log(user.name); // "Sam" and "Charlie"
+});
+
+? i don't think this is a good example of using objects as a key
+? i mean, in this case, we could just add another property to the user objects for user roles instead of creating a map for it
+? we could even create a class for it but, put id, name and role under the constructor()
+
+
+* map vs object
+So, which one should you use?
+
+If you want to use Map for everything, you can probably do that. In practice, however, we all use objects because we're used to them, they have a shorter read/write syntax (but longer to iterate).
+
+If you find yourself needing a use case that Map excels at, then you should use Map for that use case. That's generally requiring more advanced keys than strings.
+
+There are also other use cases:
+    Map is optimized for frequent access (add/delete). This would be useful if you have extremely large data structures. If you have 500,000 entries, you will most likely not notice any difference.
+    Map has other methods that could come in handy: .has(), .keys(), .values(), .entries(), and .clear().
+

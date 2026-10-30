@@ -1,0 +1,82 @@
+* Currying is a functional programming technique.
+it's available in many programming languages.
+Currying is a technique that breaks a function with multiple parameters into a series of functions
+	each taking ONLY ONE parameter
+When you use currying, you create a chain of specialized functions, where each function handles one piece of data. You can then call these functions one after the other to get the final result.
+
+Closures are at the heart of currying in JavaScript. When a function takes some parameters and returns a new function that takes more parameters, it creates a closure over those initial parameters. This closure allows the inner function to remember the values of the previous parameters, even after the outer function has completed execution.
+
+
+Let's say we have a function sum that adds two numbers:
+
+function sum(a, b) {
+    return a + b;
+}
+
+// Sample usage
+sum(2, 4); // 6
+sum (5, 5); // 10
+
+
+Now, instead of having this sum function, let's create a curried function.
+This curried function will take the first number and return a new function that takes the second number.
+
+function curriedSum(a) {
+    return function(b) {
+        return a + b;
+    }
+}
+
+The curriedSum function takes one parameter (a) and returns a new function that expects another parameter (b) which then adds the two numbers a and b. So, here's how we can use it:
+
+const sumFive = curriedSum(5);
+sumFive(2); // 5 + 2 = 7
+sumFive(10); // 5 + 10 = 15
+sumFive(1); // 5 + 1 = 6
+
+The sumFive is a specialized function that adds 5 to the number it receives.
+
+The curriedSum function can also be rewritten to use arrow functions, which looks cleaner (but might be more confusing at first):
+const curriedSum = (a) => (b) => a + b;
+
+
+** create a curried version of filterByAge()
+
+const filterByAge = (age, users) => {
+    return users.filter(user => user.age === age);
+}
+
+// Sample usage
+filterByAge(25, users); // [{id: 2, age: 25}]
+
+
+// curried version
+const filterByAge = age => {
+    return users => {
+        return users.filter(user => user.age === age);
+    }
+}
+
+We can now create specialized functions such as:
+const filterByAge25 = filterByAge(25);
+const filterByAge30 = filterByAge(30);
+
+filterByAge25(users); // [{id: 2, age: 25}]
+filterByAge30(users); // [{id: 1, age: 30}]
+
+
+** create a curried function called filterByLowStock
+This function should accept a lowStock parameter (boolean). It should return a function definition expecting the products as a parameter and filter the products based on their lowStock value.
+
+
+import {products} from "./data.js";
+
+const filterByLowStock = lowStock => {
+    return products => {
+        return products.filter(product => product.lowStock === lowStock);
+    }
+}
+
+// Sample usage
+const lowStockProducts = filterByLowStock(true)(products);
+console.log(lowStockProducts);

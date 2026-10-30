@@ -76,12 +76,13 @@ The globalThis object was introduced to provide a standardized way of accessing 
 
 
 * interview questions
-What is a closure? Give an example
+
+** What is a closure? Give an example
 
 A closure is the combination of a function bundled together with its surrounding variables. A closure has three scope chains. Review the closures chapter.
 
 
-What is strict mode in JavaScript?
+** What is strict mode in JavaScript?
 
 Strict mode was introduced in ES5 (EcmaScript 5) as a way to help catch common coding mistakes, like inadvertently creating a global variable when forgetting the variable declaration keyword (var at that time).
 
@@ -90,7 +91,7 @@ Strict mode is nowadays automatically enabled when using <script type="module">,
 Otherwise, you can enable it with "use strict"; at the top of the script.
 
 
-Which values are considered falsy in JavaScript?
+** Which values are considered falsy in JavaScript?
 
 Falsy values are the values considered as false when converted to a boolean. All other values are considered truthy in JavaScript.
 
@@ -107,14 +108,14 @@ Here's a list of the most common falsy values:
 Review the implicit version & falsy values lesson.
 
 
-What is the difference between let and const? Are variables defined with const immutable?
+** What is the difference between let and const? Are variables defined with const immutable?
 
 Variables defined with let can be reassigned whereas variables defined with const cannot be reassigned.
 
 When a variable declared with const is assigned to a primitive, it becomes immutable. However, that's not the case when it's assigned to a non-primitive value such as an array or an object.
 
 
-What is the difference between null and undefined?
+** What is the difference between null and undefined?
 
 Both null and undefined signify the absence of a meaningful value. However, there's a slight difference in meaning between them.
 
@@ -127,3 +128,145 @@ console.log(age); // undefined
 
 At the moment, the age variable has not received any value yet so it's undefined.
 If you look at the document.querySelector() signature, this method returns an Element from the DOM or null. If it returns null, it means it could not find the element in the DOM. null creates a subtle distinction that the result is specifically nothing (null), rather than yet to be assigned or not assigned.
+
+
+** What is the event loop?
+
+The event loop is a task that keeps checking if there are any items in the callback queue and forwards them to the call stack but only when the call stack is empty.
+
+Review the event loop chapter.
+
+
+** How do you create a deep copy?
+
+We previously relied on the JSON.parse(JSON.stringify(yourObjectHere)); hack (this is legacy information, you should not use it anymore but you may encounter it in some interview questions).
+
+We can now use the structuredClone() function to create a deep copy.
+
+
+** How does hoisting work in JavaScript?
+
+Variables defined with var and function definitions defined with function (that are not assigned to let or const) are hoisted in JavaScript.
+
+The variable and function declarations are moved to the top of their scope during the compile phase. Accessing a hoisted value before it's initialized will result in undefined (but no error will be thrown).
+
+Review the hoisting & Temporal Dead Zone lesson.
+
+
+** What is the Temporal Dead Zone in JavaScript?
+
+let and const variables are also hoisted but because of the Temporal Dead Zone (TDZ), they cannot be accessed before they are initialized. Trying to access such variable in the TDZ would result in a ReferenceError. So, the Temporal Dead Zone is the period where a variable is not accessible yet (that's between the hoisting and the initialization).
+
+Review the hoisting & Temporal Dead Zone lesson.
+
+
+** What are arrow functions?
+
+Arrow functions were introduced in ES2015 (ES6) and they provide a new way of writing concise functions. Moreover, they support implicit return (for single-expression functions) and they do not bind their own this value.
+
+
+** How do promises work? (or What is a Promise?)
+
+A promise in JavaScript represents a value that is not available or known yet. It will eventually be resolved (known successfully) or rejected (not known due to a failure) at some point in the future.
+
+const result = fetch("some-endpoint");
+
+In the example above, the result is a promise object representing the eventual completion or failure of the fetch method, which is an asynchronous operation.
+
+We can handle both cases with the .then() method (for success) and .catch() method (for failures).
+
+
+** How does JavaScript handle asynchronous operations?
+
+As a reminder, asynchronous operations are operations that will complete at some point in the future. They allow the rest of your code to continue running and performing other tasks while waiting for a particular operation to finish. For example, when you call fetch(), the rest of your code continues running and the browser is able to respond to user interactions. We don't have to block while waiting for the fetch response. Once the response is received, we can handle its response.
+
+JavaScript handles asynchronous operations with a combination of callbacks, promises, and async/await.
+
+These are non-blocking models (meaning that they don't block the rest of the code while we're waiting for the result of async operations).
+
+
+** How does prototype-based inheritance work in JavaScript?
+
+JavaScript is a prototype-based language. Objects inherit properties and methods from a prototype (like a blueprint).
+
+Prototype-based inheritance allows objects to share common functionality and avoid unnecessary duplication of code. Nowadays, we often rely on the class and extends syntax, which is syntactic sugar on top of prototypal inheritance.
+
+Review the prototypal inheritance chapter.
+
+
+** How does this work in JavaScript?
+
+The value of this depends on how a function is called. Sometimes the scope of this is lost, for example, if we assign an instance method to a variable on another object. In that case, we can use .bind() to provide the initial this context.
+
+Arrow functions do not bind their own this value, thus making it possible to access the parent's this value.
+
+
+* tricky interview questions
+
+This lesson contains tricky interview questions. If you're not preparing for an interview, I don't recommend you spend time on this lesson. None of the "tricks" covered in this lesson should be used in day-to-day coding. Please do not rely on any of the behavior below.
+
+
+** What is the output of >>typeof typeof 123
+
+it is string
+That's because typeof always returns the data type wrapped in a string (even if it's a number).
+So, typeof typeof {anything-here} will be "string", for example, typeof typeof true is also "string".
+
+
+** What is the output?
+const ids = [1, 2, 3];
+const originalIds = ids;
+ids.push(4);
+console.log(originalIds); // ?
+
+it is [1, 2, 3, 4]
+
+
+** What is the output of >>[1,2,3].map(Number.parseInt)
+The callback of .map(callback) receives two arguments:
+    item
+    index
+
+The item is a single item from the array and the index is the position of that item starting from 0.
+At the same time, the Number.parseInt() method expects two arguments:
+    string (representing a number)
+    radix
+
+The radix determines the number system that's going to be used (2 is for binary, 10 is for decimal etc.)
+
+So, [1,2,3].map(Number.parseInt) is actually calling the following:
+
+Number.parseInt(1, 0); // item=1, index=0
+Number.parseInt(2, 1); // item=2, index=1
+Number.parseInt(3, 2); // item=3, index=2
+
+When the radix is set to 0, the radix will be inferred based on the string. However, radix=1 is invalid, so we will get NaN, and 3 is not a valid boolean number (for radix=2). Thus, the result is:
+
+[1, NaN, NaN]
+
+
+** what is the output?
+let x = 1;
+function foo() {
+  let x = 2;
+  console.log(x);
+}
+foo();
+console.log(x);
+
+it is
+2
+1
+
+It's also why it's generally best not to write such code:
+// Better not do that 👎
+documents.forEach(document => {
+    console.log(document); // item of documents
+    // We cannot access document.querySelector here anymore :(
+});
+
+
+* Here are some additional resources to prepare for a job interview:
+https://github.com/sudheerj/javascript-interview-questions
+https://www.techinterviewhandbook.org/
+

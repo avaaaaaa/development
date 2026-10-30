@@ -1,0 +1,33 @@
+* Functional programming is a programming paradigm (a way of writing code) where you use functions to calculate results without changing any data along the way. The functions can also be combined to achieve more complex behavior.
+
+Functional programming shines when you need to perform a sequence of transformations on a dataset. For example, say you have a list of users and you need to filter out those that are below 18, or you want to calculate the average age. We can use the .filter(), .map(), or .reduce() methods to compute data without modifying the original array of users.
+
+Functional programming improves the readability and maintainability of your code as it encourages you to write it in a more declarable and descriptive style. It breaks down complex tasks into smaller ones.
+
+It also makes it easier to test your code since functional programming generally avoids mutating the original variables and avoids side effects. This means that the same code can run multiple times without affecting the environment (it doesn't add event listeners, global variables, or perform external operations).
+
+Because of that, you can run the code as many times as you want and get the same result with the same input. This makes it much easier to write tests for these functions.
+
+
+** example
+We've defined a list of products in data.js and imported it in index.js. Take a moment to read through the list of products.
+
+Then, take a look at the sample usage and implement the following three functions:
+
+    filterExpensiveProducts, which returns a boolean describing whether the product has a price of 100 or more.
+    filterLowStockProducts, which returns a boolean describing whether the product is low in stock.
+    extractProductName, which should return the product's name.
+
+
+import {products} from "./data.js";
+
+const filterExpensiveProducts = product => product.price >= 100;
+const filterLowStockProducts = product => product.lowStock; 
+const extractProductName = product => product.name; 
+
+// Sample usage
+const expensiveLowStockProductNames = products
+    .filter(filterExpensiveProducts)
+	.filter(filterLowStockProducts)
+	.map(extractProductName);
+console.log(expensiveLowStockProductNames);
