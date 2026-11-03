@@ -1,0 +1,207 @@
+* A generator function is a special type of function that can be paused and later resumed during its execution.
+It produces a sequence of values, one at a time, using the yield keyword.
+
+
+* In summary, here are the top 3 use cases and benefits of using generator functions:
+
+** Processing Large Datasets
+You can efficiently process large datasets as generator functions help you avoid loading the entire dataset into memory at once. You can read data from a large data source and process each entry as needed, one at a time.
+
+** Lazy Evaluation
+When you need to calculate values on-the-fly or when you only need to generate data as it's requested.
+This can help improve performance and memory efficiency in certain situations.
+
+** Infinite Sequences
+Generator functions can be used to represent and work with infinite sequences, like generating an infinite stream of random numbers, prime numbers, or cryptographical tokens. The values are only generated when requested.
+
+
+* basic usage
+To define a generator function, you need to use the * symbol after the function keyword. This will make the function a generator function and subsequently, you can use the yield keyword:
+
+// notice the * symbol
+function* getData() {
+    yield 5;
+    yield 10;
+    yield 12;
+}
+
+//Create generator object
+const values = getData();
+
+values.next(); // {value: 5, done: false}
+values.next(); // {value: 10, done: false}
+values.next(); // {value: 12, done: false}
+values.next(); // {value: undefined, done: true}
+
+
+The done property becomes true when the generator has been exhausted (all the values were returned).
+It will also become true if the return keyword is used. Here's an example:
+
+
+function* getData() {
+    yield 5;
+    return 10; // exits the function with done: true
+    yield 12; // never yielded
+}
+
+const values = getData();
+values.next(); // {value: 5, done: false}
+values.next(); // {value: 10, done: true}
+values.next(); // {value: undefined, done: true}
+
+
+It's important to note that every time you call getData(), a new generator object is returned.
+This is why the code below never advances:
+
+
+function* getNames() {
+    yield "Sam";
+    yield "Alex";
+}
+
+getNames().next(); // {value: "Sam", done: false}
+getNames().next(); // {value: "Sam", done: false} (another generator object from the same function)
+getNames().next(); // {value: "Sam", done: false} (yet another generator object from the same function)
+
+
+You can iterate over generator objects using the for...of syntax:
+
+
+function* getNames() {
+    yield "Sam";
+    yield "Alex";
+}
+
+for (const name of getNames()) {
+    console.log(name); // "Sam", then "Alex"
+}
+
+
+** example
+Let's say you need to create a function that rolls a dice. You can create a generator function for that:
+
+
+function* rollDice(limit) {
+    for (let count = 0; count < limit; count++) {
+        yield Math.floor(Math.random() * 6) + 1;
+    }
+}
+
+for (const roll of rollDice(100)) {
+  console.log(roll);
+}
+// asking for 100 dice rolls
+
+But, since this is a generator function, you have manual control over the control flow of the function.
+So, you don't have to generate dice rolls you may not need.
+You only have to generate them when you need them:
+
+
+const values = rollDice(100); // we may generate up to 100 dice rolls (but nothing is generated yet)
+
+// some application logic here
+values.next(); // {value: 4, done: false}
+// some other application logic here
+values.next(); // {value: 1, done: false}
+
+
+In the example above, we asked for a potential of 100 dice rolls.
+However, we only ended up using two.
+The remaining 98 were not generated.
+Assuming rollDice() was performing some expensive work, this would be a big win for performance.
+
+
+** example
+Use the provided HTML files to show the directions (without the distance) one by one in the provided ul when the user clicks on the next button. Each direction should be a new li element.
+
+Also, disable the Next button when there are no more directions to show.
+
+// directions.js
+export default function* getDirections() {
+	yield {direction: "Turn right", distance: 50};
+	yield {direction: "Walk straight", distance: 20};
+	return {direction: "Turn left", distance: 30};
+}
+
+
+// index.js
+import getDirections from "./directions.js";
+
+const renderNextMove = () => {
+    const nextValue = directions.next();
+
+    directionsList.insertAdjacentHTML(
+        "beforeend",`<li>${nextValue.value.direction}</li>`);
+    
+    if(nextValue.done){
+        nextButton.setAttribute("disabled", "disabled");
+    }
+}
+
+const directions = getDirections();
+const directionsList = document.querySelector("#directions-list");
+const nextButton = document.querySelector("#next-button");
+
+nextButton.addEventListener("click", renderNextMove);
+
+
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>Directions</h1>
+    <button id="next-button">Next</button>
+    <ul id="directions-list"></ul>
+
+</body>
+</html>
+
+
+* Generators also support the yield* expression which can be used inside a generator function to incorporate values produced by another generator into the current one.
+
+
+function* generator1() {
+  yield 2;
+  yield 3;
+}
+
+function* generator2() {
+  yield 1;
+  yield* generator1()
+  yield 4;
+}
+
+const values = generator2();
+for (const value of values) {
+  console.log(value);
+}
+
+// the output is:
+1
+2
+3
+4
+
+We used yield* inside the generator2 function to call the values of the generator1 function. It's like passing the control of the current generator2 to the generator1 function and yielding all the values before proceeding.
+
+
+** example
+create a function that traverses the DOM (a function that goes through every element of the page or a part of the page):
+
+
+function* traverseDOM(element) {
+	yield element;
+	for (const child of element.children) {
+		yield* traverseDOM(child);
+	}
+}
+
+const values = traverseDOM(document.documentElement);
+for (const value of values){
+	console.log(value);
+}

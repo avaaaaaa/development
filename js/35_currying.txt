@@ -80,3 +80,44 @@ const filterByLowStock = lowStock => {
 // Sample usage
 const lowStockProducts = filterByLowStock(true)(products);
 console.log(lowStockProducts);
+
+
+** create a curried function called filterByPriceRange
+this function should return the products with the price between minPrice and maxPrice parameters
+
+
+const products = [
+{
+    id: 1,
+    name: "Apple",
+    price: 2.5,
+    lowStock: true,
+},
+{
+    id: 2,
+    name: "TV",
+    price: 500,
+    lowStock: true,
+},
+{
+    id: 3,
+    name: "Milk",
+    price: 3,
+    lowStock: false,
+},
+{
+    id: 4,
+    name: "Laptop",
+    price: 1200,
+    lowStock: true,
+}
+];
+
+
+const filterByPriceRange = (minPrice) => (maxPrice) => (products) => {
+  return products.filter(product => product.price >= minPrice && product.price <= maxPrice);
+};
+
+// sample usage
+const productsBetween1and100 = filterByPriceRange(1)(100)(products);
+console.log(productsBetween10and100);

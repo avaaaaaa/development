@@ -8,6 +8,10 @@ It also makes it easier to test your code since functional programming generally
 
 Because of that, you can run the code as many times as you want and get the same result with the same input. This makes it much easier to write tests for these functions.
 
+In general, functional programming shines in data transformation use cases. For example, when you need to filter out some values, transform the remaining ones, and then make computations.
+
+If you plan on using functional programming, you can also rely on libraries specifically designed for that task such as ramdajs.com and lodash.com.
+
 
 ** example
 We've defined a list of products in data.js and imported it in index.js. Take a moment to read through the list of products.

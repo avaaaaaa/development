@@ -102,3 +102,33 @@ output:
 try1
 error1
 finally1
+
+
+**
+function test(){
+    try{
+		console.log("try");
+      	return 1;
+      	throw "error";
+    }catch(error){
+        console.log("error");
+        return 2;
+    }finally{
+        console.log("finally");
+        return 3;
+    }
+}
+
+const data = test();
+console.log(data);
+
+// try
+// finally
+// 3
+
+// if "return 1" is commented out, the output:
+// try
+// error
+// finally
+// 3
+
