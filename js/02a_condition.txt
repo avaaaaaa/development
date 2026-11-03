@@ -5,6 +5,8 @@
 
 == can be used for equality check aswell but it has many flaws
 so it is recomended to use === instead of ==
+2 == "2"; // true
+2 === "2"; // false
 
 
 * negative zero is equal to zero
@@ -99,6 +101,8 @@ const getPushMessage = status => {
         return "Unknown status";
     }
 }
+
+// refactor to:
 
 const getPushMessage = status => {
     const messages = {

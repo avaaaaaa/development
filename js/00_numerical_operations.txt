@@ -46,8 +46,6 @@ const randomBetween = (_min, _max) => {
     }
     const distance = _max + 1 - _min;  // see "distance distribution" at the bottom
     const randomPercentage = Math.random();
-    // Math.random() returns a random number
-    // between 0(inclusive) and 1(exclusive)
     const randomNumber = _min + distance * randomPercentage;
     return randomNumber;
 }

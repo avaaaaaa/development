@@ -1,21 +1,21 @@
 function sum1(a, b){
-  return a + b;
+	return a + b;
 }
 sum1;
 sum1(2, 3);
 
 const sum2 = function(a, b){
-  return a + b;
+	return a + b;
 }
 sum2;
 sum2(2, 3);
 
 const sum3 = (a, b) =>{
-   return a + b; 
+	// arrow function
+	return a + b; 
 }
 sum3;
 sum3(2, 3);
-// arrow function
 
 /*
 [Function: sum1]

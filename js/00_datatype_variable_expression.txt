@@ -62,24 +62,15 @@ true // means this is not numeric
 
 
 * null vs undefined
-null for the object properties that are defined but do not have a value yet
-undefined for the object properties that does not exist yet
-see 05a_object.txt
-
-const user = {
-    id: 1,
-    name: "Sam",
-    age: null
-}
-
-console.log(user.age); // null
-console.log(user.birthday); // undefined
-// If we had given the value undefined to age (which is possible),
-// then this distinction won't hold true anymore.
+most of the time, functions would return null when they couldn't find the search value
+variables would be undefined when they exist but they are not assigned a value
+so, null intends something that does not exist
+undefined intends something that exists but do not have any value yet
 
 
-** check null
+** check null, undefined
 value === null;
+value === undefined;
 
 
 * expression

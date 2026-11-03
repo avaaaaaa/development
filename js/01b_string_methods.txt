@@ -27,7 +27,7 @@ language.at(-2); // "p"
 
 ** myString.substring(start, end)
 // start index is included, end index is excluded
-// end is optional, it is myString.length if omitted 
+// end is optional, it is myString.length by default
 let language = "JavaScript";
 language.substring(1, 4); //"ava"
 language.substring(4); //"Script"

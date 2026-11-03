@@ -5,7 +5,7 @@ const b = 3;
 const c = (a > b) ? 4 : 5;
 console.log(c);  // 5
 
-/*
+// equal to:
 let c;
 if(a > b){
   c = 4;
@@ -13,18 +13,18 @@ if(a > b){
 else{
   c = 5;
 }
-*/
 
 
 function evenOrOdd(number){
   return (number % 2 === 0) ? "even": "odd";
 }
 
-/*
+
+// equal to:
 function evenOrOdd(number){
   if(number % 2 === 0){
     return "even";
   }
   return "odd";
 }
-*/
+

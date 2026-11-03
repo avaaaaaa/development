@@ -1,6 +1,6 @@
 * unicode characters
 let icon = "\u{23f3}";  // ⏳
-// also: let icon = "⏳";
+// also, let icon = "⏳";
 
 
 * template string
@@ -74,7 +74,7 @@ s = `this is \`it\``
 
 * string to number
 // when reading values from textboxes, they are stored as strings even if they have only numbers
-// so, we have to convert this string to the number
+// so, we have to convert this string to the corresponding number
 
 let string = "35";
 let radix = 10;
