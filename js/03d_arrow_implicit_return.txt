@@ -72,7 +72,7 @@ const getUser = (id, name) => {id, name};
 console.log(getUser(1, "a"))
 // undefined
 // so, we cannot return an object using this feature, i guess?
-// {} around object might be interpreted as the body of the arrow function
+// {} around the object might be interpreted as the body of the arrow function
 
 // update: putting () around {id, name} solved the issue
 const getUser = (id, name) => ({id, name});

@@ -1,4 +1,4 @@
-* see 04_array for the methods used examples below
+* see 04_array for the methods used in the examples below
 
 
 * limitations in usage
@@ -11,7 +11,7 @@ Arrow functions cannot use "yield" within their body and cannot be created as ge
 
 * arrow (=>) indicates that this will be a function
 so we drop "function" keyword
-{} wraps the body of functions
+{} wraps the body of arrow functions just like other functions
 if the body only has only one return statement that is only one line, we can drop {} and "return" keyword
 	see 03d_arrow_implicit
 so, => for "function" keyword

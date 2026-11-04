@@ -1,5 +1,10 @@
-* there is a difference between functions and arrow functions that is mostly apparent when using classes
-when using "this" keyword within functions and arrow functions,
+* "this" keyword within function(){} is not the same "this" outside
+	it binds a new value to "this"
+"this" keyword within the arrow functions is the same "this" outside
+	it does not bind a new value to "this"
+
+
+* when using "this" keyword within functions and arrow functions,
 	make sure to log "this" first and see its value to prevent unexpected results
 let's take a look at the following example
 
@@ -73,11 +78,11 @@ it means that "this" within them is the same as the outer function.
 
 class SayHello{
 	constructor(){
-		console.log(this);
 		this.userName = "sam";
+		console.log(this);	// SayHello { userName: "sam" }, "this" became the object
 		setTimeout(function(){
-			console.log(this);
-			console.log(this.userName);
+			console.log(this);	// Timeout{...}, "this" became the function that is calling "this" 
+			console.log(this.userName);	// undefined, because the function does not have the userName property
 		}, 100);
 	}
 }
@@ -85,8 +90,6 @@ new SayHello();
 
 
 * check out the output
-and then turn printName() into an arrow function
-and then check out the output again
 
 const person = {
 	name: "my name",
@@ -96,10 +99,36 @@ const person = {
 	}
 }
 
-person.printName();
+console.log(this);	// undefined
+person.printName();	// function(){} binds "this" to the "person" object
+// so, "this" is the "person" object
+// this.name is "my name"
+
 console.log("\n\n\n");
 
 const myFunc = person.printName;
 myFunc();
+// "this" refers to "person" object when calling person.printName()
+// but "this" does not refer to anything when calling myFunc()
+// thus, accessing "name" through "undefined" causes TypeError
 
 
+* check out the output
+
+const person = {
+	name: "my name",
+	printName: () => {
+		console.log(this);
+		console.log(this.name);
+	}
+}
+console.log(this);	// undefined
+person.printName();	// arrow functions do not bind "this", thus "this" is still "undefined"
+// so, "this" is "undefined"
+// this.name is equal to undefined.name which causes TypeError
+
+console.log("\n\n\n");
+
+const myFunc = person.printName;
+myFunc();
+// the behaviour of myFunc here is the same as in the previous example 

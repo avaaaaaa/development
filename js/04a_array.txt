@@ -1,5 +1,4 @@
-*
-giving plural names for arrays, and singular names for its items would improve readability
+* giving plural names for arrays, and singular names for its items would improve readability
 
 
 * define array
@@ -31,7 +30,7 @@ console.log(items);  // [], see Array.toSpliced() in array methods
 * array equality
 every array is an object & instance of Array class
 even if they have the same items, they are not the same
-they are shallow copy of each other
+	they are shallow copy of each other
 [] === []   // false
 [1] === [1] // false
 
