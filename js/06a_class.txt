@@ -16,7 +16,7 @@ instance: the object that is created from a class is called an instance of that 
 
 * class definition
 class User{
-...
+	// implementation of the class 
 }
 
 
@@ -33,8 +33,8 @@ class User{
   }
 }
 let user1 = new User();
-let user2 = new User();
 // 'an instance is being created'
+let user2 = new User();
 // 'an instance is being created'
 
 
@@ -52,9 +52,9 @@ let user1 = new User();
 let user2 = new User();
 
 
-* constructor with parameters, instance variables, instance methods
+* instance variables, instance methods, constructor with parameters
 instance variables are the variables the object have and can modify them for itself
-instance methods are the functions the object can call for itself
+instance methods are the functions the object can call them for itself
 	"function" keyword is not used to define these methods
 reminder: do not use arrow functions as methods
 
@@ -100,6 +100,7 @@ export default class Stats {
     }
     getLastGrade(){
         return this.grades[this.grades.length - 1];
+        // or return this.grades.at(-1); 
     }
     getSumOfGrades(){
         let grades = this.grades;
@@ -159,7 +160,7 @@ class Todos {
 }
 
 const todo = new Todos();
-console.log(todo.add("exercise", "personal"));
+todo.add("exercise", "personal");
 console.log(todo.getAll());
 console.log(todo.getPersonal());
 console.log(todo.getWork());

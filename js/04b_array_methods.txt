@@ -151,13 +151,13 @@ let array = [1, 2, 3]
 let reduceSum = array.reduce(function(total, current){
 	return total + current
 	// total will be (total + current) in the next function call
-	}, 0)  // 6
+	}, 0);  // 6
 // 0 is the initial value of the accumulator 
 
 let reduceMultiply = array.reduce(function(total, current){
 	return total * current
 	// total will be (total * current) in the next function call
-	}, 1)  // 6
+	}, 1);  // 6
 // 1 is the initial value of the accumulator
 
 const sumOfOdds = numbers.reduce((total, current) => {

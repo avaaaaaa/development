@@ -16,6 +16,7 @@ const getName = name => {
 console.log(getName("Sam")); // "Sam"
 console.log(getName(undefined)); // "N/A"
 console.log(getName(null)); // "N/A"
+console.log(getName()); // "N/A", name parameter is equal to undefined in this case
 
 
 *

@@ -184,6 +184,10 @@ console.log(validatePromo("00A")); // true
 console.log(validatePromo("01")); // false
 
 
+** build a regex for "name" parameter to check if it consists of at least 5, at most 10 alphanumeric characters
+const isValidName = name => /^[a-z0-9]{5,10}$/i.test(name);
+
+
 * escaping characters
 to escape special characters, i.e. to exactly match special characters
 	for /pattern/ syntax, we need to put \ right before them

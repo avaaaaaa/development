@@ -1,4 +1,4 @@
-* accessing properties from the properties that yield either null or undefined will cause TypeError
+* accessing properties from either null or undefined will cause TypeError
 to avoid getting this error, we can use optional chaining with ?. operator
 with that, it will return undefined rather than error
 	so, we don't need an if-condition to avoid errors
@@ -32,9 +32,9 @@ if (user.details && user.details.name && user.details.name.firstName) {
 // but user can be null or undefined too, so it is better to add ?. after user
 // const name = user?.details?.name?.firstName;
 // this can be interpreted as
-//		is there "user" object, because we want to access "details" from "user"
-//		is there "details" property, because we want to access "name" from "details"
-//		is there "name" property, because we want to access "firstName" from "name"
+//		is there "user" object (user?.), because we want to access "details" from "user"
+//		is there "details" property (details?.), because we want to access "name" from "details"
+//		is there "name" property (name?.), because we want to access "firstName" from "name"
 
 
 * array
@@ -56,13 +56,11 @@ anObject.methodName?.() is when the object might not have the method called "met
 anObject.methodName()?. is when the return value of the method might be nullish
 
 
-const upperCasedName = person.name?.toUpperCase();
-// either null.toUpperCase() or undefined.toUpperCase() will cause TypeError
-// with optional chaining, the code above will return undefined
-
 const upperCasedName = person.name?.toUpperCase?.();
-// if person.name is a number, calling toUpperCase() will cause TypeError
-// to avoid that, we can use optional chaining to call the method toUpperCase
+// with "name?.", we check if the person object has "name" property
+// with "toUpperCase?.()", we check if person.name has access to that method
+// for example, if person.name is a number, calling toUpperCase() will cause TypeError
+
 
 const button = document.querySelector("#remove-title");
 button.addEventListener("click", () => {

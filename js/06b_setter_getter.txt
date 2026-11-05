@@ -34,12 +34,13 @@ class User {
 
 const user = new User("30");
 console.log(user.age); // 30 (number)
-// user.age calls the getter
-// the getter returns user.storedAge without exposing storedAge property
 
 user.age = "31";
 console.log(user.age); // 31 (number)
-// user.age = "31" calls the setter
+
+// user.age calls the getter
+// the getter returns user.storedAge without exposing storedAge property
+// the constructor called by new User() and user.age = "31" statement calls the setter
 // the setter sets storedAge property without exposing storedAge property
 
 
@@ -50,7 +51,7 @@ set age(value) {
         console.log("age setter");
         this.age = Number.parseInt(value, 10);
         // this.age = value will call the setter, so it will keep calling itself
-        // to avoid that, we need different name for actual property
+        // to avoid that, we need a different name for the actual property like:
         // this.storedAge = Number.parseInt(value, 10);
 }
 

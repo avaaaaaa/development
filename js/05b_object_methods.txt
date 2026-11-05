@@ -19,7 +19,7 @@ Object.values(person);
 
 
 * Object.entries(<object>)
-returns an array that pairs keys and corresponding values within separate arrays
+returns an array that pairs keys and their corresponding values within separate arrays
 
 
 const person = {

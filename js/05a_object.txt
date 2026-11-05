@@ -14,8 +14,8 @@ values of these keys are "sam", "doe", 21, "sam@gmail.com", true, ["games"...]
 * empty object -> const person = {};
 
 
-* immutable object is an object that cannot be changed
-as we cannot modify an immutable object, we create an entirely new object based on the original
+* immutable object is an object that cannot be changed after defined
+as we cannot modify an immutable object, we can create an entirely new object based on the original
 	leaving the original object unchanged
 
 
@@ -63,23 +63,31 @@ person.age = 33;
 
 
 * check if a key exists in an object
-const check = "name";
-const person = {name: undefined, id: 1};
+const key1 = "name";
+const key2 = "location";
+const person = {name: "my name", id: 1};
 
 ** in operator
-check in person
-// true, even though the value is undefined (or null)
-"isAdmin" in person
+key1 in person
+// true
+key2 in person
 // false
 
 ** []
-if(person[check]){}
-// this approach will successfully check the existed keys unless their values are null or undefined
-// so, in this case, "name" key is existed but its value is undefined
-// thus, this approach will fail and the program will not enter this if-block
+if(person[key1]){
+	// the program enters this block
+	// if the value of the key1 was nullish in the definition,
+	// this approach would fail and the program would not enter this block
+}
 
-** Object.keys(person).includes(check)
+if(person[key2]){
+	// the program will not enter this block
+}
+
+** Object.keys(person).includes(key1)
 // true
+Object.keys(person).includes(key2)
+// false
 
 
 * object equality
@@ -166,13 +174,16 @@ let userNames = users.map(function(user){
 function createTodo(data) {
 
     const todo = {
-    	icon: (data.isCompleted) ? "✅" : "⏳",
+    	icon: (data?.isCompleted) ? "✅" : "⏳",
     	// other properties...
     };
     
     return todo;
 }
-// assuming "data" object has a boolean property named "isCompleted" 
+console.log(createTodo({isCompleted: true}));
+// { icon: '✅' }
+console.log(createTodo());
+// { icon: '⏳' }
 
 
 * reading values dynamically
@@ -239,7 +250,7 @@ if the variable name does not exist as a key, we can give it a default value
 const user = {
     id: 1,
     name: "Sam",
-    // isAdmin: true
+    //isAdmin: true
 };
 
 const {name, isAdmin = false} = user;
