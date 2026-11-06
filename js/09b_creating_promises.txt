@@ -80,7 +80,7 @@ reject() can also pass some data to .catch(callback) just like resolve() can pas
 
 const alwaysFail = () => {
     return new Promise((resolve, reject) => {
-        reject("Failed. That's the only thing I do.")
+        reject("Failed. That's the only thing I do.");
     });
 }
 
@@ -144,13 +144,45 @@ const fakeFetch = endpoint => {
     // TODO: implement fake fetch
     return new Promise((resolve, reject) => {
       if(endpoint !== "flight-status"){
-        reject("endpoint not supported.")
+        reject("endpoint not supported.");
+        // i think we should add "return;" here
       }
       setTimeout(()=>{
+      	console.log("entered here");
         resolve({departed: false, delayed: true,});
       }, 1000);
     });
 }
+// even if the promise is rejected, the rest of the code still will be executed
+// see the output for "user-details" argument
+// so, reject() does not return the function
+// i think, manually adding return after reject() would be better for the program logic
+// because, why would we want to keep running the code after rejecting the promise?
+
+
+* example
+
+const test = () => {
+    return new Promise((resolve, reject) =>{
+        resolve(1);
+        reject(-1);
+        console.log("this is executed first");
+    });
+}
+
+test().then(data => {
+    console.log(data);
+}).catch(error => {
+    console.error(error);
+});
+
+// this is executed first
+// 1
+
+// after swapping the lines of resolve() and reject()
+
+// this is executed first
+// -1
 
 
 * promise chaining

@@ -14,6 +14,27 @@ console.log(user1, user2);
 // this shows that public variables are still instance variables, not class variables
 
 
+* static keyword turns public variables into class variables
+
+class User{
+    static publicVariable = 20;
+    constructor(a){
+        this.a = a;
+    }
+}
+const user1 = new User(1);
+const user2 = new User(2);
+
+console.log(user1, user2);
+// User { a: 1 } User { a: 2 }
+
+console.log(user1.publicVariable, user2.publicVariable);
+// undefined undefined
+
+console.log(User.publicVariable);
+// 20
+
+
 *
 class User{
     name;
@@ -32,7 +53,8 @@ console.log(user1.getName());  // gg
 
 
 * private instance variables and methods
-these variables and methods can be accessed only within the class definition where they are defined
+these variables and methods can be accessed directly only within the class definition where they are defined
+	outside the class, we can access them through public methods
 their names are prefixed with #(hash)
 before # is introduced, developers used _(underscore) as a prefix to signal it is private
 but using _ as a prefix is just a convention, javascript does not prevent these names to be accessed outside of the class
@@ -45,7 +67,7 @@ class User{
         console.log(this.#name);
     }
     callPrivateMethod(){
-    	this.#testMethod();
+        this.#testMethod();
     }
     // #name and #testMethod() are only accessible within User{}
 }
@@ -71,5 +93,5 @@ class User{
 }
 const user = new User("gg");
 console.log(user.getName());  // "gg"
-// if we comment #name; line, we will get an error
+// if we delete #name; line, we will get an error
 

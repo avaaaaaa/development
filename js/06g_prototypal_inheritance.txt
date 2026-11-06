@@ -37,8 +37,8 @@ C.prototype.b2 = B.prototype.b2;
 
 const test = new C();
 test.a1();
-test.b2();
 // a1
+test.b2();
 // b2
 
 

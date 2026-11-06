@@ -45,7 +45,7 @@ console.log("C");
 // A
 // C
 // B
-// setTimeout code runs immediately, however, it will queue the callback into the future
+// setTimeout code runs immediately, however, it will queue its callback into the future
 
 
 console.log("A");
@@ -66,12 +66,3 @@ B
 C
 */
 
-
-*
-welcomeUser("Sam", () => {
-    console.log("Done welcoming user");
-});
-
-implementation of the function is omitted deliberately
-The example above assumes a function welcomeUser that accepts the name of the user as its first parameter, followed by the success callback.
-when execution of welcomeUser ended, the second parameter (async success callback) will be called

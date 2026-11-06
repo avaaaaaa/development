@@ -86,7 +86,7 @@ class Parent{
 }
 class Child extends Parent{
     constructor(){
-    	//super();
+		//super();
         console.log();
     }
 }
@@ -94,7 +94,7 @@ new Child();
 // reference error
 // must call super constructor in derived class before accessing 'this' or returning from derived constructor
 // thus, we have to uncomment super(); line
-// we also deleted the parent constructor entirely, but we still need to call super()
+// we also deleted the parent constructor entirely, but we still needed to call super()
 // otherwise, the same error will occur again
 
 

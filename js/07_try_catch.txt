@@ -15,7 +15,7 @@ console.log("Step 2");
 
 if the function above was called without try-catch,
 	the program would be terminated with an uncaught error after logging "Step 1"
-with try-catch, we can still keep code running and do necessary actions about possible errors
+with try-catch, we can still keep code running and take necessary actions about possible errors
 	so we will see "Step 1", some information about caught error and then "Step 2"
 catch{...} block will be skipped if there are no errors encountered
 	"Step 1", and then "Step 2"
@@ -60,6 +60,7 @@ assuming there will be an error thrown within try block,
 	third, finally{} will be executed
 
 
+** example
 try{
     console.log("try1");
     throw new Error("error");
@@ -72,20 +73,25 @@ try{
 console.log("program continues...");
 
 output:
+
 try1
 error1
 finally1
 program continues...
 
-if  throw new Error('error')  is deleted, the output would be:
+if  throw new Error('error');  is deleted, the output would be:
+
 try1
 try2
 finally1
 program continues...
 
 
+** example
 // notice that "program continues..." won't be print to the output in the following example
 // the output would be the same if "return" was at the end of "finally" instead of "catch" 
+// update: the code below causes SyntaxError: Illegal return statement
+// to resolve, it must be put within a function definition
 try{
     console.log("try1");
     throw new Error("error");
@@ -104,7 +110,7 @@ error1
 finally1
 
 
-**
+** example
 function test(){
     try{
 		console.log("try");
