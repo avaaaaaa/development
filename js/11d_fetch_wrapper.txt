@@ -79,7 +79,7 @@ export default class FetchWrapper {
                 if(error === "API"){
                     throw "API issues";
                 }
-                throw "Network issues";  // Network issues
+                throw "Network issues";
             })
     }
 }
@@ -88,6 +88,7 @@ export default class FetchWrapper {
 * get
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app");
+
 API.get("/notifications/new.json")
 .then(data => {
     console.log(data);
@@ -103,26 +104,30 @@ API.get("/chapters/all.json").then(data => {
 
 
 **
-// update: i made the endpoint invalid by changing it to "weet/..."
+// update: made the endpoint invalid by changing it to "weet/..."
 // response status was 200, and .ok field was ok
 // hence, .then() is executed
 // data was null, and accessing data.author caused an error
+// thus, need to check data if it is null before passing it to the showAuthorName()
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
 
 const getTweetDetails = () => {
-    // TODO
     API.get("tweet/1080777336298049537.json")
-    .then(data => {
-        console.log(data.author.details);
-        const details = data.author.details;
-        showAuthorName(details.firstName + " " + details.lastName);
-    }).catch(error => {
-        console.error(error);
-    });
+        .then(data => {
+            console.log(data);
+            if(data === null){
+                throw "data is null";
+            }
+            showAuthorName(data);
+        }).catch(error => {
+            console.error(error); // to handle network issues, API issues, "data is null"
+        });
 }
 
-function showAuthorName(fullName) {
+function showAuthorName(data) {
+    const details = data.author.details;
+    const fullName = details.firstName + " " + details.lastName;
     console.log(fullName);
 }
 
@@ -149,7 +154,7 @@ const saveGrade = grade => {
     // TODO
     API.post("grades.json", {grade})
     	.then(data => {
-    	    console.log(data)  // server response
+            console.log(data); // server response
     	}).catch(error => {
             console.error(error);
     });

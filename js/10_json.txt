@@ -31,7 +31,7 @@ const data = {
 };
 
 
-* json_string --> object, JSON.parse()
+* json string --> object, JSON.parse()
 In order to convert from a JSON string into an object, you can use the JSON.parse(string) method:
 
 const string = '{"firstName":"Sam","lastName":"Green","age": 32}';
@@ -43,8 +43,8 @@ This function is synchronous. This means that it will block the main thread of J
 later, we'll learn about an asynchronous and non-blocking method that parses JSON strings. That method will return a promise (which you will have to resolve with .then()) because it's asynchronous.
 
 
-* json_object --> json_string, JSON.stringfy()
-In order to convert from an object into a JSON string, you have to use the JSON.stringify(object) method:
+* object --> json_string, JSON.stringfy()
+In order to convert an object into a JSON string, you have to use the JSON.stringify(object) method:
 
 const person = {
     firstName: "Sam",

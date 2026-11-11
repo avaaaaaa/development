@@ -179,7 +179,7 @@ test().then(data => {
 // this is executed first
 // 1
 
-// after swapping the lines of resolve() and reject()
+after swapping the lines of resolve() and reject()
 
 // this is executed first
 // -1

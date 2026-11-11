@@ -29,23 +29,64 @@ Client errors means that the error is most likely due to the client (you, the de
 	401 with a response text of "Unauthorized" which is used when a resource (or page) requires authentication (it requires you to be logged in).
 
 5xx is for server errors.
-500 is reserved for server errors. This means that the error is most likely from the server.
+This means that the error is most likely from the server.
 The most common error codes here are:
     500 with status text "Internal Server Error" meaning there's a bug in the code (that's running on the server).
-    504 with status text "Gateway Timeout". You often see this one when a website suddenly becomes popular and is unable to keep up with the incoming traffic.
+    504 with status text "Gateway Timeout". You often see this one when a website is unable to keep up with the incoming traffic.
 
 
 * handling fetch errors
 The fetch() promise rejects on network errors (when fetch request couldn't complete)
 	thus, catch() callback will execute
+	changed the beginning of the url from "https" to "hps"
+		an error thrown: TypeError: fetch failed {... unknown scheme ...}
+		this error got caught within catch() without entering the block of .then(response...)
 
-The fetch() promise does not reject on error codes (4xx and 5xx).
+but, the fetch() promise does not reject on error codes (4xx and 5xx).
 	that means fetch() request completed but the server responded with an error code
 	in this case, the promise won't reject
 	so, catch() callback will NOT execute
-	for example, if you make a fetch request for a URL that does not exist (a 404), the fetch() promise will be fulfilled and the .then(callback) will execute as usual
+	for example, if you make a fetch request for a url that does not exist (a 404), the fetch() promise will be fulfilled and the .then(callback) will execute as usual
 	to handle such cases, we can make us of "ok" field of "response" object (for most APIs)
 		this field becomes true when the response was successful (status in the 2xx range)
+
+
+fetch(baseURL)
+    .then(response => {
+        console.log(response);
+        return response.json();
+    }).then(data => {
+        console.log(data);
+    }).catch(error => {
+        console.error("sth went wrong");
+    });
+
+	? the problem is we tried to change the endpoint to something that does not exist, but response was still 200, not 404
+		for example, the following is the correct url:
+		const baseURL = "https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/tweet/1080777336298049537.json";
+		we changed ".../tweet/..." to ".../twweet/..." and response was still 200
+			thus then() executed, and data became null
+		similarly, we deleted the last two number of the endpoint (1080...95) still got 200
+			still then() executed and data was still null
+	
+	? then we changed ".json" to ".jon", response finally became 404
+		then() executed first, we saw some details about response
+		but probably when trying to execute response.json(), an error got thrown
+		so, catch() executed second without needing to throw an error manually
+		and we saw "sth went wrong" after the details of the response
+	
+	? now, we changed "jsdemo" to "demo", response was 404 again
+		then() executed first, we saw some details about response
+		but this time, response.json() didn't cause an error
+		so, catch() did not get executed this time
+		instead, we got the resolved data which prints { error: '404 Not Found' } to the console
+	
+	? so, i guess it is better to handle 404 manually like below
+		but, keep in mind that the response from an endpoint that does not exist could be still 200
+		data will probably be null in this case
+		so, if we want to reach further properties through data (assuming there is no error because it is 200)
+			it is better to reach these properties with optional chaining operator (?.)
+
 
 fetch(URL)
     .then(response => {
@@ -56,11 +97,12 @@ fetch(URL)
         return response.json();
     })
     .then(data => {
-        console.log(data);
+        console.log(data); // inspect data before accessing further properties
     })
     .catch(error => {
         console.error(error);  // network issues
     });
+
 
 The throw new Error("API issues.") will reject the promise, so, the code stops running the current .then(callback) and then jumps to the .catch(callback).
 

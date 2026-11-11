@@ -63,19 +63,20 @@ const getTweetDetails = () => {
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
+            //console.log(data);
+            //console.log(data.author);
             //console.log(data.author.details);
-            const details = data.author.details;
-            const fullName = details.firstName + " " + details.lastName;
-            showAuthorName(fullName);
+            showAuthorName(data);
         })
 
 }
 
-function showAuthorName(fullName) {
+function showAuthorName(data) {
+    const details = data.author.details;
+    const fullName = details.firstName + " " + details.lastName;
     console.log(fullName);
 }
 
-// Sample usage - do not modify
 getTweetDetails();
 
 
@@ -89,13 +90,12 @@ export const getWeather = city => {
     fetch(baseURL)
         .then(response => response.json())
         .then(data => {
-            console.log(data.current);
+            //console.log(data.current);
             showTemperature(data.current.temperature);
         });
 
 }
 
-// Do NOT modify the code below
 const result = document.querySelector("#result");
 const showTemperature = temperature => {
     result.textContent = `It's ${temperature} degrees celsius.`;
