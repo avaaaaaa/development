@@ -1,4 +1,4 @@
-* we can make use of style property of an element (element.style) to change its style from JS
+* we can make use of style property of an element (element.style) to change its style with JS
 but it is recommended to update the class attribute instead of style property directly
 
 
@@ -6,7 +6,7 @@ but it is recommended to update the class attribute instead of style property di
 to be able to use them in js, convert them to lowerCamelCase
 
 CSS					JS
-background-color	backgroundColor
+background-color    backgroundColor
 color				color
 font-size			fontSize
 z-index				zIndex

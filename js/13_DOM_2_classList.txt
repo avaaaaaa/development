@@ -1,5 +1,5 @@
 * element.classList
-the classList object allows us to manipulate the class attribute of the selected element
+this property is an object that allows us to manipulate the class attribute of the selected element
 
 
 ** adding classes

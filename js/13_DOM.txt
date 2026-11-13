@@ -35,16 +35,18 @@ selectors types
 
     // "space character" ( ) for descendant
     const descendantSelector = document.querySelector("#banner .item");
-    	// returns <div class="item"></div>
+    		// returns <div class="item"></div>
 
-    // find the element with the disabled attribute
+    // find the element with the "disabled" attribute
     const attributeSelector = document.querySelector("[disabled]");
-    	// returns <input type="text" placeholder="Your name here" disabled>
+    		// returns <input type="text" placeholder="Your name here" disabled>
 </script>
 
 
 <div class="card active">EUR</div>
-to select this item, document.querySelector(".card.active");
+to select this item
+	document.querySelector(".card.active");
+	document.querySelector(".active.card");
 
 
 * document.querySelector alternatives
@@ -158,7 +160,7 @@ document.querySelectorAll(".cards .card")
         //console.log(activeCards);
         console.log(getSelectedCurrencies(activeCards));
     });
-})
+});
 
 // html file for this example is below
 // look at the name of the script file in <script> tag

@@ -6,13 +6,14 @@ class, id and disabled are some of the most common attributes
 read the value of an attribute of the element
 
 
-<div id="banner">
+<div id="banner" class="1 2 3">
     <button disabled="disabled" id="login">Login</button>
 </div>
 
 const banner = document.querySelector("#banner");
 banner.getAttribute("id"); // "banner"
 banner.getAttribute("disabled"); // null (attribute not found on this element)
+banner.getAttribute("class"); // "1 2 3"
 
 const button = document.querySelector("#login");
 button.getAttribute("disabled"); // "disabled"

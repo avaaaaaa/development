@@ -56,10 +56,18 @@ console.log(person.age);  // undefined
 // but if there was the age key whose value is not nullish, its value would be 29 
 
 
-* adding a new k/v pair
+* add a new k/v pair
 const person = {};
 person.name = "name";
 person.age = 33;
+// this will update its value if the key exists
+
+
+* delete a k/v pair
+const person = {id: 1, name: "name"};
+// { id: 1, name: 'name' }
+delete person.id;
+// { name: 'name' }
 
 
 * check if a key exists in an object

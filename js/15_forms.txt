@@ -42,7 +42,7 @@ by default, the backend is the same URL as where the user submitted the form (th
 for example:
 If you have the index.html open and you fill in your email & password and click submit, the browser will send your email and password to the index.html page which will make the page refresh/reload.
 
-This is the default behavior for forms. The reason behind it is rather historical. Before the fetch API (and its recent predecessor) made it to browsers, this was the only way of submitting data from the frontend to the backend.
+This is the default behavior of forms. The reason behind it is rather historical. Before the fetch API (and its recent predecessor) made it to browsers, this was the only way of submitting data from the frontend to the backend.
 
 However, nowadays we've got the fetch API, and thus we don't want to reload the page every time the user sends some information. and we can prevent this default behavior with event.preventDefault()
 

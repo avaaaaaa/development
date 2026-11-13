@@ -58,7 +58,7 @@ menuSidebar.addEventListener("click", ()=>{
 
 * event details
 second parameter can provide us various information about the event
-the most used one is called "currentTarget"
+the most used one is called "currentTarget" property
 if we want to inspect the event details, we can do it as following:
 
 .addEventListener("click", event => {
@@ -74,7 +74,7 @@ it refers to the element to which the event listener has been attached
 When we refactor the event listener callback into a named function, it becomes absolutely necessary to use event.currentTarget because the button variable will not be available within that function
 the reason why we refactored the callback function into a named function is
 	to improve readability and flexibility
-	with named functions it is easier to notice & change & reuse the functionality of event listeners 
+	to make it easier to notice & change & reuse the functionality of event listeners 
 
 
 const buttons = document.querySelectorAll("button");
@@ -102,18 +102,20 @@ button.addEventListener("click", event => {
 
 
 **
-// TODO: The user can select a currency by clicking on it (add the class `active`). However, only one currency can be chosen at a time.
+// TODO: a currency can be selected by clicking on it (add the class `active`). but, only one currency can be chosen at a time.
 
-const cards = document.querySelectorAll(".card");
-cards.forEach(card => {
-    card.addEventListener("click", event => {
-        const activeCard = document.querySelector(".card.active");
-        activeCard?.classList.remove("active");
-        event.currentTarget.classList.add("active");
-    });
+const handleClick = event => {
+    const active = document.querySelector("button.active");
+    active?.classList.remove("active");
+    event.currentTarget.classList.add("active");
+}
+
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => {
+    btn.addEventListener("click", handleClick);
 });
 
-// activeCard?. is required for the initial situation where no card is selected
+// active?. is required for the initial situation where no card is selected
 
 
 * event.target
@@ -160,6 +162,8 @@ button.removeEventListener("click", event => {
 const handleClick = event => {
     console.log("button clicked");
 }
+
+const button = document.querySelector("button");
 
 button.addEventListener("click", handleClick);
 

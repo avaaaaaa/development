@@ -185,10 +185,21 @@ button.addEventListener("click", async () => {
 * importing JSON files directly
 Non-JavaScript modules can also be imported using the import statement, but their types need to be explicitly declared using import attributes. For example, to import a JSON module, you need to specify the type: "json" attribute.
 
+// data.json
+{
+  "type": "module",
+  "dependencies": {
+    "date-fns": "^4.4.0",
+    "learnjavascript-online-npm": "^1.2.0",
+    "lodash-es": "^4.18.1"
+  }
+}
+
+// test.js
 import data from "./data.json" with { type: "json" };
 console.log(data);
 
-output:
+// output:
 {
   type: 'module',
   dependencies: {

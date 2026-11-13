@@ -3,6 +3,9 @@ this approach is often used when dynamically injecting an element, a script or a
 there is no difference in terms of performance between createElement() and insertAdjacentHTML()
 
 
+* append
+
+
 const htmlString = `<p class="text-center">Hello World</p>`;
 document.body.insertAdjacentHTML("beforeend", htmlString);
 
@@ -15,6 +18,9 @@ document.body.append(paragraph);
 	We can also do the following:
 	document.body.appendChild(paragraph);
 	document.body.insertAdjacentElement("beforeend", paragraph);
+
+
+* prepend
 
 
 // assuming there is a function called isDarkMode()
@@ -40,3 +46,37 @@ document.body.prepend(div);
 	the following can also be used:
 	document.body.insertAdjacentElement("afterbegin", div)
 
+
+* inserting a script element dynamically
+
+// index.css
+button{
+    height: 50px;
+    width: 50px;
+}
+
+
+// index.html
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="index.css">
+</head>
+    
+<body>
+    <button id="button"></button>
+    <script src="test.js"></script>
+</body>
+
+
+// test.js
+const scriptString = `
+document.querySelector("#button").addEventListener("click", () => {
+    alert("button clicked");
+    });`;
+
+const script = document.createElement("script");
+script.innerHTML = scriptString;
+document.body.append(script);
+
+// this didn't work:
+document.body.insertAdjacentHTML("beforeend", `<script>${scriptString}</script>`);

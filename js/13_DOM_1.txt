@@ -86,11 +86,11 @@ element.remove();
 
 
 * value property
-write to & read the written content of an
+you have to use the "value" property to write to or read from the elements below
 	<input>
 	<select>
 	<textarea>
-you have to use the "value" property
+
 
 <form>
     <input type="email" id="email" placeholder="Enter your email">
@@ -103,8 +103,9 @@ console.log(email.textContent); // undefined
 console.log(email.value); // the text written in the email field
 
 
-* pre-fill the value property within <input>
+* value attribute
 you can pre-fill the input with value attribute
+
 
 <form>
     <input type="email" id="email" placeholder="Enter your email" value="test@test.com">
