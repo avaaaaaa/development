@@ -51,7 +51,8 @@ getUsers().then(data => {
 });
 
 
-* class methods can also be async
+* class methods can be async
+
 class User {
     async isAdmin(type) {
         return type === "admin";
@@ -63,6 +64,11 @@ const user = new User;
 user.isAdmin("admin").then(value => {
     console.log(value); // true
 });
+
+// or
+const user = new User;
+const value = await user.isAdmin("admin");
+console.log(value); // true
 
 
 *

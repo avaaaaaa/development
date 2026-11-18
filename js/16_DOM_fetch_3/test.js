@@ -70,7 +70,7 @@ const showResult = () => {
 
 baseDropdown.addEventListener("change", handleChange);
 
-targetDropdown.addEventListener("change", handleChange);
+targetDropdown.addEventListener("change", handleInput);
 
 swapButton.addEventListener("click", handleSwap);
 

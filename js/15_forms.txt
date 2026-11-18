@@ -105,7 +105,7 @@ when a <form> has a lot of input fields, it won't be convenient to get their val
 
 FormData matches input values with "name" attribute of the <input>
 so, if <input> does not have "name" attribute, it won't be registered in FormData
-also, if <input> has "disabled" attribute, it won't be registered in FormData even it has "name"
+also, if <input> has "disabled" attribute, it won't be registered in FormData even it has "name" attribute
 
 
 <form id="signup-form">
@@ -139,9 +139,10 @@ data.get("email");
 
 
 **
+<!DOCTYPE html>
 <form id="register-form" novalidate>
     <label for="register-name">Name</label>
-    <input id="register-name" name="name" type="text" placeholder="Enter your name">
+    <input id="register-name" name="username" type="text" placeholder="Enter your name">
     <label for="register-email">Email</label>
     <input id="register-email" name="email" type="email" placeholder="Enter your email">
     <label for="register-password">Password</label>
@@ -154,15 +155,18 @@ data.get("email");
     form.addEventListener("submit", event => {
         event.preventDefault();
         const data = new FormData(form);
-        completeRegistration(
-            data.get("name"),
-            data.get("email"),
-            data.get("password")
-        );
+        //console.log(data);
+        completeRegistration(data);
     });
 
-    function completeRegistration(name, email, password) {
-        console.log({name, email, password});
+    function completeRegistration(data) {
+        const user = {
+            name: data.get("username"),
+            email: data.get("email"),
+            password: data.get("password")
+        };
+        console.log("registration is complete");
+        console.log(user);
     }
 </script>
 
@@ -222,5 +226,7 @@ returns the array of the all <input>s that have the same "name"
 </script>
 
 // select Belgium
-// press & hold ctr and then select Russia
+// press & hold ctrl and then select Russia
 // after submit, the output is: Array [ "belgium", "russia" ]
+// notice that only <select> have the "name" attribute
+// <option>s don't have it

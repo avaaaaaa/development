@@ -1,6 +1,7 @@
 * Every HTML element in your page implements a certain interface.
-An interface is very similar to the concept of class, except that you can only inherit it (you're not allowed to create a new instance of it directly. so, there is no instantiation from an interface, but
-implementation of an interface).
+An interface is very similar to the concept of class, except that you can only implement it
+you're not allowed to create a new instance of it directly.
+so, there is no instantiation from an interface, but implementation of an interface.
 
 We'd like to stress that you can be a front-end developer for years without having to know about these interfaces. We're only mentioning them because they will make you better at reading documentation and because TypeScript has become more popular these days and when working with TypeScript, you will start seeing these interfaces in TypeScript's autocomplete.
 

@@ -37,8 +37,9 @@ init();
 // below does not work
 // we should directly put the function that might throw an error within try-catch
 // in this case, init() does not throw an error, but another function within init() throws an error
-// but that function (getNotifications()) is not wrapped with try-catch
-// thus the error could not be silenced
+// but that function (which is getNotifications()) is not wrapped with try-catch
+// thus the error could not be caught below
+
 
 const init = async () => {
 	const data = await getNotifications();
@@ -48,8 +49,9 @@ const init = async () => {
 try{
 	init();
 } catch(error){
-
+    console.error("tried to catch the error here, but failed");
 }
+
 
 
 * return inside an async function will resolve the promise successfully (even if the return was inside a catch { ... } block).
@@ -117,14 +119,14 @@ it can help you avoid some code duplication similar to .finally(callback)
 const init = async () => {
     try {
         await wait(1_000);
-        //return 42;
+        //afterInit();
     } catch (error) {
         console.log("An error has occurred");
         console.error(error);
-        //return 42;
+        //afterInit();
     } finally {
-    	return 42;
+        afterInit();
     }
 }
 
-// instead of repeating  return 42;  within try and catch, we can put it within finally
+// instead of repeating  afterInit();  within try and catch, we can put it within the finally block
