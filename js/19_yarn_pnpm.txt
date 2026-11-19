@@ -3,8 +3,8 @@ a package manager for node
 
 The main reason why yarn was launched is that, at that time, npm was extremely slow and missing some key functionalities.
 but nowadays, both are relatively fast. you could argue that yarn is faster
-but pragmatically the difference is not that big. they both have lock files and have offline support for the
-packages installed previously
+but pragmatically the difference is not that big. they both have lock files and have offline support for
+the packages installed previously
 
 the main difference between npm and yarn is that yarn has a flat mode
 this mode guarantees that there will be an only single version of a package installed in all cases
@@ -13,11 +13,11 @@ sometimes you need to have the same package but in different versions
 	yarn will make sure that only one of them is installed
 
 avoid using npm and yarn together in the same project due to the difference in lock files
-the equivalent of "package-lock.json" from npm is "yarn.lock" in yarn
+the equivalent of "package-lock.json" in npm is "yarn.lock" in yarn
 
 
 ** some yarn commands
-init package.json
+initiate package.json
 	yarn init
 install a package locally
 	yarn add {package-name}

@@ -40,14 +40,17 @@ start a new project from scratch
 
 ** local vs global installation
 When you perform a local installation, all the files from that package will be downloaded into a node_modules folder inside the folder where you ran the npm install command.
-	node_modules will be created if package.json exists
+	 after running "npm i <package_name>" command, the followings will be created automatically
+	 	node_modules directory
+	 	package.json file
+	 	package-lock.json file
+	but, if a package.json file exists before running the command, the file at least have {}
 		package.json was empty at first, and npm threw an error when installing a package
 		then {} added to the package.json, and npm completed installing the package successfully
 		and "dependencies" entry in package.json is updated automatically
 		(the package was learnjavascript-online-npm)
-	won't be created otherwise
 
-Installing packages locally is recommended because it allows you to install the same package for different projects. The benefit of this is that if you have two projects, A & B, and they both depend on webpack-dev-server, you can upgrade project A to a newer version of webpack-dev-server without breaking project B. Since every project has a separate, local installation of webpack-dev-server with potentially different versions.
+Installing packages locally is recommended because it allows you to install the same package for different projects. The benefit of this is that if you have two projects, A & B, and they both depend on webpack-dev-server, you can upgrade project A to a newer version of webpack-dev-server without breaking project B since every project has a separate, local installation of webpack-dev-server with potentially different versions.
 
 when you perform a global installation, the package is installed once and it is available for all the projects that you are working on
 

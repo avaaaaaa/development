@@ -3,8 +3,12 @@ export default class FetchWrapper {
         this.baseURL = baseURL;
     }
 
-    get(endpoint) {
-        return this.#send(endpoint, "get");
+    async get(endpoint) {
+        const data = await this.#send(endpoint, "get");
+        if(data === null){
+            throw "data is null";
+        }
+        return data;
     }
 
     put(endpoint, body) {
@@ -39,17 +43,24 @@ export default class FetchWrapper {
 
         try{
             const response =  await fetched;
+            if(!response.ok){
+                throw "API";
+            }
             return response.json();
         }catch(error){
+            if(error === "API"){
+                throw "API issues";
+            }
             throw "an error has occured";
             // if we don't throw an error here,
             // implicit return will resolve the promise successfully
             // and the program will enter .then()
-            // we can test this by putting "return null" here instead of "throw ..."
-            // and output will be "null *" which means the promise have been resolved
+            // we can test this by commenting out the "throw ..." line
+            // in the first get example, the output will be "undefined *"
+            // which means the promise have been resolved because "*" is within .then()
             // but it should have been rejected, this is why we need to throw an error
         }
-        
+
     }
 }
 
@@ -61,6 +72,20 @@ API.get("/notifications/new.json")
     .then(data => {
         console.log(data, "*");
     }).catch(error => {
-        console.error(error);
+        console.error(error, "!");
     });
 
+// an error has occured !
+// notice the beginning of the url is "htps"
+
+// htps -> https
+// { count: 3, message: "You've got 3 new notifications" } *
+
+// notifications -> notification
+// data is null !
+
+// notification -> notifications, new.json -> new.jon
+// API issues !
+
+
+* for other fetch methods, we tried the same examples from 11d_fetch_wrapper and got the same results

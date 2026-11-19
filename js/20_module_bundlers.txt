@@ -1,5 +1,5 @@
 * Bare imports (see 12.txt) are an important part of web development, as developers often have to rely on libraries published by other developers.
-Some of these libraries are helper libraries (such as lodash) others help you build web applications (such as react, vue, angular, etc.)
+Some of these libraries are helper libraries (such as lodash), there are others that help you build web applications (such as react, vue, angular, etc.)
 To make these imports work, developers use a module bundler such as webpack, parcel, or vite.
 module bundlers are sometimes called build tools
 
@@ -53,9 +53,9 @@ webpack
 
 
 * vite
+documentation: https://vite.dev/guide
 it means "quick" in french
 We recommend Vite for any new project (over Parcel or Webpack) as it's the fastest and simplest to get started with
-documentation: https://vite.dev/guide
 
 ** create a new project
 navigate to the folder where you want to create the project

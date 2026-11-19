@@ -34,7 +34,20 @@ export default class FetchWrapper {
     }
 
     get(endpoint) {
-        return this.#send(endpoint, "get");
+        return this.#send(endpoint, "get")
+        .then(data => {
+            if(data === null){
+                throw "data is null";
+            }
+            return new Promise(resolve => {resolve(data)});
+            // return data; also gave the same results
+
+            // we could also check whether data is null or not from
+            // where we call this method. but this means we need to
+            // repeat this validation for every get call we would make.
+            // so, instead of repeating this validation
+            // we put it within wrapper get method directly
+        });    
     }
 
     put(endpoint, body) {
@@ -93,22 +106,20 @@ API.get("/notifications/new.json")
 .then(data => {
     console.log(data);
 }).catch(error =>{
-    console.error(error);
+    console.error(error, "!");
 });
 
 API.get("/chapters/all.json").then(data => {
     console.log(data);
 }).catch(error =>{
-    console.error(error);
+    console.error(error, "!");
 });
 
 
 **
-// update: made the endpoint invalid by changing it to "weet/..."
-// response status was 200, and .ok field was ok
-// hence, .then() is executed
-// data was null, and accessing data.author caused an error
-// thus, need to check data if it is null before passing it to the showAuthorName()
+tweet/...	weet/...		data is null !
+.json		.jon 		API issues !
+https		htps			network issues !
 
 const API = new FetchWrapper("https://jsdemo-3f387-default-rtdb.europe-west1.firebasedatabase.app/");
 
@@ -116,12 +127,9 @@ const getTweetDetails = () => {
     API.get("tweet/1080777336298049537.json")
         .then(data => {
             console.log(data);
-            if(data === null){
-                throw "data is null";
-            }
             showAuthorName(data);
         }).catch(error => {
-            console.error(error); // to handle network issues, API issues, "data is null"
+            console.error(error, "!"); // to handle network issues, API issues, "data is null"
         });
 }
 
@@ -160,7 +168,6 @@ const saveGrade = grade => {
     });
 }
 
-
 saveGrade(30);
 // API issues
 // because grade must be between 0 and 20, inclusive
@@ -168,25 +175,3 @@ saveGrade(30);
 saveGrade(20);
 // { success: true, ...}
 
-
-** some experiments
-
-made baseURL invalid -> error caught by network issues .catch()
-
-made endpoint invalid -> no error, .then() executed,
-data within .then() is null for get
-data within .then() is the server response for other methods
-the server response was : { error: 'Permission denied' }
-
-making endpoint invalid caused response.ok to be false for put-post-delete
-	response.status was 401
-	responose.statusText was "Unauthorized"
-so, we can throw another error before returning responose.json()
-	with that, we can catch it within .catch()
-	but, the server response was already stating the error, should we still do that?
-	
-making endpoint invalid caused response.ok to be true for get
-	response.status was 200
-	response.statusText was "OK"
-if we try to access properties through data within .then(), an error will occur
-	because data is null in this case
