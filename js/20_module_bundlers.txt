@@ -72,7 +72,9 @@ Once the command is complete, cd(change directory) into the new project
 ** update
 after running "npm create vite@latest", we didn't need to run "npm install" and "npm run dev"
 	it automatically installed the required packages and started the local server
-	but to start the local server again, we can run "npm run dev"
+	but to start the local server again
+		cd into the vite project folder
+		then run "npm run dev"
 don't forget to restart the server after installing & removing packages
 	to do it, type "r", then hit the enter key on the console where the local server is running
 	type "h", then hit the enter key to see the available commands for the server
@@ -143,6 +145,7 @@ add the following html code into index.html:
 
 
 add the following js code into webpack.config.js:
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
